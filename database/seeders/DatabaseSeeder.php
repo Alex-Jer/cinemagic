@@ -16,12 +16,10 @@ class DatabaseSeeder extends Seeder
         try {
             while (!feof($file_handle)) {
                 $line = fgetcsv($file_handle, 0, ';');
-                if (empty($line)) {
+                if (empty($line))
                     continue;
-                }
-                if ((count($line) == 1) && (trim($line[0]) == '')) {
+                if ((count($line) == 1) && (trim($line[0]) == ''))
                     continue;
-                }
                 $line_of_text[] = $line;
             }
         } finally {
@@ -31,13 +29,45 @@ class DatabaseSeeder extends Seeder
         return array_slice($line_of_text, $startFromRow - 1);
     }
 
+    public function run()
+    {
+        $this->command->info("-----------------------------------------------");
+        $this->command->info("START of database seeder");
+        $this->command->info("-----------------------------------------------");
+        if (DB::table('generos')->count() == 0) {
+            DatabaseSeeder::$seedType = 'completo';
+        } else {
+            DatabaseSeeder::$seedType = $this->command->choice(
+                'Que tipo de seeder pretende aplicar? ("completo" para recriar toda a BD; "incremental" para adicionar apenas sessões e bilhetes para datas posteriores ao ultimo "seeder")',
+                ['completo', 'incremental'],
+                1
+            );
+            $this->command->info("-----------------------------------------------");
+            if (DatabaseSeeder::$seedType == 'completo')
+                $this->command->info("seed 'completo' - todos os dados serão apagados e reconstruidos de novo");
+            else
+                $this->command->info(
+                    "seed 'incremental' - Só serão acrescentadas sessões, bilhetes e recibos para os dias mais recentes"
+                );
+            $this->command->info("-----------------------------------------------");
+        }
+        if (DatabaseSeeder::$seedType == 'completo') {
+            $this->runComplete();
+        } else {
+            $this->runIncremental();
+        }
+
+        $this->command->info("-----------------------------------------------");
+        $this->command->info("END of database seeder");
+        $this->command->info("-----------------------------------------------");
+    }
 
     /**
      * Seed the application's database.
      *
      * @return void
      */
-    public function runComplete(): void
+    public function runComplete()
     {
         DB::statement("SET foreign_key_checks=0");
 
@@ -74,42 +104,6 @@ class DatabaseSeeder extends Seeder
     public function runIncremental()
     {
         $this->call(SessoesSeeder::class);
-    }
-
-    public function run()
-    {
-        $this->command->info("-----------------------------------------------");
-        $this->command->info("START of database seeder");
-        $this->command->info("-----------------------------------------------");
-        if (DB::table('generos')->count() == 0) {
-            DatabaseSeeder::$seedType = 'completo';
-        } else {
-            DatabaseSeeder::$seedType = $this->command->choice(
-                'Que tipo de seeder pretende aplicar? ("completo" para recriar toda a BD; "incremental" para adicionar apenas sessões e bilhetes para datas posteriores ao ultimo "seeder")',
-                ['completo', 'incremental'],
-                1
-            );
-            if (DatabaseSeeder::$seedType == 'completo') {
-                $this->command->info("-----------------------------------------------");
-                $this->command->info("seed 'completo' - todos os dados serão apagados e reconstruidos de novo");
-                $this->command->info("-----------------------------------------------");
-            } else {
-                $this->command->info("-----------------------------------------------");
-                $this->command->info(
-                    "seed 'incremental' - Só serão acrescentadas sessões, bilhetes e recibos para os dias mais recentes"
-                );
-                $this->command->info("-----------------------------------------------");
-            }
-        }
-        if (DatabaseSeeder::$seedType == 'completo') {
-            $this->runComplete();
-        } else {
-            $this->runIncremental();
-        }
-
-        $this->command->info("-----------------------------------------------");
-        $this->command->info("END of database seeder");
-        $this->command->info("-----------------------------------------------");
     }
 
 

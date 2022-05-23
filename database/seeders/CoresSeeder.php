@@ -2,14 +2,15 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class CoresSeeder extends Seeder
 {
-    public static $cores = [
+    public static array $cores = [
         "00a2f2" => "Azul marinho",
         "1e1e21" => "Preto",
         "201f30" => "",
@@ -42,12 +43,12 @@ class CoresSeeder extends Seeder
         "ffd2c3" => "Salmão",
     ];
 
-    private $tshirt_basePath = 'public/tshirt_base';
+    private string $tshirt_basePath = 'public/tshirt_base';
 
     public function run()
     {
         $this->command->info("Cores e TShirts de base");
-        $faker = \Faker\Factory::create('pt_PT');
+        $faker        = Factory::create('pt_PT');
         $sourceFolder = database_path('seeders/tshirt_base');
         $targetFolder = storage_path('app/' . $this->tshirt_basePath);
         $this->limparFicheirosTShirtBase();
@@ -57,7 +58,7 @@ class CoresSeeder extends Seeder
             if (trim($nome) != "") {
                 DB::table('cores')->insert([
                     'codigo' => $codigo,
-                    'nome' => $nome
+                    'nome'   => $nome,
                 ]);
             }
         }
@@ -79,7 +80,7 @@ class CoresSeeder extends Seeder
 
     private function copia_tshirt_base_plain()
     {
-        $source = database_path('seeders/tshirt_base') . '/plain_white.png';
+        $source          = database_path('seeders/tshirt_base') . '/plain_white.png';
         $public_img_path = public_path('img');
         if (!File::isDirectory($public_img_path)) {
             File::makeDirectory($public_img_path);

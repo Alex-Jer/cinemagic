@@ -1,0 +1,2 @@
+$filmes = Sessao::where(data >= '2019-08-19')->distinct()->pluck('filme_id')->ToArray();
+$emExibicao = Filme::whereIn('id', $filmes)->???->get(); // ??? - ajustar a consulta como necessário

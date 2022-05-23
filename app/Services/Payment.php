@@ -4,7 +4,7 @@ namespace App\Services;
 
 class Payment
 {
-    // Invalid Payments with VISA:
+    // Invalid Payments with Visa:
     // When the card number does not have 16 digits (do not start with 0)
     // When the card number starts with the digit 0
     // When the card number ends with the digit 2

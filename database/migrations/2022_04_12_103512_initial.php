@@ -4,18 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            // Cliente, funcionário ou administrador
+            // Cliente, Funcionario ou Administrador
             $table->enum('tipo', ['C', 'F', 'A']);
 
+            // Acesso do utilizador bloqueado
             $table->boolean('bloqueado')->default(false);
 
             // Fotografia/Avatar do utilizador
@@ -32,14 +34,14 @@ return new class extends Migration {
             $table->foreign('id')->references('id')->on('users');
 
             $table->string('nif', 9)->nullable();
-            // VISA - Visa
-            // PAYPAL - Paypal
+            // Visa - Visa
+            // PayPal - Paypal
             // MBWay - MB way
-            $table->enum('tipo_pagamento', ['VISA', 'PAYPAL', 'MBWay'])->nullable();
+            $table->enum('tipo_pagamento', ['Visa', 'PayPal', 'MBWay'])->nullable();
             // Referência de pagamento varia consoante o tipo de pagamento
-            // VISA -> Nº de cartão com 16 dígitos
-            // PAYPAL -> email
-            // MBWay -> telemóvel PT - 9 dígitos (1º digito é sempre 9)
+            // Visa -> Nº de cartão com 16 digitos
+            // PayPal -> email
+            // MBWay -> telemóvel PT - 9 digitos (1º digito é sempre 9)
             $table->string('ref_pagamento')->nullable();
             // custom data
             $table->json('custom')->nullable();
@@ -48,7 +50,7 @@ return new class extends Migration {
             $table->softDeletes();
         });
 
-        // Parâmetros de configuração - só deverá haver 1 registo
+        // Parametros de configuração - só deverá haver 1 registo
         Schema::create('configuracao', function (Blueprint $table) {
             $table->id();
             $table->decimal('preco_bilhete_sem_iva', 8, 2);  // 8.85
@@ -129,13 +131,13 @@ return new class extends Migration {
 
             $table->string('nif', 9)->nullable();
             $table->string('nome_cliente');
-            // VISA - Visa
-            // PAYPAL - Paypal
-            // MBWAY - MB way
-            $table->enum('tipo_pagamento', ['VISA', 'PAYPAL', 'MBWAY']);
+            // Visa - Visa
+            // PayPal - Paypal
+            // MBWay - MB way
+            $table->enum('tipo_pagamento', ['Visa', 'PayPal', 'MBWay']);
             // Referência de pagamento varia consoante o tipo de pagamento
-            // VISA -> Nº de cartão com 16 digitos
-            // PAYPAL -> email
+            // Visa -> Nº de cartão com 16 digitos
+            // PayPal -> email
             // MBWay -> telemóvel PT - 9 digitos (1º digito é sempre 9)
             $table->string('ref_pagamento');
 
@@ -170,7 +172,7 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
         //
     }

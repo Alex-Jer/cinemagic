@@ -12,12 +12,12 @@ class ConfiguracaoSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $this->command->info("Configuracação de parâmetros");
+        $this->command->info("Configuração de parâmetros");
         DB::table('configuracao')->insert([
             "preco_bilhete_sem_iva" => 8.85,
-            "percentagem_iva" => 13
+            "percentagem_iva"       => 13,
         ]);
     }
 }
