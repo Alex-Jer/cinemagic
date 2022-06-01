@@ -53,4 +53,25 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        // dd($request->all());
+
+        $user = User::find(Auth::user()->id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        // $user->password = Hash::make($request->password);
+
+        $user->save();
+
+        return redirect(RouteServiceProvider::HOME);
+    }
 }
