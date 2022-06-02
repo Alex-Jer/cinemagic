@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cliente;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/profile', function () {
-    return view('profile');
+    // TODO
+    $cliente = Cliente::find(auth()->user()->id);
+    return view('profile', compact('cliente'));
 })->middleware(['auth', 'verified'])->name('profile');
 
 Route::get('/dashboard', function () {
