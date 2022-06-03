@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Models\Cliente;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/profile', [RegisteredUserController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('profile.index');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
