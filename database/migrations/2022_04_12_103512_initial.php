@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,8 +12,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            // Cliente, Funcionario ou Administrador
+        Schema::table('users', function(Blueprint $table) {
+            // Cliente, Funcionário ou Administrador
             $table->enum('tipo', ['C', 'F', 'A']);
 
             // Acesso do utilizador bloqueado
@@ -27,7 +26,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('clientes', function (Blueprint $table) {
+        Schema::create('clientes', function(Blueprint $table) {
             // Chave primária dos clientes é a mesma que a chave primária dos users
             // (Clientes é uma subclasse de Users)
             $table->bigInteger('id')->unsigned()->primary();
@@ -39,58 +38,50 @@ return new class extends Migration
             // MBWay - MB way
             $table->enum('tipo_pagamento', ['Visa', 'PayPal', 'MBWay'])->nullable();
             // Referência de pagamento varia consoante o tipo de pagamento
-            // Visa -> Nº de cartão com 16 digitos
+            // Visa -> Nº de cartão com 16 dígitos
             // PayPal -> email
-            // MBWay -> telemóvel PT - 9 digitos (1º digito é sempre 9)
+            // MBWay -> telemóvel PT - 9 dígitos (1º digito é sempre 9)
             $table->string('ref_pagamento')->nullable();
             // custom data
             $table->json('custom')->nullable();
             $table->timestamps();
-            // Clientes podem ser apagados com "soft deletes"
             $table->softDeletes();
         });
 
-        // Parametros de configuração - só deverá haver 1 registo
-        Schema::create('configuracao', function (Blueprint $table) {
+        // Parâmetros de configuração - só deverá haver 1 registo
+        Schema::create('configuracao', function(Blueprint $table) {
             $table->id();
             $table->decimal('preco_bilhete_sem_iva', 8, 2);  // 8.85
             $table->integer('percentagem_iva');   // 13%
-            // custom data
             $table->json('custom')->nullable();
         });
 
-        // Salas
-        Schema::create('salas', function (Blueprint $table) {
+        Schema::create('salas', function(Blueprint $table) {
             $table->id();
             $table->string('nome');
-            // custom data
             $table->json('custom')->nullable();
             $table->softDeletes();
         });
 
-        // Lugares
-        Schema::create('lugares', function (Blueprint $table) {
+        Schema::create('lugares', function(Blueprint $table) {
             $table->id();
             $table->foreignId('sala_id');
             $table->foreign('sala_id')->references('id')->on('salas');
             $table->string('fila', 1);
             $table->integer('posicao');
-            // custom data
             $table->json('custom')->nullable();
             $table->softDeletes();
         });
 
-        // Géneros dos filmes
-        Schema::create('generos', function (Blueprint $table) {
+        Schema::create('generos', function(Blueprint $table) {
             $table->string('code', 20);
             $table->primary('code');
             $table->string('nome');
-            // Generos de Filmes podem ser apagados com "soft deletes"
             $table->softDeletes();
         });
 
         // Filmes
-        Schema::create('filmes', function (Blueprint $table) {
+        Schema::create('filmes', function(Blueprint $table) {
             $table->id();
             $table->string('titulo');
             $table->string('genero_code', 20);
@@ -107,7 +98,7 @@ return new class extends Migration
         });
 
         // Sessões
-        Schema::create('sessoes', function (Blueprint $table) {
+        Schema::create('sessoes', function(Blueprint $table) {
             $table->id();
             $table->foreignId('filme_id');
             $table->foreign('filme_id')->references('id')->on('filmes');
@@ -120,7 +111,7 @@ return new class extends Migration
         });
 
         // recibos das compras
-        Schema::create('recibos', function (Blueprint $table) {
+        Schema::create('recibos', function(Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
@@ -151,7 +142,7 @@ return new class extends Migration
 
 
         // Bilhetes
-        Schema::create('bilhetes', function (Blueprint $table) {
+        Schema::create('bilhetes', function(Blueprint $table) {
             $table->id();
             $table->foreignId('recibo_id');
             $table->foreign('recibo_id')->references('id')->on('recibos');
