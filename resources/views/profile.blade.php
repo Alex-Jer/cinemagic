@@ -43,8 +43,10 @@
                                 Dados de pagamento
                             </h4>
                             <p></p>
-                            <x-dashboard.input label="NIF" name="nif" :placeholder="$cliente->nif" />
+                            <x-dashboard.input label="NIF" name="nif" :placeholder="$cliente->tipo_pagamento ? $cliente->nif : 'NIF'" />
+                            {{-- {{ $cliente->tipo_pagamento ? 'tem' : 'não tem' }} --}}
                             <x-dashboard.select label="Tipo de pagamento" name="tipo_pagamento">
+                                <option {{ $cliente->tipo_pagamento ? '' : 'selected' }} disabled>Tipo de pagamento</option>
                                 @foreach ($tiposPagamento as $tipo)
                                     <option value="{{ $tipo }}"
                                         {{ $cliente->tipo_pagamento == $tipo ? 'selected' : '' }}>
@@ -52,7 +54,7 @@
                                     </option>
                                 @endforeach
                             </x-dashboard.select>
-                            <x-dashboard.input label="Referência de pagamento" name="ref_pagamento" :placeholder="$cliente->ref_pagamento" />
+                            <x-dashboard.input label="Referência de pagamento" name="ref_pagamento" :placeholder="$cliente->tipo_pagamento ? $cliente->ref_pagamento : 'Referência de pagamento'" />
                             <x-dashboard.button label="Guardar">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
                                     <path
