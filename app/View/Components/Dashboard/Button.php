@@ -7,14 +7,17 @@ use Illuminate\View\Component;
 class Button extends Component
 {
     public $label;
+    public $class;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($label)
+    public function __construct($label, $class = null)
     {
         $this->label = $label;
+        $this->class = $class;
     }
 
     /**

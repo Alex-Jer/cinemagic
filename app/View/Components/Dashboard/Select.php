@@ -4,8 +4,9 @@ namespace App\View\Components\Dashboard;
 
 use Illuminate\View\Component;
 
-class FileInput extends Component
+class Select extends Component
 {
+    public $label;
     public $name;
 
     /**
@@ -13,8 +14,9 @@ class FileInput extends Component
      *
      * @return void
      */
-    public function __construct($name)
+    public function __construct($label, $name)
     {
+        $this->label = $label;
         $this->name = $name;
     }
 
@@ -25,6 +27,6 @@ class FileInput extends Component
      */
     public function render()
     {
-        return view('components.dashboard.file-input');
+        return view('components.dashboard.select');
     }
 }

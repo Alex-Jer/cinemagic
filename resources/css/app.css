@@ -6,4 +6,8 @@
     .input-primary {
         @apply block w-full mt-1 text-sm placeholder-gray-400 border-gray-200 rounded-md dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 dark:text-gray-300;
     }
+
+    .button-primary {
+        @apply flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none;
+    }
 }

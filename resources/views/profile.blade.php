@@ -6,18 +6,18 @@
                 Perfil de {{ Auth::user()->name }}
             </h4>
 
-            <div class="grid gap-6 mb-8 md:grid-cols-3">
-                <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                    <form method="POST" action="{{ route('profile.update') }}">
+            <div class="grid gap-6 mb-8 md:grid-cols-{{ $cliente ? '3' : '2' }}">
+                <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                         @csrf
                         <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                             Dados pessoais
                         </h4>
                         <x-dashboard.input label="Nome" name="name" :placeholder="Auth::user()->name" attr="autofocus" />
                         <x-dashboard.input label="E-mail" name="email" :placeholder="Auth::user()->email" />
-                        <span class="text-sm text-gray-700 dark:text-gray-400">Imagem de Perfil</span>
+                        <span class="text-sm text-gray-700 dark:text-gray-400">Imagem de perfil</span>
                         <div class="flex flex-row">
-                            <x-dashboard.file-input />
+                            <x-dashboard.file-input name="profile_pic" />
                             @if (Auth::user()->foto_url)
                                 <img src="{{ asset('storage/fotos/' . Auth::user()->foto_url) }}"
                                     alt="{{ Auth::user()->name }}" class="mt-2 mb-3 rounded-full w-9 h-9">
@@ -36,24 +36,25 @@
                     </form>
                 </div>
                 @if (Auth::user()->tipo == 'C')
-                    <div class="min-w-0 p-4 text-white bg-purple-600 rounded-lg shadow-xs">
+                    <div class="min-w-0 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
                         <form method="POST" action="{{ route('profile.update') }}">
                             @csrf
-                            <h4 class="mb-4 font-semibold">
+                            <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                                 Dados de pagamento
                             </h4>
+                            @if ($errors->any())
+                                <p class="text-white">ERRO!!</p>
+                            @endif
+                            <p></p>
                             <x-dashboard.input label="NIF" name="nif" :placeholder="$cliente->nif" />
-                            <label class="block mb-4 text-sm">
-                                <span class="text-white dark:text-gray-400">Tipo de Pagamento</span>
-                                <select class="text-gray-400 input-primary" name="tipo_pagamento">
-                                    @foreach ($tiposPagamento as $tipo)
-                                        <option value="{{ $tipo }}"
-                                            {{ $cliente->tipo_pagamento == $tipo ? 'selected' : '' }}>
-                                            {{ $tipo }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </label>
+                            <x-dashboard.select label="Tipo de pagamento" name="tipo_pagamento">
+                                @foreach ($tiposPagamento as $tipo)
+                                    <option value="{{ $tipo }}"
+                                        {{ $cliente->tipo_pagamento == $tipo ? 'selected' : '' }}>
+                                        {{ $tipo }}
+                                    </option>
+                                @endforeach
+                            </x-dashboard.select>
                             <x-dashboard.input label="Referência de pagamento" name="ref_pagamento" :placeholder="$cliente->ref_pagamento" />
                             <x-dashboard.button label="Guardar">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
