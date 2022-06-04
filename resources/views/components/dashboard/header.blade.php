@@ -27,7 +27,8 @@
             @if (Auth::check())
                 <li class="relative">
                     <span
-                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md cursor-default">
+                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md cursor-pointer"
+                        @click="toggleProfileMenu" @keydown.escape="closeProfileMenu">
                         <div>{{ Auth::user()->name }}</div>
                     </span>
                 </li>
@@ -75,7 +76,6 @@
                                         <span>Terminar Sessão</span>
                                     </a>
                                 </form>
-
                             </li>
                         </ul>
                     </template>

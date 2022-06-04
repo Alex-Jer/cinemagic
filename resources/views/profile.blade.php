@@ -42,9 +42,6 @@
                             <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                                 Dados de pagamento
                             </h4>
-                            @if ($errors->any())
-                                <p class="text-white">ERRO!!</p>
-                            @endif
                             <p></p>
                             <x-dashboard.input label="NIF" name="nif" :placeholder="$cliente->nif" />
                             <x-dashboard.select label="Tipo de pagamento" name="tipo_pagamento">
