@@ -13,7 +13,9 @@
 
 <body>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-        <x-dashboard.sidebar />
+        @if (Auth::check())
+            <x-dashboard.sidebar />
+        @endif
         <div class="flex flex-col flex-1 w-full">
             <x-dashboard.header />
             <main class="h-full pb-16 overflow-y-auto">

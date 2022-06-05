@@ -9,6 +9,13 @@
                     clip-rule="evenodd"></path>
             </svg>
         </button>
+
+        @if (!Auth::check())
+            <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+                CineMagic
+            </a>
+        @endif
+
         <ul class="flex items-center flex-shrink-0 ml-auto space-x-6">
             @if (!Auth::check())
                 <li class="relative">

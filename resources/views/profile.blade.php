@@ -1,5 +1,5 @@
 <x-dashboard.layout :title="'Perfil de ' . Auth::User()->name">
-    <div class="grid gap-6 mb-8 md:grid-cols-{{ $customer ? '3' : '2' }}">
+    <div class="grid gap-6 mb-8 {{ $customer ? 'md:grid-cols-3' : 'md:grid-cols-2' }}">
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                 @csrf
@@ -39,7 +39,7 @@
                     <x-dashboard.input label="NIF" name="nif" :placeholder="$customer->tipo_pagamento ? $customer->nif : 'NIF'" />
                     <x-dashboard.select label="Tipo de pagamento" name="tipo_pagamento">
                         <option {{ $customer->tipo_pagamento ? '' : 'selected' }} disabled>Tipo de pagamento</option>
-                        @foreach ($tiposPagamento as $tipo)
+                        @foreach ($paymentTypes as $tipo)
                             <option value="{{ $tipo }}" {{ $customer->tipo_pagamento == $tipo ? 'selected' : '' }}>
                                 {{ $tipo }}
                             </option>
