@@ -1,4 +1,4 @@
-<x-dashboard.sidebar-item label="Filmes" {{-- route="films" --}}>
+<x-dashboard.sidebar-item label="Filmes" route="films.index">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z">
@@ -7,7 +7,7 @@
 </x-dashboard.sidebar-item>
 
 @if (Auth::user())
-    <x-dashboard.sidebar-item label="Recibos" {{-- route="receipts" --}}>
+    <x-dashboard.sidebar-item label="Recibos" {{-- TODO: route="receipts" --}}>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M9.2458824 8.4717647 14.79 8.5m-.06412 4.124706-5.4111761-.04235M19 21V5c0-1.1045695-.895431-2-2-2H7c-1.1045695 0-2 .8954305-2 2v16l3.5-2 3.5 2 3.5-2z" />
@@ -67,7 +67,7 @@
         </svg>
     </x-dashboard.sidebar-item>
 
-    <x-dashboard.sidebar-item label="Estatísticas" {{-- route="stats" --}}>
+    <x-dashboard.sidebar-item label="Estatísticas" {{-- TODO: route="stats" --}}>
         <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             viewBox="0 0 24 24" stroke="currentColor">
             <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>

@@ -1,5 +1,5 @@
 <x-dashboard.layout :title="'Perfil de ' . Auth::User()->name">
-    <div class="grid gap-6 mb-8 md:grid-cols-{{ $cliente ? '3' : '2' }}">
+    <div class="grid gap-6 mb-8 md:grid-cols-{{ $customer ? '3' : '2' }}">
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                 @csrf
@@ -36,17 +36,16 @@
                         Dados de pagamento
                     </h4>
                     <p></p>
-                    <x-dashboard.input label="NIF" name="nif" :placeholder="$cliente->tipo_pagamento ? $cliente->nif : 'NIF'" />
-                    {{-- {{ $cliente->tipo_pagamento ? 'tem' : 'não tem' }} --}}
+                    <x-dashboard.input label="NIF" name="nif" :placeholder="$customer->tipo_pagamento ? $customer->nif : 'NIF'" />
                     <x-dashboard.select label="Tipo de pagamento" name="tipo_pagamento">
-                        <option {{ $cliente->tipo_pagamento ? '' : 'selected' }} disabled>Tipo de pagamento</option>
+                        <option {{ $customer->tipo_pagamento ? '' : 'selected' }} disabled>Tipo de pagamento</option>
                         @foreach ($tiposPagamento as $tipo)
-                            <option value="{{ $tipo }}" {{ $cliente->tipo_pagamento == $tipo ? 'selected' : '' }}>
+                            <option value="{{ $tipo }}" {{ $customer->tipo_pagamento == $tipo ? 'selected' : '' }}>
                                 {{ $tipo }}
                             </option>
                         @endforeach
                     </x-dashboard.select>
-                    <x-dashboard.input label="Referência de pagamento" name="ref_pagamento" :placeholder="$cliente->tipo_pagamento ? $cliente->ref_pagamento : 'Referência de pagamento'" />
+                    <x-dashboard.input label="Referência de pagamento" name="ref_pagamento" :placeholder="$customer->tipo_pagamento ? $customer->ref_pagamento : 'Referência de pagamento'" />
                     <x-dashboard.button label="Guardar">
                         <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
                             <path
@@ -57,7 +56,4 @@
             </div>
         @endif
     </div>
-
-    {{-- </div>
-    </main> --}}
 </x-dashboard.layout>

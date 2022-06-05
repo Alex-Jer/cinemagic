@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,7 +13,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             // Cliente, Funcionário ou Administrador
             $table->enum('tipo', ['C', 'F', 'A']);
 
@@ -26,7 +27,7 @@ return new class extends Migration {
             $table->softDeletes();
         });
 
-        Schema::create('clientes', function(Blueprint $table) {
+        Schema::create('clientes', function (Blueprint $table) {
             // Chave primária dos clientes é a mesma que a chave primária dos users
             // (Clientes é uma subclasse de Users)
             $table->bigInteger('id')->unsigned()->primary();
@@ -49,21 +50,21 @@ return new class extends Migration {
         });
 
         // Parâmetros de configuração - só deverá haver 1 registo
-        Schema::create('configuracao', function(Blueprint $table) {
+        Schema::create('configuracao', function (Blueprint $table) {
             $table->id();
             $table->decimal('preco_bilhete_sem_iva', 8, 2);  // 8.85
             $table->integer('percentagem_iva');   // 13%
             $table->json('custom')->nullable();
         });
 
-        Schema::create('salas', function(Blueprint $table) {
+        Schema::create('salas', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->json('custom')->nullable();
             $table->softDeletes();
         });
 
-        Schema::create('lugares', function(Blueprint $table) {
+        Schema::create('lugares', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sala_id');
             $table->foreign('sala_id')->references('id')->on('salas');
@@ -73,7 +74,7 @@ return new class extends Migration {
             $table->softDeletes();
         });
 
-        Schema::create('generos', function(Blueprint $table) {
+        Schema::create('generos', function (Blueprint $table) {
             $table->string('code', 20);
             $table->primary('code');
             $table->string('nome');
@@ -81,7 +82,7 @@ return new class extends Migration {
         });
 
         // Filmes
-        Schema::create('filmes', function(Blueprint $table) {
+        Schema::create('filmes', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
             $table->string('genero_code', 20);
@@ -98,7 +99,7 @@ return new class extends Migration {
         });
 
         // Sessões
-        Schema::create('sessoes', function(Blueprint $table) {
+        Schema::create('sessoes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('filme_id');
             $table->foreign('filme_id')->references('id')->on('filmes');
@@ -111,7 +112,7 @@ return new class extends Migration {
         });
 
         // recibos das compras
-        Schema::create('recibos', function(Blueprint $table) {
+        Schema::create('recibos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
@@ -142,7 +143,7 @@ return new class extends Migration {
 
 
         // Bilhetes
-        Schema::create('bilhetes', function(Blueprint $table) {
+        Schema::create('bilhetes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('recibo_id');
             $table->foreign('recibo_id')->references('id')->on('recibos');

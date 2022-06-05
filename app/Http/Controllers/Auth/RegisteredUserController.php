@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserPostRequest;
-use App\Models\Cliente;
+use App\Models\Customer;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -35,10 +35,10 @@ class RegisteredUserController extends Controller
      */
     public function index()
     {
-        $cliente = Cliente::find(auth()->user()->id);
-        $tiposPagamento = Cliente::pluck('tipo_pagamento')->unique()->filter()->toArray();
+        $customer = Customer::find(auth()->user()->id);
+        $paymentTypes = Customer::pluck('tipo_pagamento')->unique()->filter()->toArray();
 
-        return view('profile', compact('cliente', 'tiposPagamento'));
+        return view('profile', compact('customer', 'paymentTypes'));
     }
 
 
@@ -78,7 +78,7 @@ class RegisteredUserController extends Controller
         $validated = $request->validated();
 
         $user = User::find(Auth::user()->id);
-        $cliente = Cliente::find(Auth::user()->id);
+        $customer = Customer::find(Auth::user()->id);
 
         if ($request->name)
             $user->name = $validated['name'];
@@ -96,7 +96,7 @@ class RegisteredUserController extends Controller
         }
 
         if ($user->tipo === 'C')
-            $this->validateCliente($request, $cliente, $validated);
+            $this->validateCustomer($request, $customer, $validated);
 
         // $user->password = Hash::make($request->password);
         $user->save();
@@ -104,20 +104,20 @@ class RegisteredUserController extends Controller
         return redirect()->back();
     }
 
-    // generate private method to validate cliente
+    // generate private method to validate customer
 
-    private function validateCliente(Request $request, Cliente $cliente, mixed $validated)
+    private function validateCustomer(Request $request, Customer $customer, mixed $validated)
     {
         if ($request->nif)
-            $cliente->nif = $validated['nif'];
+            $customer->nif = $validated['nif'];
 
         if ($request->tipo_pagamento)
-            $cliente->tipo_pagamento = $validated['tipo_pagamento'];
+            $customer->tipo_pagamento = $validated['tipo_pagamento'];
         else
-            $validated['tipo_pagamento'] = $cliente->tipo_pagamento;
+            $validated['tipo_pagamento'] = $customer->tipo_pagamento;
 
         if (!$request->ref_pagamento)
-            $request->ref_pagamento = $cliente->ref_pagamento;
+            $request->ref_pagamento = $customer->ref_pagamento;
 
 
         switch ($validated['tipo_pagamento']) {
@@ -135,7 +135,7 @@ class RegisteredUserController extends Controller
                 break;
         }
 
-        $cliente->ref_pagamento = $request->ref_pagamento;
-        $cliente->save();
+        $customer->ref_pagamento = $request->ref_pagamento;
+        $customer->save();
     }
 }
