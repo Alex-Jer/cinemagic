@@ -4,20 +4,16 @@ namespace App\View\Components\Dashboard;
 
 use Illuminate\View\Component;
 
-class SidebarItem extends Component
+class SidebarContent extends Component
 {
-    public $label;
-    public $route;
-
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($label, $route = null)
+    public function __construct()
     {
-        $this->label = $label;
-        $this->route = $route;
+        //
     }
 
     /**
@@ -27,6 +23,6 @@ class SidebarItem extends Component
      */
     public function render()
     {
-        return view('components.dashboard.sidebar-item');
+        return view('components.dashboard.sidebar-content');
     }
 }

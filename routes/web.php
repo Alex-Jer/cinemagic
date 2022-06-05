@@ -24,11 +24,13 @@ Route::get('/profile', [RegisteredUserController::class, 'index'])
     ->name('profile.index');
 
 Route::get('/users', [UserController::class, 'index'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'admin'])
     ->name('users.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 require __DIR__ . '/auth.php';
