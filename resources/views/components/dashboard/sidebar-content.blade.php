@@ -6,14 +6,16 @@
     </svg>
 </x-dashboard.sidebar-item>
 
-@if (Auth::user())
+@if (Auth::user()->tipo === 'C')
     <x-dashboard.sidebar-item label="Recibos" route="receipts.index">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M9.2458824 8.4717647 14.79 8.5m-.06412 4.124706-5.4111761-.04235M19 21V5c0-1.1045695-.895431-2-2-2H7c-1.1045695 0-2 .8954305-2 2v16l3.5-2 3.5 2 3.5-2z" />
         </svg>
     </x-dashboard.sidebar-item>
+@endif
 
+@if (Auth::user())
     <x-dashboard.sidebar-item label="Perfil" route="profile.index">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -23,7 +25,7 @@
     </x-dashboard.sidebar-item>
 @endif
 
-@if (Auth::user() && Auth::user()->tipo == 'A')
+@if (Auth::user() && Auth::user()->tipo === 'A')
     <x-dashboard.sidebar-group label="Gestão">
         <x-dashboard.sidebar-group-item label="Salas">
             <svg class="w-5 h-5 mt-px mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
