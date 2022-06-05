@@ -1,13 +1,13 @@
-<x-dashboard.layout title="Filmes">
+<x-dashboard.layout title="Em cartaz">
     <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-5">
         {{-- TODO: Remover take() e otimizar consulta --}}
         @foreach ($films->take(15) as $film)
-            <div class="flex flex-wrap items-center mb-8 rounded-lg shadow-xs dark:bg-gray-800">
-                <img class="w-full h-full" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
+            <div class="flex flex-wrap items-center justify-center mb-12 rounded-lg shadow-xs dark:bg-gray-800">
+                <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
                     alt="{{ $film->titulo }}">
-                <div class="text-base text-center">
+                <h4 class="mt-1 font-semibold text-center text-gray-600 text-md dark:text-gray-300">
                     {{ $film->titulo }}
-                </div>
+                </h4>
             </div>
         @endforeach
     </div>
