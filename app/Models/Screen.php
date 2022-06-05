@@ -16,4 +16,9 @@ class Screen extends Model
     {
         return $this->hasMany(Screening::class);
     }
+
+    public function seats()
+    {
+        return $this->hasMany(Seat::class);
+    }
 }

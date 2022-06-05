@@ -17,7 +17,6 @@ class Film extends Model
         return $this->hasMany(Screening::class);
     }
 
-    // A film can have many genres
     public function genres()
     {
         return $this->belongsToMany(Genre::class);
