@@ -83,8 +83,11 @@ class RegisteredUserController extends Controller
         if ($request->name)
             $user->name = $validated['name'];
 
-        if ($request->email)
+        if ($request->email) {
             $user->email = $validated['email'];
+            $user->sendEmailVerificationNotification();
+            $user->email_verified_at = null;
+        }
 
         if ($request->hasFile('profile_pic')) {
             $user->foto_url ? Storage::delete('public/fotos/' . $user->foto_url) : null;
