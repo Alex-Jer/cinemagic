@@ -16,4 +16,14 @@ class Customer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function receipts()
+    {
+        return $this->hasMany(Receipt::class);
+    }
 }

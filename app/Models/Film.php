@@ -11,4 +11,15 @@ class Film extends Model
 
     protected $table = 'filmes';
     protected $fillable = ['titulo', 'genero_code', 'ano', 'cartaz_url', 'sumario', 'trailer_url', 'custom'];
+
+    public function screenings()
+    {
+        return $this->hasMany(Screening::class);
+    }
+
+    // A film can have many genres
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
 }

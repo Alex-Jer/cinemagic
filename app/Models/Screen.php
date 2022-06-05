@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Screen extends Model
 {
     use HasFactory;
+
+    protected $table = 'salas';
+    protected $fillable = ['nome', 'custom'];
+
+    public function screenings()
+    {
+        return $this->hasMany(Screening::class);
+    }
 }
