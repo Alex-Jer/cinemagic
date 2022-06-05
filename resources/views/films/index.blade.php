@@ -1,5 +1,5 @@
 <x-dashboard.layout title="Em cartaz">
-    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-5">
+    <div class="grid gap-6 mb-8 md:grid-cols-4 xl:grid-cols-5">
         {{-- TODO: Remover take() e otimizar consulta --}}
         @foreach ($films->take(15) as $film)
             <div class="flex flex-wrap items-center justify-center mb-12 rounded-lg shadow-xs dark:bg-gray-800">
