@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,10 @@ Route::get('/', function () {
 Route::get('/profile', [RegisteredUserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('profile.index');
+
+Route::get('/users', [UserController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('users.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

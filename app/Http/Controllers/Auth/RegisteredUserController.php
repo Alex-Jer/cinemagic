@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
         $cliente = Cliente::find(auth()->user()->id);
         $tiposPagamento = Cliente::pluck('tipo_pagamento')->unique()->filter()->toArray();
 
-        return view('profile', compact(['cliente', 'tiposPagamento']));
+        return view('profile', compact('cliente', 'tiposPagamento'));
     }
 
 

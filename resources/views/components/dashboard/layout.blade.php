@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CineMagic</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{{ asset('js/init-alpine.js') }}"></script>
@@ -17,7 +16,14 @@
         <x-dashboard.sidebar />
         <div class="flex flex-col flex-1 w-full">
             <x-dashboard.header />
-            {{ $slot }}
+            <main class="h-full pb-16 overflow-y-auto">
+                <div class="container grid px-6 mx-auto">
+                    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                        {{ $title }}
+                    </h2>
+                    {{ $slot }}
+                </div>
+            </main>
         </div>
     </div>
 </body>
