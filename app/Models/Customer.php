@@ -10,7 +10,12 @@ class Customer extends Model
     use HasFactory;
 
     protected $table = 'clientes';
-    protected $fillable = ['nif', 'tipo_pagamento', 'ref_pagamento', 'custom'];
+    protected $fillable = [
+        'nif',
+        'tipo_pagamento',
+        'ref_pagamento',
+        'custom'
+    ];
 
     public function user()
     {
@@ -24,6 +29,6 @@ class Customer extends Model
 
     public function receipts()
     {
-        return $this->hasMany(Receipt::class);
+        return $this->hasMany(Receipt::class, 'cliente_id');
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FilmController;
+use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,10 @@ Route::get('/', function () {
 Route::get('/films', [FilmController::class, 'index'])
     ->middleware(['verified'])
     ->name('films.index');
+
+Route::get('/receipts', [ReceiptController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('receipts.index');
 
 Route::get('/profile', [RegisteredUserController::class, 'index'])
     ->middleware(['auth', 'verified'])

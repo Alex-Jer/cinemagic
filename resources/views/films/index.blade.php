@@ -5,7 +5,7 @@
             <div class="flex flex-wrap items-center justify-center mb-12 rounded-lg shadow-xs dark:bg-gray-800">
                 <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
                     alt="{{ $film->titulo }}">
-                <h4 class="mt-1 font-semibold text-center text-gray-600 text-md dark:text-gray-300">
+                <h4 class="mt-2 font-semibold text-center text-gray-600 text-md dark:text-gray-300">
                     {{ $film->titulo }}
                 </h4>
             </div>

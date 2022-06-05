@@ -10,7 +10,10 @@ class Screen extends Model
     use HasFactory;
 
     protected $table = 'salas';
-    protected $fillable = ['nome', 'custom'];
+    protected $fillable = [
+        'nome',
+        'custom'
+    ];
 
     public function screenings()
     {

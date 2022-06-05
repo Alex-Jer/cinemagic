@@ -10,7 +10,10 @@ class Seat extends Model
     use HasFactory;
 
     protected $table = 'lugares';
-    protected $fillable = ['nome', 'custom'];
+    protected $fillable = [
+        'nome',
+        'custom'
+    ];
 
     public function screen()
     {

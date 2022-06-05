@@ -10,7 +10,13 @@ class Screening extends Model
     use HasFactory;
 
     protected $table = 'sessoes';
-    protected $fillable = ['filme_id', 'sala_id', 'data', 'horario_inicio', 'custom'];
+    protected $fillable = [
+        'filme_id',
+        'sala_id',
+        'data',
+        'horario_inicio',
+        'custom'
+    ];
 
     public function film()
     {
