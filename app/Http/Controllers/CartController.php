@@ -8,23 +8,25 @@ use Session;
 
 class CartController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        // foreach (session('cart') as $film) {
-        //     dump($film->titulo);
-        //     dump('id: ' . $film->id);
-        // }
-        // die();
         return view('cart.index')
-            ->with('cart', session('cart'));
+            ->with('cart', session('cart') ?? []);
     }
 
-    public function add(Request $request, Film $film)
+    public function add(Film $film)
     {
         $cart = session('cart') ?? collect();
+        $cart->put($film->id, $film);
+        session()->put('cart', $cart);
 
-        $cart->push($film);
+        return back();
+    }
 
+    public function remove(Film $film)
+    {
+        $cart = session('cart') ?? collect();
+        $cart->pull($film->id);
         session()->put('cart', $cart);
 
         return back();

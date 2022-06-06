@@ -45,6 +45,9 @@ Route::get('cart', [CartController::class, 'index'])
 Route::post('film/{film}', [CartController::class, 'add'])
     ->name('cart.add');
 
+Route::delete('cart/film/{film}', [CartController::class, 'remove'])
+    ->name('cart.remove');
+
 Route::get('receipts', [ReceiptController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('receipts.index');
