@@ -10,26 +10,22 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
+        // foreach (session('cart') as $film) {
+        //     dump($film->titulo);
+        //     dump('id: ' . $film->id);
+        // }
+        // die();
         return view('cart.index')
-            ->with('cart', session('cart') ?? []);
+            ->with('cart', session('cart'));
     }
 
     public function add(Request $request, Film $film)
     {
-        $cart = session('cart') ?? [];
+        $cart = session('cart') ?? collect();
 
-        $cart[$film->id] = [
-            'id' => $film->id,
-            'titulo' => $film->titulo,
-            'genero_code' => $film->genero_code,
-            'ano' => $film->ano,
-            'cartaz_url' => $film->cartaz_url,
-            'sumario' => $film->sumario,
-            'trailer_url' => $film->trailer_url,
-            'custom' => $film->custom,
-        ];
+        $cart->push($film);
 
-        $request->session()->put('cart', $cart);
+        session()->put('cart', $cart);
 
         return back();
     }

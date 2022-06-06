@@ -25,8 +25,8 @@ class Film extends Model
         return $this->hasMany(Screening::class);
     }
 
-    public function films()
+    public function genre()
     {
-        return $this->belongsToMany(Film::class);
+        return $this->belongsTo(Genre::class, 'genero_code', 'code');
     }
 }
