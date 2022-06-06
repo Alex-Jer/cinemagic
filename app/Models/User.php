@@ -46,4 +46,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Customer::class, 'id');
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->tipo === 'A';
+    }
 }

@@ -1,10 +1,10 @@
-<x-dashboard.layout title="Os seus recibos">
+<x-dashboard.layout title="CineMagic - Recibos" header="Os seus recibos">
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
         <div class="w-full overflow-x-auto">
             <x-dashboard.receipts-table :receipts="$receipts" />
         </div>
         <div
-            class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+            class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-white border-t dark:border-gray-700 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
             <span class="flex items-center col-span-3">
                 Showing 21-30 of 100
             </span>
@@ -14,7 +14,8 @@
                 <nav aria-label="Table navigation">
                     <ul class="inline-flex items-center">
                         <li>
-                            <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                            <button
+                                class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
                                 aria-label="Previous">
                                 <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
                                     <path
@@ -58,7 +59,8 @@
                             </button>
                         </li>
                         <li>
-                            <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                            <button
+                                class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
                                 aria-label="Next">
                                 <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
                                     <path

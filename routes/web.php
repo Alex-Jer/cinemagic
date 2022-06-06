@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\UserController;
@@ -23,26 +24,36 @@ Route::get('/dashboard', function () {
 })
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-// TODO
+// TODO:
 
 
 Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/films', [FilmController::class, 'index'])
+Route::get('films', [FilmController::class, 'index'])
     ->middleware(['verified'])
     ->name('films.index');
 
-Route::get('/receipts', [ReceiptController::class, 'index'])
+Route::get('films/{film}', [FilmController::class, 'show'])
+    ->middleware(['verified'])
+    ->name('films.show');
+
+Route::get('cart', [CartController::class, 'index'])
+    ->name('cart.index');
+
+Route::post('film/{film}', [CartController::class, 'add'])
+    ->name('cart.add');
+
+Route::get('receipts', [ReceiptController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('receipts.index');
 
-Route::get('/profile', [RegisteredUserController::class, 'index'])
+Route::get('profile', [RegisteredUserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('profile.index');
 
-Route::get('/users', [UserController::class, 'index'])
+Route::get('users', [UserController::class, 'index'])
     ->middleware(['auth', 'admin'])
     ->name('users.index');
 

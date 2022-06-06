@@ -1,4 +1,4 @@
-<x-dashboard.layout :title="'Perfil de ' . Auth::User()->name">
+<x-dashboard.layout title="CineMagic - Perfil" :header="'Perfil de ' . Auth::User()->name">
     <div class="grid gap-6 mb-8 {{ $customer ? 'md:grid-cols-3' : 'md:grid-cols-2' }}">
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
@@ -12,8 +12,8 @@
                 <div class="flex flex-row">
                     <x-dashboard.file-input name="profile_pic" />
                     @if (Auth::user()->foto_url)
-                        <img src="{{ asset('storage/fotos/' . Auth::user()->foto_url) }}" alt="{{ Auth::user()->name }}"
-                            class="mt-2 mb-3 rounded-full w-9 h-9">
+                        <img src="{{ asset('storage/fotos/' . Auth::user()->foto_url) }}"
+                            alt="{{ Auth::user()->name }}" class="mt-2 mb-3 rounded-full w-9 h-9">
                     @else
                         <img src="{{ asset('storage/fotos/default.png') }}" alt="default profile picture"
                             class="mt-2 mb-3 rounded-full w-9 h-9">
@@ -35,12 +35,13 @@
                     <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                         Dados de pagamento
                     </h4>
-                    <p></p>
+
                     <x-dashboard.input label="NIF" name="nif" :placeholder="$customer->tipo_pagamento ? $customer->nif : 'NIF'" />
                     <x-dashboard.select label="Tipo de pagamento" name="tipo_pagamento">
                         <option {{ $customer->tipo_pagamento ? '' : 'selected' }} disabled>Tipo de pagamento</option>
                         @foreach ($paymentTypes as $tipo)
-                            <option value="{{ $tipo }}" {{ $customer->tipo_pagamento == $tipo ? 'selected' : '' }}>
+                            <option value="{{ $tipo }}"
+                                {{ $customer->tipo_pagamento == $tipo ? 'selected' : '' }}>
                                 {{ $tipo }}
                             </option>
                         @endforeach

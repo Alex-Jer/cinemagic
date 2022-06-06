@@ -17,7 +17,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->tipo !== 'A')
+        if (!Auth::user()->isAdmin())
             abort(403, 'Acesso proibido');
         return $next($request);
     }

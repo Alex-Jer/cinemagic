@@ -7,15 +7,17 @@ use Illuminate\View\Component;
 class SidebarGroupItem extends Component
 {
     public $label;
+    public $route;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($label)
+    public function __construct($label, $route = null)
     {
         $this->label = $label;
+        $this->route = $route;
     }
 
     /**

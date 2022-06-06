@@ -1,7 +1,7 @@
 <table class="w-full whitespace-no-wrap">
     <thead>
         <tr
-            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-white dark:text-gray-400 dark:bg-gray-800">
             <th class="px-4 py-3">Utilizador</th>
             <th class="px-4 py-3">Tipo</th>
             <th class="px-4 py-3">Estado</th>
@@ -22,8 +22,8 @@
                                     class="mt-2 mb-3 rounded-full w-9 h-9" loading="lazy">
                             @else
                                 <img class="object-cover w-full h-full rounded-full"
-                                    src="{{ asset('storage/fotos/default.png') }}" class="mt-2 mb-3 rounded-full w-9 h-9"
-                                    loading="lazy">
+                                    src="{{ asset('storage/fotos/default.png') }}"
+                                    class="mt-2 mb-3 rounded-full w-9 h-9" loading="lazy">
                             @endif
 
                             <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>

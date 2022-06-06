@@ -24,9 +24,9 @@ class Receipt extends Model
         'custom'
     ];
 
-    public function client()
+    public function customer()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Customer::class);
     }
 
     public function tickets()
