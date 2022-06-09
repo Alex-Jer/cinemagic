@@ -32,11 +32,9 @@ Route::get('/', function () {
 });
 
 Route::get('films', [FilmController::class, 'index'])
-    ->middleware(['verified'])
     ->name('films.index');
 
 Route::get('films/{film}', [FilmController::class, 'show'])
-    ->middleware(['verified'])
     ->name('films.show');
 
 Route::get('cart', [CartController::class, 'index'])
