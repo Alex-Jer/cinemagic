@@ -14,8 +14,7 @@ class FilmController extends Controller
      */
     public function index()
     {
-        // TODO: pouco eficiente
-        $films = Film::all();
+        $films = Film::orderBy('titulo')->paginate(25);
         return view('films.index', compact('films'));
     }
 
