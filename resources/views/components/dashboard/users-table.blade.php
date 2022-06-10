@@ -9,8 +9,7 @@
         </tr>
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        {{-- TODO: Remover take() e otimizar consulta --}}
-        @foreach ($users->take(10) as $user)
+        @foreach ($users as $user)
             <tr class="text-gray-700 dark:text-gray-400">
                 <td class="px-4 py-3">
                     <div class="flex items-center text-sm">
@@ -22,8 +21,8 @@
                                     class="mt-2 mb-3 rounded-full w-9 h-9" loading="lazy">
                             @else
                                 <img class="object-cover w-full h-full rounded-full"
-                                    src="{{ asset('storage/fotos/default.png') }}"
-                                    class="mt-2 mb-3 rounded-full w-9 h-9" loading="lazy">
+                                    src="{{ asset('storage/fotos/default.png') }}" class="mt-2 mb-3 rounded-full w-9 h-9"
+                                    loading="lazy">
                             @endif
 
                             <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
