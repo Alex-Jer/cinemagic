@@ -119,7 +119,6 @@ class RegisteredUserController extends Controller
         if (!$request->ref_pagamento)
             $request->ref_pagamento = $customer->ref_pagamento;
 
-
         switch ($validated['tipo_pagamento']) {
             case 'Visa':
                 if (Str::length($request->ref_pagamento) !== 16)
