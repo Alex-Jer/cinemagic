@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ReceiptController;
+use App\Http\Controllers\ScreenController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -66,6 +67,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::delete('users/{user}', [UserController::class, 'destroy'])
         ->name('users.destroy');
+
+    Route::get('screen', [ScreenController::class, 'index'])
+        ->name('screen.index');
 });
 
 require __DIR__ . '/auth.php';
