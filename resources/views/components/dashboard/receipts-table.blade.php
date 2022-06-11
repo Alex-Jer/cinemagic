@@ -1,16 +1,16 @@
-<table class="w-full whitespace-no-wrap">
+<table class="w-full whitespace-no-wrap table-fixed">
     <thead>
         <tr
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-white dark:text-gray-400 dark:bg-gray-800">
             <th class="px-4 py-3">ID do recibo</th>
             <th class="px-4 py-3">Data</th>
-            <th class="px-4 py-3">Modo de pagamento</th>
-            <th class="px-4 py-3">Referência de pagamento</th>
+            <th class="px-4 py-3 w-1/12">Modo</th>
+            <th class="px-4 py-3 w-2/12">Referência</th>
             <th class="px-4 py-3">NIF</th>
             <th class="px-4 py-3">Preço sem IVA</th>
-            <th class="px-4 py-3">IVA</th>
+            <th class="px-4 py-3 w-1/12">IVA</th>
             <th class="px-4 py-3">Preço com IVA</th>
-            <th class="px-4 py-3">PDF</th>
+            <th class="px-4 py-3 w-1/12">PDF</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
