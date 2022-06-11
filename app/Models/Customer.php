@@ -29,6 +29,6 @@ class Customer extends Model
 
     public function receipts()
     {
-        return $this->hasMany(Receipt::class, 'cliente_id');
+        return $this->hasMany(Receipt::class, 'cliente_id')->orderBy('created_at', 'desc');
     }
 }

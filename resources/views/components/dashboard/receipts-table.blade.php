@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        @foreach ($receipts->take(12) as $receipt)
+        @foreach ($receipts as $receipt)
             <tr class="text-gray-700 dark:text-gray-400">
                 <td class="px-4 py-3">
                     <div class="flex items-center text-sm">
@@ -85,9 +85,9 @@
                         <button
                             class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-500 focus:outline-none focus:shadow-outline-gray"
                             aria-label="PDF">
-                            <svg class="w-5 h-5" data-darkreader-inline-stroke="" fill="none"
-                                stroke="currentColor" style="--darkreader-inline-stroke: currentColor;"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="w-5 h-5" data-darkreader-inline-stroke="" fill="none" stroke="currentColor"
+                                style="--darkreader-inline-stroke: currentColor;" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                             </svg>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Receipt;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +15,7 @@ class ReceiptController extends Controller
      */
     public function index()
     {
-        // TODO: como otimizar?
-        $receipts = User::where('id', Auth::user()->id)->first()->customer->receipts;
+        $receipts = Auth::user()->customer->receipts()->paginate(12);
         return view('receipts.index', compact('receipts'));
     }
 

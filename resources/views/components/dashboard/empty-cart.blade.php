@@ -182,7 +182,7 @@
 <div class="grid gap-6 mb-8">
     <div class="min-w-0 col-span-2 px-4 pb-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div class="flex flex-col items-center justify-center empty-cart -mt-12">
-            <svg id="cart" viewBox="658 510 266 245">
+            <svg id="cart" viewBox="648 510 276 245">
                 <rect id="bg-line" stroke="none" fill-opacity="0.2" fill="#FFE100" fill-rule="evenodd" x="656" y="624" width="206"
                     height="38" rx="19"></rect>
                 <rect id="bg-line" stroke="none" fill-opacity="0.2" fill="#FFE100" fill-rule="evenodd" x="692" y="665" width="192"
@@ -284,8 +284,8 @@
                     id="bubble-rounded" stroke="#3CBC83" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
                     fill="none"></path>
             </svg>
-            <span class="-ml-7 mb-4 text-3xl">O seu carrinho está vazio!</span>
-            <span class="mb-7 text-gray-500">Tem de acrescentar bilhetes ao carrinho antes de proceder ao
+            <span class="-ml-7 mb-4 text-3xl dark:text-gray-200">O seu carrinho está vazio!</span>
+            <span class="mb-7 text-gray-500 dark:text-gray-400">Tem de acrescentar bilhetes ao carrinho antes de proceder ao
                 checkout</span>
             <a class="-ml-7 px-5 py-3 mb-6 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                 href="{{ route('films.index') }}">

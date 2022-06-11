@@ -1,6 +1,6 @@
 <x-dashboard.layout title="CineMagic - Filmes" header="Em Cartaz">
     <div class="grid gap-6 mb-8">
-        <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div class="min-w-0 col-span-2 px-4 pt-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <div class="grid gap-x-14 mb-8 md:grid-cols-4 xl:grid-cols-5">
                 @foreach ($films as $film)
                     <a href="{{ 'films/' . $film->id }}" class="-mr-12">

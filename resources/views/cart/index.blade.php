@@ -1,5 +1,5 @@
-<x-dashboard.layout title="CineMagic - Carrinho de Compras" :header="!$cart->isEmpty() ? 'Carrinho de Compras' : ''">
-    @if (!$cart->isEmpty())
+<x-dashboard.layout title="CineMagic - Carrinho de Compras" :header="$cart && !$cart->isEmpty() ? 'Carrinho de Compras' : ''">
+    @if ($cart && !$cart->isEmpty())
         <table class="w-full whitespace-no-wrap">
             <thead>
                 <tr
