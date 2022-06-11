@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
     public function index()
     {
         $customer = Customer::find(auth()->user()->id);
-        $paymentTypes = Customer::distinct()->select('tipo_pagamento')->pluck('tipo_pagamento')->toArray();
+        $paymentTypes = Customer::distinct()->whereNotNull('tipo_pagamento')->pluck('tipo_pagamento')->toArray();
 
         return view('profile', compact('customer', 'paymentTypes'));
     }
