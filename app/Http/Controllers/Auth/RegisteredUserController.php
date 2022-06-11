@@ -106,7 +106,7 @@ class RegisteredUserController extends Controller
 
     // generate private method to validate customer
 
-    private function validateCustomer(Request $request, Customer $customer, mixed $validated)
+    private function validateCustomer(UserPostRequest $request, Customer $customer, mixed $validated)
     {
         if ($request->nif)
             $customer->nif = $validated['nif'];
