@@ -6,7 +6,7 @@
     </svg>
 </x-dashboard.sidebar-item>
 
-@if (!Auth::user()->tipo === 'A')
+@if (Auth::user()->tipo !== 'A')
     <x-dashboard.sidebar-item label="Carrinho" route="cart.index">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
