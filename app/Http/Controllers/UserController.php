@@ -82,6 +82,13 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if ($user->id == auth()->user()->id) {
+            return back()
+                ->with('alert-msg', 'Não podes apagar a tua própia conta tolinho!')
+                ->with('alert-color', 'red')
+                ->with('alert-icon', 'error');
+        }
+
         $oldName = $user->name;
         //$oldUrlFoto = $user->foto_url;
         try {
