@@ -14,7 +14,8 @@ class ScreenController extends Controller
      */
     public function index()
     {
-        //
+        $screens = Screen::orderBy('nome')->paginate(12);
+        return view('admin.screens.index', compact('screens'));
     }
 
     /**
