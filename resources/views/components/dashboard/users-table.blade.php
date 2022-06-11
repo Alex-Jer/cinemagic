@@ -1,3 +1,4 @@
+<script src="{{ asset('js/focus-trap.js') }}" defer></script>
 <table class="w-full whitespace-no-wrap table-fixed">
     <thead>
         <tr

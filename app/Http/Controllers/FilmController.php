@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
+use App\Models\Seat;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller

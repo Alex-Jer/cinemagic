@@ -3,7 +3,8 @@
         <tr
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-white dark:text-gray-400 dark:bg-gray-800">
             <th class="px-4 py-3">ID</th>
-            <th class="px-4 py-3 w-4/6">Nome da sala</th>
+            <th class="px-4 py-3 w-4/12">Nome da sala</th>
+            <th class="px-4 py-3">Nº de lugares</th>
             <th class="px-4 py-3 w-1/12">Ações</th>
         </tr>
     </thead>
@@ -18,6 +19,11 @@
                 <td class="px-4 py-3">
                     <div class="flex items-center text-sm">
                         <p class="font-semibold">{{ $screen->nome }}</p>
+                    </div>
+                </td>
+                <td class="px-4 py-3">
+                    <div class="flex items-center text-sm">
+                        <p class="font-semibold">{{ $screen->custom }}</p>
                     </div>
                 </td>
                 <td class="px-4 py-3">

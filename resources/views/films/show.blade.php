@@ -1,12 +1,20 @@
-<x-dashboard.layout title="CineMagic - Filme" header="Filme. . .">
-    <p> {{ $film->id }} </p>
-    <p> {{ $film->titulo }} </p>
-    <p> {{ $film->genero_code }} </p>
-    <p> {{ $film->ano }} </p>
-    <p> {{ $film->sumario }} </p>
-    <p> {{ $film->trailer_url }} </p>
-    {{-- <a class="bg-blue-500" href="{{ route('cart.add') }}">Comprar bilhete</a> --}}
-    <form method="POST" action="{{ route('cart.add', ['film' => $film]) }}">
+<x-dashboard.layout title="CineMagic - Filme" :header="$film->titulo">
+    <img class="w-1/6 h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}" alt="">
+    <p class="dark:text-white"> {{ $film->sumario }} </p>
+    <p class="dark:text-white"> {{ $film->trailer_url }} </p>
+    <p class="dark:text-white text-xs"> ID: {{ $film->id }} </p>
+    <p class="dark:text-white text-xs"> Género: {{ $film->genre->nome }} </p>
+    <p class="dark:text-white">***</p>
+    @foreach ($film->screenings as $screening)
+        @if ($screening->data . $screening->horario_inicio >= now())
+            <div class="dark:text-white">
+                <p>{{ 'Sala: ' . $screening->screen->nome }}</p>
+                <p>{{ $screening->data . ' às ' . $screening->horario_inicio }}</p>
+                <p>***</p>
+            </div>
+        @endif
+    @endforeach
+    <form method="POST" action="{{ route('cart.add', ['film' => $film]) }}" class="mt-3">
         @csrf
         <x-dashboard.button label="Comprar bilhete">
             <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
