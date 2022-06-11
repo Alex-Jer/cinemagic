@@ -54,8 +54,12 @@ Route::get('profile', [RegisteredUserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('profile.index');
 
-Route::get('users', [UserController::class, 'index'])
-    ->middleware(['auth', 'admin'])
-    ->name('users.index');
+/**
+ * Admin routes
+ */
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('users', [UserController::class, 'index'])
+        ->name('users.index');
+});
 
 require __DIR__ . '/auth.php';
