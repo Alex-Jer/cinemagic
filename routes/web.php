@@ -7,17 +7,6 @@ use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 // TODO: temp
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -31,20 +20,31 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('films', [FilmController::class, 'index'])
-    ->name('films.index');
+/**
+ * Film routes
+ */
+Route::controller(FilmController::class)->group(function () {
+    Route::get('films', 'index')
+        ->name('films.index');
 
-Route::get('films/{film}', [FilmController::class, 'show'])
-    ->name('films.show');
+    Route::get('films/{film}', 'show')
+        ->name('films.show');
+});
 
-Route::get('cart', [CartController::class, 'index'])
-    ->name('cart.index');
+/**
+ * Shopping Cart routes
+ */
+Route::controller(CartController::class)->group(function () {
+    Route::get('cart', 'index')
+        ->name('cart.index');
 
-Route::post('film/{film}', [CartController::class, 'add'])
-    ->name('cart.add');
+    Route::post('cart', 'add')
+        ->name('cart.add');
 
-Route::delete('cart/film/{film}', [CartController::class, 'remove'])
-    ->name('cart.remove');
+    Route::delete('cart/film/{film}', 'remove')
+        ->name('cart.remove');
+});
+
 
 Route::get('receipts', [ReceiptController::class, 'index'])
     ->middleware(['auth', 'verified'])
