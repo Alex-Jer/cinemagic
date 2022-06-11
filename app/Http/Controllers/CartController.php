@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
-use Illuminate\Http\Request;
-use Session;
 
 class CartController extends Controller
 {

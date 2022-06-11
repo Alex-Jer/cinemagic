@@ -22,7 +22,7 @@ class Film extends Model
 
     public function screenings()
     {
-        return $this->hasMany(Screening::class);
+        return $this->hasMany(Screening::class, 'filme_id');
     }
 
     public function genre()

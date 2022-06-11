@@ -8,8 +8,13 @@
                 <a href="{{ 'films/' . $film->id }}" class="-mr-12">
                     <div
                         class="flex flex-wrap w-4/5 h-4/5 items-center justify-center mb-12 rounded-lg shadow-xs dark:bg-gray-800 transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-100">
-                        <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
-                            alt="{{ $film->titulo }}">
+                        @if ($film->cartaz_url)
+                            <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
+                                alt="{{ $film->titulo }}">
+                        @else
+                            <img class="w-full h-full rounded-lg" src="https://i.imgur.com/eDZNyW3.jpg?width=460&height=676"
+                                alt="{{ $film->titulo }}">
+                        @endif
                         <h4 class="mt-2 font-semibold text-center text-gray-600 text-md dark:text-gray-300">
                             {{ $film->titulo }}
                         </h4>

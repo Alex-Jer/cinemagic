@@ -14,7 +14,12 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $films = Film::orderBy('titulo')->paginate(25);
+        $films = Film::orderBy('titulo')
+            ->whereHas('screenings', function ($query) {
+                $query->where('data', '>=', now());
+            })
+            ->paginate(25);
+
         return view('films.index', compact('films'));
     }
 
