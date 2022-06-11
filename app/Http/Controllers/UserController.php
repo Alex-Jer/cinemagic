@@ -79,8 +79,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+
+        return back()
+            ->with('alert-msg', 'Utilizador "' . $user->name . '" removido com sucesso.')
+            ->with('alert-color', 'green')
+            ->with('alert-icon', 'success');
     }
 }

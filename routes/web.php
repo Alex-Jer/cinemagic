@@ -50,6 +50,8 @@ Route::get('receipts', [ReceiptController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('receipts.index');
 
+
+/* User routes */
 Route::get('profile', [RegisteredUserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('profile.index');
@@ -58,8 +60,12 @@ Route::get('profile', [RegisteredUserController::class, 'index'])
  * Admin routes
  */
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+
     Route::get('users', [UserController::class, 'index'])
         ->name('users.index');
+
+    Route::delete('users/{user}', [UserController::class, 'destroy'])
+        ->name('users.destroy');
 });
 
 require __DIR__ . '/auth.php';
