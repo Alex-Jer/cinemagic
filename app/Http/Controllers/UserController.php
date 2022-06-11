@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -81,10 +82,25 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $oldName = $user->name;
+        //$oldUrlFoto = $user->foto_url;
+        try {
 
-        return back()
-            ->with('alert-msg', 'Utilizador "' . $user->name . '" removido com sucesso.')
-            ->with('alert-color', 'green')
-            ->with('alert-icon', 'success');
+            $user->delete();
+            /*if ($oldUrlFoto != null) {
+                Storage::delete('public/fotos/' . $oldUrlFoto);
+            }*/
+
+            return back()
+                ->with('alert-msg', 'Utilizador "' . $oldName . '" removido com sucesso.')
+                ->with('alert-color', 'green')
+                ->with('alert-icon', 'success');
+        } catch (\Throwable $th) {
+            dd($th);
+            return back()
+                ->with('alert-msg', 'Não foi possível apagar o Utilizador "' . $oldName . '".')
+                ->with('alert-color', 'red')
+                ->with('alert-icon', 'error');
+        }
     }
 }
