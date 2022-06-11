@@ -1,12 +1,12 @@
 @if ($paginator->hasPages())
     <div
-        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase sm:grid-cols-9 dark:text-gray-400 {{ !Route::current()->getName() === 'films.index' ? 'bg-white border-t dark:border-gray-700 dark:bg-gray-800' : '-mt-20' }}">
+        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase sm:grid-cols-9 dark:text-gray-400 {{ Route::current()->getName() === 'films.index' ? '-mt-20' : 'bg-white border-t dark:border-gray-700 dark:bg-gray-800' }}">
         <span class="flex items-center col-span-3">
             a mostrar
             @if ($paginator->firstItem())
                 {{ $paginator->firstItem() }} - {{ $paginator->lastItem() }}
             @endif
-            de {{ $paginator->total() }}
+            de {{ $paginator->total() }} resultados
         </span>
         <span class="col-span-2"></span>
         <!-- Pagination -->
