@@ -6,6 +6,7 @@ module.exports = {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
     ],
+    safelist: ["bg-green-600", "bg-red-600", "bg-purple-600", "bg-yellow-600"],
     theme: {
         themeVariants: ["dark"],
         customForms: (theme) => ({
