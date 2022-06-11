@@ -39,7 +39,7 @@ Route::controller(CartController::class)->group(function () {
     Route::get('cart', 'index')
         ->name('cart.index');
 
-    Route::post('cart', 'add')
+    Route::post('film/{film}', 'add')
         ->name('cart.add');
 
     Route::delete('cart/film/{film}', 'remove')
