@@ -110,6 +110,13 @@ class UserController extends Controller
         return back();
     }
 
+    public function toggleblock(User $user)
+    {
+        $user->bloqueado = !$user->bloqueado;
+        $user->save();
+        return back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -29,15 +29,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        switch ($model->tipo) {
-            case 'A':
-                return ($user->tipo == 'A');
-            case 'F':
-                return ($user->tipo == 'A');
-            case 'C':
-                return ($user->tipo == 'F' || ($user->id == $model->id));
-        }
-        return false;
+        return UserPolicy::canView($user, $model);
     }
 
     /**
@@ -84,7 +76,7 @@ class UserPolicy
      */
     public function block(User $user, User $model)
     {
-        return $user->tipo == 'A' && $user->id != $model->id;
+        return UserPolicy::canBlock($user, $model);
     }
 
     /**
@@ -127,5 +119,23 @@ class UserPolicy
     public static function canDelete(User $user, User $model)
     {
         return $user->tipo == 'A' && $user->id != $model->id;
+    }
+
+    public static function canBlock(User $user, User $model)
+    {
+        return $user->tipo == 'A' && $user->id != $model->id;
+    }
+
+    public static function canView(User $user, User $model)
+    {
+        switch ($model->tipo) {
+            case 'A':
+                return ($user->tipo == 'A');
+            case 'F':
+                return ($user->tipo == 'A');
+            case 'C':
+                return ($user->tipo == 'F' || ($user->id == $model->id));
+        }
+        return false;
     }
 }

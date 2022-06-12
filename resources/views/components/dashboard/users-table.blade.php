@@ -6,7 +6,7 @@
             <th class="px-4 py-3 w-3/5">Utilizador</th>
             <th class="px-4 py-3">Tipo</th>
             <th class="px-4 py-3">Estado</th>
-            <th class="px-4 py-3">Ações</th>
+            <th class="px-4 py-3 text-center">Ações</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -29,8 +29,14 @@
                             <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                         </div>
                         <div>
-                            <p class="font-semibold"><a
-                                    href="{{ route('admin.users.show', ['user' => $user]) }}">{{ $user->name }}</a>
+                            <p class="font-semibold">
+                                @if (App\Policies\UserPolicy::canView($authUser, $user))
+                                    <a
+                                        href="{{ route('admin.users.show', ['user' => $user]) }}">{{ $user->name }}</a>
+                                @else
+                                    {{ $user->name }}
+                                @endif
+
                             </p>
                             <p class="text-xs text-gray-600 dark:text-gray-400">{{ $user->email }}</p>
                         </div>
@@ -51,20 +57,43 @@
                     @endswitch
                 </td>
                 <td class="px-4 py-3 text-xs">
-                    @if ($user->bloqueado)
-                        <span
-                            class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
-                            Bloqueado
-                        </span>
-                    @else
-                        <span
-                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                            Ativo
-                        </span>
-                    @endif
+
+                    <span
+                        class="px-2 py-1 font-semibold leading-tight {{ $user->bloqueado ? 'text-red-700 bg-red-100 dark:text-red-100 dark:bg-red-700' : 'text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100' }}  rounded-full">
+                        @if (App\Policies\UserPolicy::canBlock($authUser, $user))
+                            <a href="{{ route('admin.users.toggleblock', ['user' => $user]) }}"
+                                onclick="event.preventDefault(); document.getElementById('toggleblock-form-{{ $user->id }}').submit();">
+                                {{ $user->bloqueado ? 'Bloqueado' : 'Ativo' }}
+                            </a>
+
+                            <form id="toggleblock-form-{{ $user->id }}"
+                                action="{{ route('admin.users.toggleblock', ['user' => $user]) }}" method="POST"
+                                class="hidden">
+                                @csrf
+                                @method('PUT')
+                            </form>
+                        @else
+                            {{ $user->bloqueado ? 'Bloqueado' : 'Ativo' }}
+                        @endif
+                    </span>
                 </td>
                 <td class="px-4 py-3">
-                    <div class="flex items-center space-x-4 text-sm">
+                    <div class="flex items-center space-x-2 text-sm">
+                        <form method="GET" action="{{ route('admin.users.show', ['user' => $user]) }}">
+                            <button
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg {{ App\Policies\UserPolicy::canView($authUser, $user) ? 'text-purple-600 dark:text-gray-400' : 'text-purple-400 dark:text-gray-600' }} focus:outline-none focus:shadow-outline-gray"
+                                aria-label="Edit"
+                                {{ App\Policies\UserPolicy::canView($authUser, $user) ? '' : 'disabled' }}>
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </form>
                         <form method="GET" action="{{ route('admin.users.edit', ['user' => $user]) }}">
                             <button
                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg {{ App\Policies\UserPolicy::canEdit($authUser, $user) ? 'text-purple-600 dark:text-gray-400' : 'text-purple-400 dark:text-gray-600' }} focus:outline-none focus:shadow-outline-gray"

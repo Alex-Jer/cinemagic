@@ -77,6 +77,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::delete('users/{user}', [UserController::class, 'destroy'])
         ->name('users.destroy')->middleware('can:delete,user');
 
+    Route::put('users/{user}/toggleblock', [UserController::class, 'toggleblock'])
+        ->name('users.toggleblock')->middleware('can:block,user');
+
     Route::get('screen', [ScreenController::class, 'index'])
         ->name('screen.index')->middleware('can:viewAny,App\Models\Screen');
 });
