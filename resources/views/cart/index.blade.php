@@ -11,25 +11,26 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                @foreach ($cart as $film)
+                @foreach ($cart as $screening)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                     <img class="object-cover w-full h-full rounded-full"
-                                        src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}" alt="{{ $film->titulo }}"
-                                        class="mt-2 mb-3 rounded-full w-9 h-9" loading="lazy">
+                                        src="{{ asset('storage/cartazes/' . $screening->film->cartaz_url) }}"
+                                        alt="{{ $screening->film->titulo }}" class="mt-2 mb-3 rounded-full w-9 h-9"
+                                        loading="lazy">
                                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                                 </div>
                                 <div>
-                                    <p class="font-semibold">{{ $film->titulo }}</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{ $film->ano }}</p>
+                                    <p class="font-semibold">{{ $screening->film->titulo }}</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{ $screening->film->ano }}</p>
                                 </div>
                             </div>
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
-                                <p class="font-semibold">{{ $film->genre->nome }}</p>
+                                <p class="font-semibold">{{ $screening->film->genre->nome }}</p>
                             </div>
                         </td>
                         <td class="px-4 py-3">
@@ -39,7 +40,9 @@
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-4 text-sm">
-                                <form method="POST" action="cart/film/{{ $film->id }}">
+                                <form method="POST" action="cart/screenings/{{ $screening->id }}">
+                                    @csrf
+                                    @method('DELETE')
                                     <button type="submit"
                                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Delete">
@@ -49,8 +52,6 @@
                                                 clip-rule="evenodd"></path>
                                         </svg>
                                     </button>
-                                    @csrf
-                                    @method('DELETE')
                                 </form>
                             </div>
                         </td>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Film;
+use App\Models\Screening;
 
 class CartController extends Controller
 {
@@ -12,19 +12,19 @@ class CartController extends Controller
             ->with('cart', session('cart') ?? []);
     }
 
-    public function add(Film $film)
+    public function store(Screening $screening)
     {
         $cart = session('cart') ?? collect();
-        $cart->put($film->id, $film);
+        $cart->put($screening->id, $screening);
         session()->put('cart', $cart);
 
         return back();
     }
 
-    public function remove(Film $film)
+    public function destroy(Screening $screening)
     {
         $cart = session('cart') ?? collect();
-        $cart->pull($film->id);
+        $cart->pull($screening->id);
         session()->put('cart', $cart);
 
         return back();

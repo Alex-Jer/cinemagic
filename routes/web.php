@@ -39,18 +39,16 @@ Route::controller(CartController::class)->group(function () {
     Route::get('cart', 'index')
         ->name('cart.index');
 
-    Route::post('film/{film}', 'add')
-        ->name('cart.add');
+    Route::post('cart/screenings/{screening}', 'store')
+        ->name('cart.store');
 
-    Route::delete('cart/film/{film}', 'remove')
-        ->name('cart.remove');
+    Route::delete('cart/screenings/{screening}', 'destroy')
+        ->name('cart.destroy');
 });
-
 
 Route::get('receipts', [ReceiptController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('receipts.index');
-
 
 /* User routes */
 Route::get('profile', [RegisteredUserController::class, 'index'])
