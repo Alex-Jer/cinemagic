@@ -60,22 +60,22 @@ Route::get('profile', [RegisteredUserController::class, 'index'])
 /**
  * Admin routes
  */
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('users', [UserController::class, 'index'])
-        ->name('users.index');
+        ->name('users.index')->middleware('can:viewAny,App\Models\User');
 
     Route::get('users/{user}/{mode}', [UserController::class, 'show'])
-        ->name('users.show');
+        ->name('users.show')->middleware('can:view,user');
 
     Route::put('users/{user}', [UserController::class, 'edit'])
-        ->name('users.edit');
+        ->name('users.edit')->middleware('can:update,user');
 
     Route::delete('users/{user}', [UserController::class, 'destroy'])
-        ->name('users.destroy');
+        ->name('users.destroy')->middleware('can:delete,user');
 
     Route::get('screen', [ScreenController::class, 'index'])
-        ->name('screen.index');
+        ->name('screen.index')->middleware('can:viewAny,App\Models\Screen');
 });
 
 require __DIR__ . '/auth.php';
