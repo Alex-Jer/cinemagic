@@ -32,10 +32,10 @@ class UserPolicy
         switch ($model->tipo) {
             case 'A':
                 return ($user->tipo == 'A');
-            case 'E':
+            case 'F':
                 return ($user->tipo == 'A');
             case 'C':
-                return ($user->tipo == 'E' || ($user->id == $model->id));
+                return ($user->tipo == 'F' || ($user->id == $model->id));
         }
         return false;
     }
@@ -60,15 +60,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        switch ($model->tipo) {
-            case 'A':
-                return ($user->tipo == 'A');
-            case 'E':
-                return ($user->tipo == 'A');
-            case 'C':
-                return ($user->id == $model->id);
-        }
-        return false;
+        return UserPolicy::canEdit($user, $model);
     }
 
     /**
@@ -80,7 +72,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return $user->tipo == 'A' && $user->id != $model->id;
+        return UserPolicy::canDelete($user, $model);
     }
 
     /**
@@ -117,5 +109,23 @@ class UserPolicy
     public function forceDelete(User $user, User $model)
     {
         //
+    }
+
+    public static function canEdit(User $user, User $model)
+    {
+        switch ($model->tipo) {
+            case 'A':
+                return ($user->tipo == 'A');
+            case 'F':
+                return ($user->tipo == 'A');
+            case 'C':
+                return ($user->id == $model->id);
+        }
+        return false;
+    }
+
+    public static function canDelete(User $user, User $model)
+    {
+        return $user->tipo == 'A' && $user->id != $model->id;
     }
 }

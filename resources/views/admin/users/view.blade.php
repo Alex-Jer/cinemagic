@@ -1,7 +1,7 @@
 <x-dashboard.layout :title="'CineMagic - ' . $user->name" :header="'Perfil de ' . $user->name">
     <div class="grid gap-6 mb-8 {{ $customer ? 'md:grid-cols-3' : 'md:grid-cols-2' }}">
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form method="POST" action="{{ route('admin.users.edit', ['user' => $user]) }}"
+            <form method="POST" action="{{ route('admin.users.update', ['user' => $user]) }}"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -37,7 +37,7 @@
         </div>
         @if ($user->tipo == 'C')
             <div class="min-w-0 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                <form method="POST" action="{{ route('admin.users.edit', ['user' => $user]) }}">
+                <form method="POST" action="{{ route('admin.users.update', ['user' => $user]) }}">
                     @csrf
                     @method('PUT')
                     <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">

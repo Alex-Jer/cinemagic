@@ -30,7 +30,7 @@ class CustomerPolicy
      */
     public function view(User $user, Customer $customer)
     {
-        return ($user->tipo == 'E' || $user->id == $customer->id);
+        return ($user->tipo == 'F' || $user->id == $customer->id);
     }
 
     /**

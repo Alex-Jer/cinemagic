@@ -7,6 +7,9 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserPostRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Policies\UserPolicy;
 
 class UserController extends Controller
 {
@@ -18,7 +21,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::orderBy('name')->paginate(10);
-        return view('admin.users.index', compact('users'));
+        $authUser = User::find(Auth::user()->id);
+        return view('admin.users.index', compact('users', 'authUser'));
     }
 
     /**
@@ -48,13 +52,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user, $mode)
+    public function show(User $user)
     {
         $customer = Customer::find($user->id);
-        if ($mode == 'edit') {
-            $paymentTypes = Customer::distinct()->whereNotNull('tipo_pagamento')->pluck('tipo_pagamento')->toArray();
-            return view('admin.users.view', compact('user', 'customer', 'paymentTypes', 'mode'));
-        }
+        $mode = 'view';
         return view('admin.users.view', compact('user', 'customer', 'mode'));
     }
 
@@ -64,7 +65,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserPostRequest $request, User $user)
+    public function edit(User $user)
+    {
+        $customer = Customer::find($user->id);
+        $paymentTypes = Customer::distinct()->whereNotNull('tipo_pagamento')->pluck('tipo_pagamento')->toArray();
+        $mode = 'edit';
+        return view('admin.users.view', compact('user', 'customer', 'paymentTypes', 'mode'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UserPostRequest $request, User $user)
     {
         $validated = $request->validated();
 
@@ -87,23 +103,11 @@ class UserController extends Controller
         }
 
         if ($user->tipo === 'C')
-            Auth\RegisteredUserController::validateCustomer($request, $customer, $validated);
+            RegisteredUserController::validateCustomer($request, $customer, $validated);
 
         $user->save();
 
         return back();
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

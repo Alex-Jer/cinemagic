@@ -65,11 +65,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('users', [UserController::class, 'index'])
         ->name('users.index')->middleware('can:viewAny,App\Models\User');
 
-    Route::get('users/{user}/{mode}', [UserController::class, 'show'])
+    Route::get('users/{user}/view', [UserController::class, 'show'])
         ->name('users.show')->middleware('can:view,user');
 
-    Route::put('users/{user}', [UserController::class, 'edit'])
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])
         ->name('users.edit')->middleware('can:update,user');
+
+    Route::put('users/{user}', [UserController::class, 'update'])
+        ->name('users.update')->middleware('can:update,user');
 
     Route::delete('users/{user}', [UserController::class, 'destroy'])
         ->name('users.destroy')->middleware('can:delete,user');
