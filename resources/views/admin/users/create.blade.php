@@ -6,8 +6,21 @@
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados pessoais
                 </h4>
-                <x-dashboard.input label="Nome" name="name" placeholder="Nome" attr="autofocus" />
-                <x-dashboard.input label="E-mail" name="email" placeholder="E-mail" />
+                <x-dashboard.input label="Nome" name="name" placeholder="Nome" attr="autofocus required" />
+                <x-dashboard.input label="E-mail" name="email" placeholder="E-mail" attr="required" />
+                <label class="block text-sm ">
+                    <span class="dark:text-gray-400">Password</span>
+                    <input class="mb-4 input-primary" name="password" type="password" placeholder="Password" required />
+                </label>
+
+                <x-dashboard.select label="Tipo de utilizador" name="tipo_utilizador">
+                    <option value='F' selected>
+                        Funcionário
+                    </option>
+                    <option value='A'>
+                        Administrador
+                    </option>
+                </x-dashboard.select>
                 <span class="text-sm text-gray-700 dark:text-gray-400">Imagem de perfil</span>
                 <div class="flex flex-row">
                     <x-dashboard.file-input name="profile_pic" />
@@ -22,6 +35,7 @@
                         </path>
                     </svg>
                 </x-dashboard.button>
+
             </form>
         </div>
     </div>

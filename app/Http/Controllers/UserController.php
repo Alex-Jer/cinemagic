@@ -9,7 +9,9 @@ use App\Http\Requests\UserPostRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Policies\UserPolicy;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
@@ -41,9 +43,39 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserPostRequest $request)
+    public function store(Request $request)
     {
-        return back();
+        /*$authUser = User::find(Auth::user()->id);
+
+        $tipo = $request->tipo_utilizador;
+
+        if ($authUser->tipo != 'A' || ($tipo != 'A' && $tipo != 'F')) {
+            return abort(403, "This action is unauthorized."); // em inglês para copiar a do laravel
+        }
+
+        $request->validate([
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+
+        $user = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'tipo'     => $tipo,
+        ]);
+
+        event(new Registered($user));
+
+        if ($request->hasFile('profile_pic')) {
+            $user->foto_url ? Storage::delete('public/fotos/' . $user->foto_url) : null;
+            $path = $request->profile_pic->store('public/fotos');
+            $user->foto_url = basename($path);
+        }
+
+        return back();*/
     }
 
     /**
