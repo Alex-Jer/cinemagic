@@ -20,7 +20,7 @@ class Screening extends Model
 
     public function film()
     {
-        return $this->belongsTo(Film::class);
+        return $this->belongsTo(Film::class, 'filme_id');
     }
 
     public function screen()
