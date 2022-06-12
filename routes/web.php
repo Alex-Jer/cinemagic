@@ -58,22 +58,34 @@ Route::get('profile', [RegisteredUserController::class, 'index'])
 /**
  * Admin routes
  */
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('users', [UserController::class, 'index'])
-        ->name('users.index');
+        ->name('users.index')->middleware('can:viewAny,App\Models\User');
 
-    Route::get('users/{user}/{mode}', [UserController::class, 'show'])
-        ->name('users.show');
+    Route::get('users/{user}/view', [UserController::class, 'show'])
+        ->name('users.show')->middleware('can:view,user');
 
-    Route::put('users/{user}', [UserController::class, 'edit'])
-        ->name('users.edit');
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])
+        ->name('users.edit')->middleware('can:update,user');
+
+    Route::put('users/{user}', [UserController::class, 'update'])
+        ->name('users.update')->middleware('can:update,user');
 
     Route::delete('users/{user}', [UserController::class, 'destroy'])
-        ->name('users.destroy');
+        ->name('users.destroy')->middleware('can:delete,user');
+
+    Route::put('users/{user}/toggleblock', [UserController::class, 'toggleblock'])
+        ->name('users.toggleblock')->middleware('can:block,user');
+
+    Route::get('users/create', [UserController::class, 'create'])
+        ->name('users.create')->middleware('can:create,App\Models\User');
+
+    Route::post('users/create', [UserController::class, 'store'])
+        ->name('users.store')->middleware('can:create,App\Models\User');
 
     Route::get('screen', [ScreenController::class, 'index'])
-        ->name('screen.index');
+        ->name('screen.index')->middleware('can:viewAny,App\Models\Screen');
 });
 
 require __DIR__ . '/auth.php';
