@@ -46,11 +46,16 @@ Route::controller(CartController::class)->group(function () {
         ->name('cart.destroy');
 });
 
+/**
+ * Receipt routes
+ */
 Route::get('receipts', [ReceiptController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('receipts.index');
 
-/* User routes */
+/**
+ * User routes
+ */
 Route::get('profile', [RegisteredUserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('profile.index');

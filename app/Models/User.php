@@ -55,4 +55,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->tipo === 'A';
     }
+
+    public function isCustomer(): bool
+    {
+        return $this->tipo === 'C';
+    }
 }
