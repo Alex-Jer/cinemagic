@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -46,9 +47,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user, $mode)
     {
-        //
+        $customer = Customer::find($user->id);
+        $paymentTypes = Customer::distinct()->whereNotNull('tipo_pagamento')->pluck('tipo_pagamento')->toArray();
+
+        return view('admin.users.view', compact('user', 'customer', 'paymentTypes', 'mode'));
     }
 
     /**
@@ -57,9 +61,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return back(); //TODO
     }
 
     /**

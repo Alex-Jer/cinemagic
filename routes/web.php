@@ -65,6 +65,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('users', [UserController::class, 'index'])
         ->name('users.index');
 
+    Route::get('users/{user}/{mode}', [UserController::class, 'show'])
+        ->name('users.show');
+
+    Route::put('users/{user}', [UserController::class, 'edit'])
+        ->name('users.edit');
+
     Route::delete('users/{user}', [UserController::class, 'destroy'])
         ->name('users.destroy');
 

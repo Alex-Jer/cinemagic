@@ -1,20 +1,21 @@
-<x-dashboard.layout title="CineMagic - Perfil" :header="'Perfil de ' . Auth::User()->name">
+<x-dashboard.layout :title="'CineMagic - ' . $user->name" :header="'Perfil de ' . $user->name">
     <div class="grid gap-6 mb-8 {{ $customer ? 'md:grid-cols-3' : 'md:grid-cols-2' }}">
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.users.edit', ['user' => $user]) }}"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados pessoais
                 </h4>
-                <x-dashboard.input label="Nome" name="name" :placeholder="Auth::user()->name" attr="autofocus" />
-                <x-dashboard.input label="E-mail" name="email" :placeholder="Auth::user()->email" />
+                <x-dashboard.input label="Nome" name="name" :placeholder="$user->name" attr="autofocus" />
+                <x-dashboard.input label="E-mail" name="email" :placeholder="$user->email" />
                 <span class="text-sm text-gray-700 dark:text-gray-400">Imagem de perfil</span>
                 <div class="flex flex-row">
                     <x-dashboard.file-input name="profile_pic" />
-                    @if (Auth::user()->foto_url)
-                        <img src="{{ asset('storage/fotos/' . Auth::user()->foto_url) }}"
-                            alt="{{ Auth::user()->name }}" class="mt-2 mb-3 rounded-full w-9 h-9">
+                    @if ($user->foto_url)
+                        <img src="{{ asset('storage/fotos/' . $user->foto_url) }}" alt="{{ $user->name }}"
+                            class="mt-2 mb-3 rounded-full w-9 h-9">
                     @else
                         <img src="{{ asset('storage/fotos/default.png') }}" alt="default profile picture"
                             class="mt-2 mb-3 rounded-full w-9 h-9">
@@ -29,9 +30,9 @@
                 </x-dashboard.button>
             </form>
         </div>
-        @if (Auth::user()->tipo == 'C')
+        @if ($user->tipo == 'C')
             <div class="min-w-0 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                <form method="POST" action="{{ route('profile.update') }}">
+                <form method="POST" action="{{ route('admin.users.edit', ['user' => $user]) }}">
                     @csrf
                     @method('PUT')
                     <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
