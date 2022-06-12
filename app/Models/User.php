@@ -14,7 +14,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable;
 
     use SoftDeletes;
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'updated_at', 'created_at'];
 
     /**
      * The attributes that are mass assignable.
