@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
-use App\Models\Seat;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -17,7 +16,8 @@ class FilmController extends Controller
     {
         $films = Film::orderBy('titulo')
             ->whereHas('screenings', function ($query) {
-                $query->where('data', '>=', now());
+                // TODO: dá para otimizar?
+                $query->whereRaw("CONCAT(data, ' ', horario_inicio) >= NOW()");
             })
             ->paginate(25);
 
