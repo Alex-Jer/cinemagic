@@ -38,7 +38,7 @@
                         Dados de pagamento
                     </h4>
 
-                    <x-dashboard.input label="NIF" name="nif" :placeholder="$customer->tipo_pagamento ? $customer->nif : 'NIF'" />
+                    <x-dashboard.input label="NIF" name="nif" :placeholder="$customer->nif ? $customer->nif : 'NIF'" />
                     <x-dashboard.select label="Tipo de pagamento" name="tipo_pagamento">
                         <option {{ $customer->tipo_pagamento ? '' : 'selected' }} disabled>Tipo de pagamento</option>
                         @foreach ($paymentTypes as $tipo)

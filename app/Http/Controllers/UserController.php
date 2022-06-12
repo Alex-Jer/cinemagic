@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserPostRequest;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -50,9 +51,11 @@ class UserController extends Controller
     public function show(User $user, $mode)
     {
         $customer = Customer::find($user->id);
-        $paymentTypes = Customer::distinct()->whereNotNull('tipo_pagamento')->pluck('tipo_pagamento')->toArray();
-
-        return view('admin.users.view', compact('user', 'customer', 'paymentTypes', 'mode'));
+        if ($mode == 'edit') {
+            $paymentTypes = Customer::distinct()->whereNotNull('tipo_pagamento')->pluck('tipo_pagamento')->toArray();
+            return view('admin.users.view', compact('user', 'customer', 'paymentTypes', 'mode'));
+        }
+        return view('admin.users.view', compact('user', 'customer', 'mode'));
     }
 
     /**
@@ -61,9 +64,34 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(UserPostRequest $request, User $user)
     {
-        return back(); //TODO
+        $validated = $request->validated();
+
+        $user = User::find($user->id);
+        $customer = Customer::find($user->id);
+
+        if ($request->name)
+            $user->name = $validated['name'];
+
+        if ($request->email) {
+            $user->email = $validated['email'];
+            $user->sendEmailVerificationNotification();
+            $user->email_verified_at = null;
+        }
+
+        if ($request->hasFile('profile_pic')) {
+            $user->foto_url ? Storage::delete('public/fotos/' . $user->foto_url) : null;
+            $path = $request->profile_pic->store('public/fotos');
+            $user->foto_url = basename($path);
+        }
+
+        if ($user->tipo === 'C')
+            Auth\RegisteredUserController::validateCustomer($request, $customer, $validated);
+
+        $user->save();
+
+        return back();
     }
 
     /**
