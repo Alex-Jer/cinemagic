@@ -80,6 +80,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('users/{user}/toggleblock', [UserController::class, 'toggleblock'])
         ->name('users.toggleblock')->middleware('can:block,user');
 
+    Route::get('users/create', [UserController::class, 'create'])
+        ->name('users.create')->middleware('can:create,App\Models\User');
+
+    Route::post('users/create', [UserController::class, 'store'])
+        ->name('users.store')->middleware('can:create,App\Models\User');
+
     Route::get('screen', [ScreenController::class, 'index'])
         ->name('screen.index')->middleware('can:viewAny,App\Models\Screen');
 });
