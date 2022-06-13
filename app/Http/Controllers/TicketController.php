@@ -13,17 +13,11 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Screening $screening)
     {
-        $screening = Screening::find(request()->screening_id);
-        $screen = $screening->screen;
-        $seats = $screen->seats->map(function ($seat) {
-            return [
-                'row' => $seat->fila,
-                'col' => $seat->posicao,
-            ];
-        });
-        return view('tickets.index', compact('screening', 'seats'));
+        // $screen = $screening->screen;
+        // $seats = $screen->seats;
+        // return view('tickets.index', compact('screening', 'seats'));
     }
 
     /**
@@ -45,6 +39,11 @@ class TicketController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function add(Request $request)
+    {
+        dd($request);
     }
 
     /**

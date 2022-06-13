@@ -23,6 +23,12 @@ module.exports = {
         "bg-green-100",
         "text-green-100",
         "bg-green-700",
+        "grid-cols-6",
+        "grid-cols-7",
+        "grid-cols-8",
+        "grid-cols-10",
+        "grid-cols-15",
+        "grid-cols-20",
     ],
     theme: {
         themeVariants: ["dark"],

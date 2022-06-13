@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Screening;
+use App\Models\Seat;
+use App\Models\Ticket;
 
 class CartController extends Controller
 {
@@ -12,20 +14,25 @@ class CartController extends Controller
             ->with('cart', session('cart') ?? []);
     }
 
-    public function store(Screening $screening)
+    public function store(Screening $screening, Seat $seat)
     {
         $cart = session('cart') ?? collect();
-        $cart->put($screening->id, $screening);
+        $cart[] = [
+            'screening' => $screening,
+            'seat' => $seat,
+        ];
         session()->put('cart', $cart);
 
         return back();
     }
 
-    public function destroy(Screening $screening)
+    public function destroy($key)
     {
         $cart = session('cart') ?? collect();
-        $cart->pull($screening->id);
-        session()->put('cart', $cart);
+        unset($cart[$key]);
+
+        // $cart->pull($screening->id);
+        // session()->put('cart', $cart);
 
         return back();
     }
