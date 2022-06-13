@@ -29,9 +29,11 @@
                         <x-dashboard.alert />
                     @endif
 
-                    @foreach ($errors->all() as $error)
-                        <x-dashboard.alert-with-error :message="$error" />
-                    @endforeach
+                    @if (isset($errors))
+                        @foreach ($errors->all() as $error)
+                            <x-dashboard.alert-with-error :message="$error" />
+                        @endforeach
+                    @endif
 
                     {{ $slot }}
                 </div>

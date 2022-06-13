@@ -30,13 +30,11 @@
                         </div>
                         <div>
                             <p class="font-semibold">
-                                @if (App\Policies\UserPolicy::canView($authUser, $user))
-                                    <a
-                                        href="{{ route('admin.users.show', ['user' => $user]) }}">{{ $user->name }}</a>
+                                @can('view', $user)
+                                    <a href="{{ route('admin.users.show', ['user' => $user]) }}">{{ $user->name }}</a>
                                 @else
                                     {{ $user->name }}
-                                @endif
-
+                                @endcan
                             </p>
                             <p class="text-xs text-gray-600 dark:text-gray-400">{{ $user->email }}</p>
                         </div>
@@ -67,9 +65,13 @@
                     <div class="flex items-center space-x-2 text-sm">
                         <form method="GET" action="{{ route('admin.users.show', ['user' => $user]) }}">
                             <button
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg {{ App\Policies\UserPolicy::canView($authUser, $user) ? 'text-purple-600 dark:text-gray-400' : 'text-purple-400 dark:text-gray-600' }} focus:outline-none focus:shadow-outline-gray"
-                                aria-label="Edit"
-                                {{ App\Policies\UserPolicy::canView($authUser, $user) ? '' : 'disabled' }}>
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg
+                                @can('view', $user) {{'text-purple-600 dark:text-gray-400'}}
+                                @else {{'text-purple-400 dark:text-gray-600' }} 
+                                @endcan
+                                focus:outline-none focus:shadow-outline-gray"
+                                aria-label="Edit" @cannot('view', $user) {{ 'disabled' }}
+                                @endcan>
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -82,9 +84,13 @@
                         </form>
                         <form method="GET" action="{{ route('admin.users.edit', ['user' => $user]) }}">
                             <button
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg {{ App\Policies\UserPolicy::canEdit($authUser, $user) ? 'text-purple-600 dark:text-gray-400' : 'text-purple-400 dark:text-gray-600' }} focus:outline-none focus:shadow-outline-gray"
-                                aria-label="Edit"
-                                {{ App\Policies\UserPolicy::canEdit($authUser, $user) ? '' : 'disabled' }}>
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg
+                                @can('update', $user) {{'text-purple-600 dark:text-gray-400'}} 
+                                @else {{'text-purple-400 dark:text-gray-600' }} 
+                                @endcan 
+                                focus:outline-none focus:shadow-outline-gray"
+                                aria-label="Edit" @cannot('update', $user) {{ 'disabled' }}
+                                @endcan>
                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                     <path
                                         d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
@@ -96,9 +102,14 @@
                             @csrf
                             @method('PUT')
                             <button
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg {{ App\Policies\UserPolicy::canBlock($authUser, $user) ? 'text-purple-600 dark:text-gray-400' : 'text-purple-400 dark:text-gray-600' }} focus:outline-none focus:shadow-outline-gray"
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg
+                                @can('block', $user) {{'text-purple-600 dark:text-gray-400'}}
+                                @else {{'text-purple-400 dark:text-gray-600' }}
+                                @endcan
+                                focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Edit"
-                                {{ App\Policies\UserPolicy::canBlock($authUser, $user) ? '' : 'disabled' }}>
+                                @cannot('block', $user) {{ 'disabled' }}
+                                @endcan>
                                 @if ($user->bloqueado)
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -112,17 +123,21 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
                                         </path>
-                                    </svg>
-                                @endif
-                            </button>
+                                    </svg> @endif
+                                </button>
                         </form>
                         <form method="POST" action="{{ route('admin.users.destroy', ['user' => $user]) }}">
                             @csrf
                             @method('DELETE')
                             <button
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg {{ App\Policies\UserPolicy::canDelete($authUser, $user) ? 'text-purple-600 dark:text-gray-400' : 'text-purple-400 dark:text-gray-600' }} focus:outline-none focus:shadow-outline-gray"
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg
+                                @can('delete', $user) {{'text-purple-600 dark:text-gray-400'}}
+                                @else {{'text-purple-400 dark:text-gray-600' }}
+                                @endcan
+                                focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Delete" type="submit"
-                                {{ App\Policies\UserPolicy::canDelete($authUser, $user) ? '' : 'disabled' }}>
+                                @cannot('delete', $user) {{ 'disabled' }}
+                                @endcan>
                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
                                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"

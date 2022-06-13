@@ -29,7 +29,15 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return UserPolicy::canView($user, $model);
+        switch ($model->tipo) {
+            case 'A':
+                return ($user->tipo == 'A');
+            case 'F':
+                return ($user->tipo == 'A');
+            case 'C':
+                return ($user->tipo == 'F' || ($user->id == $model->id));
+        }
+        return false;
     }
 
     /**
@@ -52,7 +60,15 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return UserPolicy::canEdit($user, $model);
+        switch ($model->tipo) {
+            case 'A':
+                return ($user->tipo == 'A');
+            case 'F':
+                return ($user->tipo == 'A');
+            case 'C':
+                return ($user->id == $model->id);
+        }
+        return false;
     }
 
     /**
@@ -64,7 +80,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return UserPolicy::canDelete($user, $model);
+        return $user->tipo == 'A' && $user->id != $model->id;
     }
 
     /**
@@ -76,7 +92,7 @@ class UserPolicy
      */
     public function block(User $user, User $model)
     {
-        return UserPolicy::canBlock($user, $model);
+        return $user->tipo == 'A' && $user->id != $model->id;
     }
 
     /**
@@ -101,41 +117,5 @@ class UserPolicy
     public function forceDelete(User $user, User $model)
     {
         //
-    }
-
-    public static function canEdit(User $user, User $model)
-    {
-        switch ($model->tipo) {
-            case 'A':
-                return ($user->tipo == 'A');
-            case 'F':
-                return ($user->tipo == 'A');
-            case 'C':
-                return ($user->id == $model->id);
-        }
-        return false;
-    }
-
-    public static function canDelete(User $user, User $model)
-    {
-        return $user->tipo == 'A' && $user->id != $model->id;
-    }
-
-    public static function canBlock(User $user, User $model)
-    {
-        return $user->tipo == 'A' && $user->id != $model->id;
-    }
-
-    public static function canView(User $user, User $model)
-    {
-        switch ($model->tipo) {
-            case 'A':
-                return ($user->tipo == 'A');
-            case 'F':
-                return ($user->tipo == 'A');
-            case 'C':
-                return ($user->tipo == 'F' || ($user->id == $model->id));
-        }
-        return false;
     }
 }
