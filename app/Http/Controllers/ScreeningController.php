@@ -48,7 +48,10 @@ class ScreeningController extends Controller
     {
         $screen = $screening->screen;
         $seats = $screen->seats;
-        return view('screenings.show', compact('screening', 'seats'));
+        $occupied = 0;
+        foreach ($seats as $seat)
+            $occupied += $seat->isOccupied($screening->id);
+        return view('screenings.show', compact('screening', 'seats', 'occupied'));
     }
 
     /**

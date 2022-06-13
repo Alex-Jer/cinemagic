@@ -39,5 +39,17 @@
                 @endif
             @endforeach
         </div>
+        <div class="w-full block">
+            <div class="float-left text-sm">
+                Capacidade:
+                <span class="font-bold">{{ $seats->count() }}</span>
+            </div>
+            <div class="float-right ">
+                Lugares livres:
+                <span class="font-bold">
+                    {{ $seats->count() - $occupied }}
+                </span>
+            </div>
+        </div>
     </x-dashboard.card-container>
 </x-dashboard.layout>
