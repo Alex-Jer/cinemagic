@@ -17,10 +17,19 @@ class CartController extends Controller
     public function store(Screening $screening, Seat $seat)
     {
         $cart = session('cart') ?? collect();
+
+        // If a seat is already in the cart, remove it (works like a toggle)
+        if ($cart->where('seat', $seat)->count() > 0) {
+            $key = $cart->where('seat', $seat)->keys()->first();
+            $this->destroy($key);
+            return back();
+        }
+
         $cart[] = [
             'screening' => $screening,
             'seat' => $seat,
         ];
+
         session()->put('cart', $cart);
 
         return back();
@@ -30,9 +39,6 @@ class CartController extends Controller
     {
         $cart = session('cart') ?? collect();
         unset($cart[$key]);
-
-        // $cart->pull($screening->id);
-        // session()->put('cart', $cart);
 
         return back();
     }

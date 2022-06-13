@@ -22,6 +22,22 @@ class Seat extends Model
 
     public function tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class, 'lugar_id');
+    }
+
+    public function isOccupied($screening_id)
+    {
+        $occupied = false;
+        foreach ($this->tickets as $ticket)
+            $ticket->sessao_id === $screening_id ? $occupied = true : $occupied;
+        return $occupied;
+    }
+
+    public function isInCart()
+    {
+        $inCart = false;
+        foreach (session('cart') as $cart)
+            $cart['seat']->id === $this->id ? $inCart = true : $inCart;
+        return $inCart;
     }
 }

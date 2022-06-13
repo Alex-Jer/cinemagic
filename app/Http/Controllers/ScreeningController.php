@@ -46,7 +46,6 @@ class ScreeningController extends Controller
      */
     public function show(Screening $screening)
     {
-        // $screening = Screening::find(request()->screening_id);
         $screen = $screening->screen;
         $seats = $screen->seats;
         return view('screenings.show', compact('screening', 'seats'));
