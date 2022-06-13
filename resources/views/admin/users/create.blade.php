@@ -15,7 +15,7 @@
                 <label class="block text-sm ">
                     <span class="dark:text-gray-400">Confirmar password</span>
                     <input class="mb-4 input-primary" name="password_confirmation" type="password"
-                        placeholder="Confirmar Password" required />
+                        placeholder="Confirmar password" required />
                 </label>
 
                 <x-dashboard.select label="Tipo de utilizador" name="tipo_utilizador">

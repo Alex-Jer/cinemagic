@@ -6,7 +6,7 @@
             <th class="px-4 py-3 w-3/5">Utilizador</th>
             <th class="px-4 py-3">Tipo</th>
             <th class="px-4 py-3">Estado</th>
-            <th class="px-4 py-3 text-center">Ações</th>
+            <th class="px-4 py-3 text-center w-2/12">Ações</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -60,21 +60,7 @@
 
                     <span
                         class="px-2 py-1 font-semibold leading-tight {{ $user->bloqueado ? 'text-red-700 bg-red-100 dark:text-red-100 dark:bg-red-700' : 'text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100' }}  rounded-full">
-                        @if (App\Policies\UserPolicy::canBlock($authUser, $user))
-                            <a href="{{ route('admin.users.toggleblock', ['user' => $user]) }}"
-                                onclick="event.preventDefault(); document.getElementById('toggleblock-form-{{ $user->id }}').submit();">
-                                {{ $user->bloqueado ? 'Bloqueado' : 'Ativo' }}
-                            </a>
-
-                            <form id="toggleblock-form-{{ $user->id }}"
-                                action="{{ route('admin.users.toggleblock', ['user' => $user]) }}" method="POST"
-                                class="hidden">
-                                @csrf
-                                @method('PUT')
-                            </form>
-                        @else
-                            {{ $user->bloqueado ? 'Bloqueado' : 'Ativo' }}
-                        @endif
+                        {{ $user->bloqueado ? 'Bloqueado' : 'Ativo' }}
                     </span>
                 </td>
                 <td class="px-4 py-3">
@@ -104,6 +90,30 @@
                                         d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                                     </path>
                                 </svg>
+                            </button>
+                        </form>
+                        <form method="POST" action="{{ route('admin.users.toggleblock', ['user' => $user]) }}">
+                            @csrf
+                            @method('PUT')
+                            <button
+                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg {{ App\Policies\UserPolicy::canBlock($authUser, $user) ? 'text-purple-600 dark:text-gray-400' : 'text-purple-400 dark:text-gray-600' }} focus:outline-none focus:shadow-outline-gray"
+                                aria-label="Edit"
+                                {{ App\Policies\UserPolicy::canBlock($authUser, $user) ? '' : 'disabled' }}>
+                                @if ($user->bloqueado)
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                @else
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                        </path>
+                                    </svg>
+                                @endif
                             </button>
                         </form>
                         <form method="POST" action="{{ route('admin.users.destroy', ['user' => $user]) }}">
