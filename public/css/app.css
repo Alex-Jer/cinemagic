@@ -909,6 +909,15 @@ select {
 .mr-1 {
   margin-right: 0.25rem;
 }
+.-mr-48 {
+  margin-right: -12rem;
+}
+.-ml-96 {
+  margin-left: -24rem;
+}
+.-mt-14 {
+  margin-top: -3.5rem;
+}
 .block {
   display: block;
 }
@@ -1028,6 +1037,18 @@ select {
 }
 .w-64 {
   width: 16rem;
+}
+.w-3\/6 {
+  width: 50%;
+}
+.w-1\/6 {
+  width: 16.666667%;
+}
+.w-10\/12 {
+  width: 83.333333%;
+}
+.w-6\/12 {
+  width: 50%;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1200,6 +1221,9 @@ select {
 .overflow-y-auto {
   overflow-y: auto;
 }
+.break-all {
+  word-break: break-all;
+}
 .rounded-md {
   border-radius: 0.375rem;
 }
@@ -1359,6 +1383,9 @@ select {
 }
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}
+.bg-cover {
+  background-size: cover;
 }
 .bg-clip-padding {
   background-clip: padding-box;
