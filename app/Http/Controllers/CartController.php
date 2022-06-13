@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Screening;
 use App\Models\Seat;
-use App\Models\Ticket;
 
 class CartController extends Controller
 {
@@ -13,6 +12,7 @@ class CartController extends Controller
         return view('cart.index')
             ->with('cart', session('cart') ?? []);
     }
+
 
     public function store(Screening $screening, Seat $seat)
     {
@@ -24,6 +24,10 @@ class CartController extends Controller
             $this->destroy($key);
             return back();
         }
+
+        // If a seat is already occupied, don't add it to the cart and redirect back with an error
+        if ($seat->isOccupied($screening->id))
+            return back()->withErrors(['seat' => 'Este lugar já se encontra ocupado']);
 
         $cart[] = [
             'screening' => $screening,

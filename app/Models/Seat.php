@@ -27,17 +27,14 @@ class Seat extends Model
 
     public function isOccupied($screening_id)
     {
-        $occupied = false;
-        foreach ($this->tickets as $ticket)
-            $ticket->sessao_id === $screening_id ? $occupied = true : $occupied;
-        return $occupied;
+        return $this->tickets()->where('sessao_id', $screening_id)->count() > 0;
     }
 
     public function isInCart()
     {
-        $inCart = false;
-        foreach (session('cart') as $cart)
-            $cart['seat']->id === $this->id ? $inCart = true : $inCart;
-        return $inCart;
+        if (!session()->has('cart'))
+            return false;
+
+        return session('cart')->where('seat', $this)->count() > 0;
     }
 }
