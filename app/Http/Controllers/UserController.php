@@ -22,8 +22,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('name')->paginate(10);
         $authUser = User::find(Auth::user()->id);
+        $tipos = $authUser->tipo == 'A' ? ['A', 'F', 'C'] : ['C'];
+        $users = User::orderBy('name')->whereIn('tipo', $tipos)->paginate(10);
         return view('admin.users.index', compact('users', 'authUser'));
     }
 
