@@ -1,10 +1,10 @@
 <x-dashboard.layout title="Cinemagic - Comprar bilhete" header="Comprar bilhete">
-    <x-dashboard.card-container>
+    <x-dashboard.card-container class="{{ $seats->count() > 150 ? 'w-4/5' : ($seats->count() <= 80 ? 'w-1/2' : 'w-2/3') }}">
         <div class="grid grid-cols-{{ $seats->max('posicao') + 2 }}">
             @foreach ($seats as $seat)
                 @if ($seat->posicao == 1)
-                    <div class="outline text-right pr-2 dark:outline-gray-200 dark:text-gray-200">
-                        Fila {{ $seat->fila }}
+                    <div class="outline text-right pr-2 dark:outline-gray-200 dark:text-gray-200 mr-2">
+                        {{ $seat->fila }}
                     </div>
                 @endif
                 <form method="POST" action="{{ route('cart.store', [$screening, $seat]) }}">
@@ -13,8 +13,7 @@
                         <div>
                             {{-- {{ $seat->posicao . ' ' }} --}}
                             <svg class="w-12 h-12
-                            {{ $seat->isOccupied($screening->id) ? 'fill-red-400' : ($seat->isInCart($screening->id) ? 'fill-green-400' : 'fill-gray-400') }}
-                            "
+                            {{ $seat->isOccupied($screening->id) ? 'fill-red-400' : ($seat->isInCart($screening->id) ? 'fill-green-400' : 'fill-gray-400') }}"
                                 viewBox="0 0 512 512">
                                 <path
                                     d="M64 226.938V160C64 89.305 121.309 32 192 32H320C390.695 32 448 89.305 448 160V226.938C429.398 233.547 416 251.133 416 272V352H96V272C96 251.133 82.602 233.547 64 226.938Z"
@@ -28,7 +27,7 @@
                 </form>
                 @if ($seat->posicao == $seats->max('posicao'))
                     <div class="outline pl-2 dark:outline-gray-200 dark:text-gray-200">
-                        Fila {{ $seat->fila }}
+                        {{ $seat->fila }}
                     </div>
                 @endif
             @endforeach
