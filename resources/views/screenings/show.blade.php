@@ -1,27 +1,11 @@
-<style>
-    .grid-cols-22 {
-        grid-template-columns: repeat(22, minmax(0, 1fr))
-    }
-
-    .grid-cols-17 {
-        grid-template-columns: repeat(17, minmax(0, 1fr))
-    }
-
-    .fa-secondary {
-        opacity: .4
-    }
-</style>
-
 <x-dashboard.layout title="Cinemagic - Comprar bilhete" header="Comprar bilhete">
     <x-dashboard.card-container>
-        <div class="grid grid-cols-{{ $seats->max('posicao') + 2 }} gap-1">
+        <div class="grid grid-cols-{{ $seats->max('posicao') + 2 }}">
             @foreach ($seats as $seat)
                 @if ($seat->posicao == 1)
-                    <span type="submit" class="w-full">
-                        <div class="outline text-right pr-2 dark:outline-gray-200 dark:text-gray-200">
-                            Fila {{ $seat->fila }}
-                        </div>
-                    </span>
+                    <div class="outline text-right pr-2 dark:outline-gray-200 dark:text-gray-200">
+                        Fila {{ $seat->fila }}
+                    </div>
                 @endif
                 <form method="POST" action="{{ route('cart.store', [$screening, $seat]) }}">
                     @csrf
@@ -29,9 +13,8 @@
                         <div>
                             {{-- {{ $seat->posicao . ' ' }} --}}
                             <svg class="w-12 h-12
-                            {{ $seat->isOccupied($screening->id) ? 'fill-red-400' : '' }}
-                            {{ $seat->isInCart($screening->id) ? 'fill-green-400' : '' }}
-                            fill-gray-300"
+                            {{ $seat->isOccupied($screening->id) ? 'fill-red-400' : ($seat->isInCart($screening->id) ? 'fill-green-400' : 'fill-gray-400') }}
+                            "
                                 viewBox="0 0 512 512">
                                 <path
                                     d="M64 226.938V160C64 89.305 121.309 32 192 32H320C390.695 32 448 89.305 448 160V226.938C429.398 233.547 416 251.133 416 272V352H96V272C96 251.133 82.602 233.547 64 226.938Z"
@@ -44,11 +27,9 @@
                     </button>
                 </form>
                 @if ($seat->posicao == $seats->max('posicao'))
-                    <span type="submit" class="w-full">
-                        <div class="outline pl-2 dark:outline-gray-200 dark:text-gray-200">
-                            Fila {{ $seat->fila }}
-                        </div>
-                    </span>
+                    <div class="outline pl-2 dark:outline-gray-200 dark:text-gray-200">
+                        Fila {{ $seat->fila }}
+                    </div>
                 @endif
             @endforeach
         </div>

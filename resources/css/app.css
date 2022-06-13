@@ -11,3 +11,15 @@
         @apply flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none;
     }
 }
+
+.grid-cols-22 {
+    grid-template-columns: repeat(22, minmax(0, 1fr));
+}
+
+.grid-cols-17 {
+    grid-template-columns: repeat(17, minmax(0, 1fr));
+}
+
+.fa-secondary {
+    opacity: 0.4;
+}

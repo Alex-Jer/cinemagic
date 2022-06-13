@@ -48,7 +48,6 @@ class ScreeningController extends Controller
     {
         $screen = $screening->screen;
         $seats = $screen->seats;
-        $occupied = 0;
 
         $occupied = $screening->tickets()->where('sessao_id', $screening->id)->count();
 
