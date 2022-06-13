@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Screening;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,15 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $screening = Screening::find(request()->screening_id);
+        $screen = $screening->screen;
+        $seats = $screen->seats->map(function ($seat) {
+            return [
+                'row' => $seat->fila,
+                'col' => $seat->posicao,
+            ];
+        });
+        return view('tickets.index', compact('screening', 'seats'));
     }
 
     /**

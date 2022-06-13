@@ -51,8 +51,9 @@
                     @elseif (Auth::user()->isCustomer())
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-4 text-sm">
-                                <form method="POST" action="{{ route('cart.store', $screening) }}" class="mt-3">
-                                    @csrf
+                                {{-- <form method="POST" action="{{ route('cart.store', $screening) }}" class="mt-3"> --}}
+                                {{-- @csrf --}}
+                                <a href="{{ route('tickets.index', ['screening_id' => $screening]) }}">
                                     <x-dashboard.button label="Comprar bilhete">
                                         <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,7 +61,8 @@
                                             </path>
                                         </svg>
                                     </x-dashboard.button>
-                                </form>
+                                </a>
+                                {{-- </form> --}}
                             </div>
                         </td>
                     @endif

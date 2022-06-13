@@ -10,6 +10,11 @@ class Screen extends Model
     use HasFactory;
 
     protected $table = 'salas';
+
+    protected $casts = [
+        'custom' => 'array'
+    ];
+
     protected $fillable = [
         'nome',
         'custom'
@@ -22,6 +27,6 @@ class Screen extends Model
 
     public function seats()
     {
-        return $this->hasMany(Seat::class);
+        return $this->hasMany(Seat::class, 'sala_id');
     }
 }
