@@ -9,7 +9,7 @@
             <div class="col-span-2 -ml-64 -mt-44">{{ $film->sumario }}</div>
             <div class="col-span-2 -ml-64 text-2xl font-semibold uppercase -mt-80">Sessões</div>
         </div> --}}
-        <div class="grid grid-flow-col grid-rows-6 gap-4 auto-cols-max">
+        <div class="grid grid-flow-col grid-rows-6 gap-4">
             <div class="w-56 row-span-6 h-80">
                 @if ($film->cartaz_url)
                     <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}" alt="">
@@ -18,7 +18,14 @@
                 @endif
             </div>
             <div class="col-span-2 text-2xl font-semibold uppercase6 dark:text-gray-200">Sinopse</div>
-            <div class="col-span-2 row-span-2 -mt-4 dark:text-gray-400">{{ $film->sumario }}</div>
+            <div class="col-span-2 row-span-2 -mt-4 dark:text-gray-400">
+                {{ $film->sumario }}
+                <span class="invisible">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio qui pariatur sit eos quas provident ipsam
+                    repudiandae ea illum? Repudiandae deleniti distinctio deserunt possimus? Possimus porro odit non odio
+                    sit.
+                </span>
+            </div>
         </div>
     </div>
     <div class="min-w-0 col-span-2 p-4 mt-5 bg-white rounded-lg shadow-md dark:bg-gray-800">
