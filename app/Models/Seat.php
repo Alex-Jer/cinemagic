@@ -17,7 +17,7 @@ class Seat extends Model
 
     public function screen()
     {
-        return $this->belongsTo(Screen::class);
+        return $this->belongsTo(Screen::class, 'sala_id');
     }
 
     public function tickets()

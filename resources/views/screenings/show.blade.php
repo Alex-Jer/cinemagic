@@ -12,7 +12,7 @@
     <x-dashboard.card-container>
         <div class="grid gap-1 grid-cols-20 grid-cols-{{ $seats->max('posicao') }}">
             @foreach ($seats as $seat)
-                <form action="POST" action="{{ route('cart.store', $seat) }}">
+                <form method="POST" action="{{ route('cart.store', [$screening, $seat]) }}">
                     @csrf
                     <button type="submit" class="w-full">
                         <div class="outline">

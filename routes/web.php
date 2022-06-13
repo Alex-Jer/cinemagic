@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ScreenController;
+use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
@@ -40,18 +41,38 @@ Route::controller(CartController::class)->group(function () {
     Route::get('cart', 'index')
         ->name('cart.index');
 
-    Route::post('cart/screenings/{screening}', 'store')
+    Route::post('screening/{screening}/{seat}', 'store')
         ->name('cart.store');
 
-    Route::delete('cart/screenings/{screening}', 'destroy')
+    Route::delete('cart/{key}', 'destroy')
         ->name('cart.destroy');
 });
 
 /**
  * Ticket routes
  */
-Route::get('tickets', [TicketController::class, 'index'])
-    ->name('tickets.index');
+Route::controller(TicketController::class)->group(function () {
+    // Route::get('tickets/{screening}', 'index')
+    //     ->name('tickets.index');
+
+    // Route::post('tickets/{seat}/create', 'store')
+    //     ->name('tickets.store');
+
+    // Route::get('tickets/add', 'add')
+    //     ->name('tickets.add');
+
+    // Route::post('tickets/screenings/{screening}', 'store')
+    //     ->name('tickets.store');
+});
+
+/**
+ * Screening routes
+ */
+Route::controller(ScreeningController::class)->group(function () {
+    Route::get('screening/{screening}', 'show')
+        ->name('screenings.show');
+});
+
 
 /**
  * Receipt routes
