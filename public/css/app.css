@@ -956,6 +956,9 @@ select {
 .h-auto {
   height: auto;
 }
+.h-12 {
+  height: 3rem;
+}
 .max-h-0 {
   max-height: 0;
 }
@@ -1021,6 +1024,9 @@ select {
 }
 .w-1\/2 {
   width: 50%;
+}
+.w-12 {
+  width: 3rem;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1521,6 +1527,10 @@ select {
   font-size: 1rem;
   line-height: 1.5rem;
 }
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
 .font-medium {
   font-weight: 500;
 }
@@ -1650,6 +1660,10 @@ select {
 .text-purple-100 {
   --tw-text-opacity: 1;
   color: rgb(237 235 254 / var(--tw-text-opacity));
+}
+.text-purple-200 {
+  --tw-text-opacity: 1;
+  color: rgb(220 215 254 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;
@@ -1811,6 +1825,10 @@ select {
 .hover\:text-gray-800:hover {
   --tw-text-opacity: 1;
   color: rgb(26 28 35 / var(--tw-text-opacity));
+}
+.hover\:underline:hover {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
 }
 .focus\:z-10:focus {
   z-index: 10;

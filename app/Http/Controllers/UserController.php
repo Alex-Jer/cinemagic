@@ -9,6 +9,7 @@ use App\Http\Requests\UserPostRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use Debugbar;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
@@ -22,8 +23,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('name')->paginate(10);
         $authUser = User::find(Auth::user()->id);
+        $tipos = $authUser->tipo == 'A' ? ['A', 'F', 'C'] : ['C'];
+        $users = User::orderBy('name')->whereIn('tipo', $tipos)->paginate(10);
         return view('admin.users.index', compact('users', 'authUser'));
     }
 
@@ -45,11 +47,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        /*$authUser = User::find(Auth::user()->id);
-
         $tipo = $request->tipo_utilizador;
 
-        if ($authUser->tipo != 'A' || ($tipo != 'A' && $tipo != 'F')) {
+        if ($tipo != 'A' && $tipo != 'F') {
             return abort(403, "This action is unauthorized."); // em inglês para copiar a do laravel
         }
 
@@ -59,12 +59,11 @@ class UserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'tipo'     => $tipo,
+            'tipo'     => $request->tipo_utilizador,
         ]);
 
         event(new Registered($user));
@@ -73,9 +72,10 @@ class UserController extends Controller
             $user->foto_url ? Storage::delete('public/fotos/' . $user->foto_url) : null;
             $path = $request->profile_pic->store('public/fotos');
             $user->foto_url = basename($path);
+            $user->save();
         }
 
-        return back();*/
+        return back();
     }
 
     /**
