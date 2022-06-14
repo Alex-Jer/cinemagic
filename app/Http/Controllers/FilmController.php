@@ -15,13 +15,14 @@ class FilmController extends Controller
      */
     public function index()
     {
-        // TODO: bug, estão a aparecer sessões de hoje que já acabaram
         $films = Film::orderBy('titulo')
             ->whereHas('screenings', function ($query) {
-                $query->where('data', '>=', now()->format('Y-m-d'))
-                    ->where('horario_inicio', '<=', now()->subMinutes(5)->format('H:i:s'));
-            })
-            ->paginate(25);
+                $query->where('data', '>', now()->format('Y-m-d'))
+                    ->orWhere(function ($query) {
+                        $query->where('data', now()->format('Y-m-d'))
+                            ->where('horario_inicio', '>=', now()->subMinutes(5)->format('H:i'));
+                    });
+            })->paginate(25);
 
         return view('films.index', compact('films'));
     }
