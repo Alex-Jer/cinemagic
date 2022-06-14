@@ -12,7 +12,11 @@
         <div class="text-sm dark:text-gray-300">
             Selecionados:
             <span class="font-bold">
-                {{ session('cart')->count() . ' (' . $price * session('cart')->count() . '€)' }}
+                @if (session('cart') && session('cart')->count() > 0)
+                    {{ session('cart')->count() . ' (' . $price * session('cart')->count() . '€)' }}
+                @else
+                    0
+                @endif
             </span>
         </div>
 
