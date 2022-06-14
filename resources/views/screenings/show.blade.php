@@ -3,7 +3,7 @@
         <h2 class="mb-2 text-xl font-semibold text-gray-600 dark:text-gray-300">
             {{ $screening->film->titulo }}
         </h2>
-        <span class="text-sm">
+        <span class="text-sm dark:text-gray-300">
             Preço por bilhete:
             <span class="font-bold">
                 {{ round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2) . '€' }}
