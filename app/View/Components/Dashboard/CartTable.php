@@ -7,17 +7,17 @@ use Illuminate\View\Component;
 class CartTable extends Component
 {
     public $cart;
-    public $config;
+    public $price;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($cart, $config)
+    public function __construct($cart, $price)
     {
         $this->cart = $cart;
-        $this->config = $config;
+        $this->price = $price;
     }
 
     /**

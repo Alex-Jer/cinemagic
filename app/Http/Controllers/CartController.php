@@ -11,7 +11,8 @@ class CartController extends Controller
     public function index()
     {
         $config = Configuration::first();
-        return view('cart.index', compact('config'))
+        $price = round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2);
+        return view('cart.index', compact('price'))
             ->with('cart', session('cart') ?? []);
     }
 

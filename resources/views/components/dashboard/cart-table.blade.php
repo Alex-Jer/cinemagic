@@ -1,7 +1,7 @@
 <table class="w-full whitespace-no-wrap">
     <thead>
         <tr
-            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-white border-b dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
+            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-white border-b dark:border-gray-700 dark:text-gray-300 dark:bg-gray-800">
             <th class="px-4 py-3">Filme</th>
             <th class="px-4 py-3">Sala</th>
             <th class="px-4 py-3">Lugar</th>
@@ -13,7 +13,7 @@
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         @foreach ($cart as $key => $ticket)
-            <tr class="text-gray-700 dark:text-gray-400">
+            <tr class="text-gray-700 dark:text-gray-300">
                 <td class="px-4 py-3">
                     <div class="flex items-center text-sm">
                         <a href="{{ route('films.show', $ticket['screening']->film->id) }}">
@@ -32,8 +32,7 @@
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket['screening']->data->format('d/m/Y') }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket['screening']->horario_inicio->format('H:i') }}</td>
                 <td class="px-4 py-3 text-sm font-medium">
-                    {{ round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2) }}
-                    €
+                    {{ $price . '€' }}
                 </td>
 
                 <td class="px-4 py-3">
