@@ -23,7 +23,7 @@
                 </td>
                 <td class="px-4 py-3">
                     <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $screen->custom }}</p>
+                        <p class="font-semibold">{{ $screen->seats->count() }}</p>
                     </div>
                 </td>
                 <td class="px-4 py-3">
