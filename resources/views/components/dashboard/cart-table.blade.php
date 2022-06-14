@@ -4,6 +4,7 @@
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-white border-b dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
             <th class="px-4 py-3">Filme</th>
             <th class="px-4 py-3">Sala</th>
+            <th class="px-4 py-3">Lugar</th>
             <th class="px-4 py-3">Data</th>
             <th class="px-4 py-3">Início</th>
             <th class="px-4 py-3">Preço</th>
@@ -15,7 +16,7 @@
             <tr class="text-gray-700 dark:text-gray-400">
                 <td class="px-4 py-3">
                     <div class="flex items-center text-sm">
-                        <div>
+                        <a href="{{ route('films.show', $ticket['screening']->film->id) }}">
                             <p class="font-semibold">{{ $ticket['screening']->film->titulo }}</p>
                             <p class="text-xs text-gray-600 dark:text-gray-400">
                                 Género:
@@ -23,10 +24,11 @@
                                     {{ $ticket['screening']->film->genre->nome }}
                                 </span>
                             </p>
-                        </div>
+                        </a>
                     </div>
                 </td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket['seat']->screen->nome }}</td>
+                <td class="px-4 py-3 text-sm font-medium">{{ $ticket['seat']->fila . $ticket['seat']->posicao }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket['screening']->data->format('d/m/Y') }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket['screening']->horario_inicio->format('H:i') }}</td>
                 <td class="px-4 py-3 text-sm font-medium">
@@ -37,7 +39,6 @@
                 <td class="px-4 py-3">
                     <div class="flex items-center space-x-4 text-sm">
                         <form method="POST" action="{{ route('cart.destroy', ['key' => $key]) }}">
-                            {{-- cart/screenings/{{ $ticket['screening']->id }} --}}
                             @csrf
                             @method('DELETE')
                             <button type="submit"

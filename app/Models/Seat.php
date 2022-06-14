@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Debugbar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,11 +31,13 @@ class Seat extends Model
         return $this->tickets()->where('sessao_id', $screening_id)->count() > 0;
     }
 
-    public function isInCart()
+    public function isInCart($seat_id)
     {
-        if (!session()->has('cart'))
-            return false;
-
-        return session('cart')->where('seat', $this)->count() > 0;
+        $cart = session('cart');
+        if (isset($cart))
+            foreach ($cart as $item)
+                if ($item['seat']->id === $seat_id)
+                    return true;
+        return false;
     }
 }

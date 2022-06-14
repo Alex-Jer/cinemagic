@@ -19,9 +19,8 @@
                 <form method="POST" action="{{ route('cart.store', [$screening, $seat]) }}">
                     @csrf
                     <button type="submit" class="">
-                        {{-- {{ $seat->posicao . ' ' }} --}}
                         <svg class="w-12 h-12
-                            {{ $seat->isOccupied($screening->id) ? 'fill-red-400' : ($seat->isInCart($screening->id) ? 'fill-green-400' : 'fill-gray-400') }}"
+                            {{ $seat->isOccupied($screening->id) ? 'fill-red-400' : ($seat->isInCart($seat->id) ? 'fill-green-400' : 'fill-gray-400') }}"
                             viewBox="0 0 512 512">
                             <path
                                 d="M64 226.938V160C64 89.305 121.309 32 192 32H320C390.695 32 448 89.305 448 160V226.938C429.398 233.547 416 251.133 416 272V352H96V272C96 251.133 82.602 233.547 64 226.938Z"
