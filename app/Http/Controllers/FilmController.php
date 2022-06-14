@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
-use Debugbar;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -15,7 +14,7 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $films = Film::orderBy('titulo')
+        $films = Film::with('screenings')->orderBy('titulo')
             ->whereHas('screenings', function ($query) {
                 $query->where('data', '>', now()->format('Y-m-d'))
                     ->orWhere(function ($query) {
@@ -56,12 +55,13 @@ class FilmController extends Controller
      */
     public function show(Film $film)
     {
-        $film->screenings = $film->screenings->filter(function ($screening) {
-            return $screening->data > now() ||
-                ($screening->data->format('d/m/Y') == now()->format('d/m/Y')
-                    && $screening->horario_inicio->format('H:i') >= now()->subMinutes(5)->format('H:i')
-                );
-        });
+        $film->screenings = $film->screenings->load('screen')
+            ->filter(function ($screening) {
+                return $screening->data > now() ||
+                    ($screening->data->format('d/m/Y') == now()->format('d/m/Y')
+                        && $screening->horario_inicio->format('H:i') >= now()->subMinutes(5)->format('H:i')
+                    );
+            });
 
         return view('films.show', compact('film'));
     }
