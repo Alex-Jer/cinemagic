@@ -1,5 +1,5 @@
 <x-dashboard.layout title="CineMagic - Carrinho de Compras" :header="$cart && !$cart->isEmpty() ? 'Carrinho de Compras' : ''">
-    @if ($cart && !$cart->isEmpty())
+    @if ($cart && $cart->count() > 1)
         <div class="w-full overflow-hidden rounded-lg shadow-md">
             <div class="w-full overflow-x-auto">
                 <x-dashboard.cart-table :cart="$cart" />

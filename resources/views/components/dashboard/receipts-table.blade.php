@@ -16,16 +16,8 @@
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         @foreach ($receipts as $receipt)
             <tr class="text-gray-700 dark:text-gray-400">
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $receipt->id }}</p>
-                    </div>
-                </td>
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $receipt->data }}</p>
-                    </div>
-                </td>
+                <td class="px-4 py-3 text-sm">{{ $receipt->id }}</td>
+                <td class="px-4 py-3 text-sm">{{ $receipt->data }}</td>
                 <td class="px-4 py-3 text-sm">
                     @switch($receipt->tipo_pagamento)
                         @case('Visa')
@@ -49,37 +41,17 @@
                             </span>
                     @endswitch
                 </td>
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $receipt->ref_pagamento }}</p>
-                    </div>
+                <td class="px-4 py-3 text-sm">{{ $receipt->ref_pagamento }}</td>
+                <td class="px-4 py-3 text-sm">
+                    @if ($receipt->nif)
+                        {{ $receipt->nif }}
+                    @else
+                        N/A
+                    @endif
                 </td>
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">
-                            @if ($receipt->nif)
-                                {{ $receipt->nif }}
-                            @else
-                                N/A
-                            @endif
-                        </p>
-                    </div>
-                </td>
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $receipt->preco_total_sem_iva . '€' }}</p>
-                    </div>
-                </td>
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $receipt->iva . '%' }}</p>
-                    </div>
-                </td>
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $receipt->preco_total_com_iva . '€' }}</p>
-                    </div>
-                </td>
+                <td class="px-4 py-3 text-sm">{{ $receipt->preco_total_sem_iva . '€' }}</td>
+                <td class="px-4 py-3 text-sm">{{ $receipt->iva . '%' }}</td>
+                <td class="px-4 py-3 text-sm">{{ $receipt->preco_total_com_iva . '€' }}</td>
                 <td class="px-4 py-3">
                     <div class="flex items-center space-x-4 text-sm">
                         <button
