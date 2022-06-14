@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Configuration;
 use App\Models\Screening;
 use App\Models\Seat;
 
@@ -33,6 +34,8 @@ class CartController extends Controller
             'screening' => $screening,
             'seat' => $seat,
         ];
+
+        $cart['config'] = Configuration::all()->first();
 
         session()->put('cart', $cart);
 

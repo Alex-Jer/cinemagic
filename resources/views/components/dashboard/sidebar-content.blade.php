@@ -6,7 +6,7 @@
     </svg>
 </x-dashboard.sidebar-item>
 
-@if (Auth::user()->tipo !== 'A')
+@if (!Auth::user() || (Auth::user() && !Auth::user()->isAdmin()))
     <x-dashboard.sidebar-item label="Carrinho" route="cart">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -16,7 +16,7 @@
     </x-dashboard.sidebar-item>
 @endif
 
-@if (Auth::user()->tipo === 'C')
+@if (Auth::user() && Auth::user()->isCustomer())
     <x-dashboard.sidebar-group label="Histórico">
 
         <x-dashboard.sidebar-group-item label="Recibos" route="receipts">
@@ -47,7 +47,7 @@
     </x-dashboard.sidebar-item>
 @endif
 
-@if (Auth::user()->isAdmin())
+@if (Auth::user() && Auth::user()->isAdmin())
     <x-dashboard.sidebar-group label="Gestão">
         <x-dashboard.sidebar-group-item label="Salas" route="admin.screen">
             <svg class="w-5 h-5 mt-px mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

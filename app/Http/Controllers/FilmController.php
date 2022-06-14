@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
+use Debugbar;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -14,10 +15,11 @@ class FilmController extends Controller
      */
     public function index()
     {
+        // TODO: dá para otimizar?
         $films = Film::orderBy('titulo')
             ->whereHas('screenings', function ($query) {
-                // TODO: dá para otimizar?
-                $query->whereRaw("CONCAT(data, ' ', horario_inicio) >= NOW()");
+                $query->where('data', '>=', now()->format('Y-m-d'))
+                    ->where('horario_inicio', '>=', now()->subMinutes(5)->format('H:i:s'));
             })
             ->paginate(25);
 
@@ -53,6 +55,10 @@ class FilmController extends Controller
      */
     public function show(Film $film)
     {
+        $film->screenings = $film->screenings->filter(function ($screening) {
+            return $screening->data >= now()->format('Y-m-d') && $screening->horario_inicio >= now()->subMinutes(5)->format('H:i:s');
+        });
+
         return view('films.show', compact('film'));
     }
 
