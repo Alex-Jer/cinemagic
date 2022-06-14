@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Configuration;
 use App\Models\Screening;
+use Config;
 use Illuminate\Http\Request;
 
 class ScreeningController extends Controller
@@ -50,9 +51,10 @@ class ScreeningController extends Controller
         $screen = $screening->screen;
         $seats = $screen->seats;
         $config = Configuration::first();
+        $price = round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2);
         $occupied = $screening->tickets()->where('sessao_id', $screening->id)->count();
 
-        return view('screenings.show', compact('screening', 'seats', 'occupied', 'config'));
+        return view('screenings.show', compact('screening', 'seats', 'occupied', 'price'));
     }
 
     /**

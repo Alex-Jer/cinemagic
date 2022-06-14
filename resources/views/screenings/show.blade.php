@@ -3,12 +3,19 @@
         <h2 class="mb-2 text-xl font-semibold text-gray-600 dark:text-gray-300">
             {{ $screening->film->titulo }}
         </h2>
-        <span class="text-sm dark:text-gray-300">
+        <div class="text-sm dark:text-gray-300">
             Preço por bilhete:
             <span class="font-bold">
-                {{ round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2) . '€' }}
+                {{ $price . '€' }}
             </span>
-        </span>
+        </div>
+        <div class="text-sm dark:text-gray-300">
+            Selecionados:
+            <span class="font-bold">
+                {{ session('cart')->count() . ' (' . $price * session('cart')->count() . '€)' }}
+            </span>
+        </div>
+
         <div class="grid grid-cols-{{ $seats->max('posicao') + 2 }} mt-5">
             @foreach ($seats as $seat)
                 @if ($seat->posicao == 1)
