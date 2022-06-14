@@ -10,7 +10,8 @@ class CartController extends Controller
 {
     public function index()
     {
-        return view('cart.index')
+        $config = Configuration::first();
+        return view('cart.index', compact('config'))
             ->with('cart', session('cart') ?? []);
     }
 
@@ -34,8 +35,6 @@ class CartController extends Controller
             'screening' => $screening,
             'seat' => $seat,
         ];
-
-        $cart['config'] = Configuration::all()->first();
 
         session()->put('cart', $cart);
 

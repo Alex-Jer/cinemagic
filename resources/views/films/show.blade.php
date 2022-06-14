@@ -10,7 +10,7 @@
             <div class="col-span-2 -ml-64 text-2xl font-semibold uppercase -mt-80">Sessões</div>
         </div> --}}
         <div class="grid grid-flow-col grid-rows-6 gap-4">
-            <div class="w-56 row-span-6 h-80">
+            <div class="w-72 h-auto row-span-6">
                 @if ($film->cartaz_url)
                     <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}" alt="">
                 @else

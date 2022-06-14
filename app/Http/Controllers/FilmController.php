@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
-use Debugbar;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -56,7 +55,7 @@ class FilmController extends Controller
     public function show(Film $film)
     {
         $film->screenings = $film->screenings->filter(function ($screening) {
-            return $screening->data >= now()->format('Y-m-d') && $screening->horario_inicio >= now()->subMinutes(5)->format('H:i:s');
+            return $screening->data >= now()->format('Y-m-d') && $screening->horario_inicio >= now()->subMinutes(5);
         });
 
         return view('films.show', compact('film'));

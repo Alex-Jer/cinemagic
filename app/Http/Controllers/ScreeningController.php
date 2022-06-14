@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Configuration;
 use App\Models\Screening;
 use Illuminate\Http\Request;
 
@@ -48,10 +49,10 @@ class ScreeningController extends Controller
     {
         $screen = $screening->screen;
         $seats = $screen->seats;
-
+        $config = Configuration::first();
         $occupied = $screening->tickets()->where('sessao_id', $screening->id)->count();
 
-        return view('screenings.show', compact('screening', 'seats', 'occupied'));
+        return view('screenings.show', compact('screening', 'seats', 'occupied', 'config'));
     }
 
     /**

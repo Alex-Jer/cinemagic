@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,9 @@ class Receipt extends Model
     use HasFactory;
 
     protected $table = 'recibos';
+
+    protected $dates = ['data'];
+
     protected $fillable = [
         'cliente_id',
         'data',
@@ -26,11 +30,11 @@ class Receipt extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class, 'cliente_id');
     }
 
     public function tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class, 'recibo_id');
     }
 }

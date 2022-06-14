@@ -1,6 +1,15 @@
 <x-dashboard.layout title="Cinemagic - Comprar bilhete" header="Comprar bilhete">
     <x-dashboard.card-container class="{{ $seats->count() > 150 ? 'w-4/5' : ($seats->count() <= 80 ? 'w-1/2' : 'w-2/3') }}">
-        <div class="grid grid-cols-{{ $seats->max('posicao') + 2 }}">
+        <h2 class="mb-2 text-xl font-semibold text-gray-600 dark:text-gray-300">
+            {{ $screening->film->titulo }}
+        </h2>
+        <span class="text-sm">
+            Preço por bilhete:
+            <span class="font-bold">
+                {{ round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2) . '€' }}
+            </span>
+        </span>
+        <div class="grid grid-cols-{{ $seats->max('posicao') + 2 }} mt-5">
             @foreach ($seats as $seat)
                 @if ($seat->posicao == 1)
                     <div class="text-right pr-3 pt-3 font-semibold dark:text-gray-200 mr-2">
@@ -35,7 +44,7 @@
                 Capacidade:
                 <span class="font-bold">{{ $seats->count() }}</span>
             </div>
-            <div class="float-right ">
+            <div class="float-right text-sm">
                 Lugares livres:
                 <span class="font-bold">
                     {{ $seats->count() - $occupied }}

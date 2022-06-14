@@ -15,21 +15,9 @@
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         @foreach ($film->screenings as $screening)
             <tr class="text-gray-700 dark:text-gray-400">
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $screening->screen->nome }}</p>
-                    </div>
-                </td>
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $screening->data }}</p>
-                    </div>
-                </td>
-                <td class="px-4 py-3">
-                    <div class="flex items-center text-sm">
-                        <p class="font-semibold">{{ $screening->horario_inicio }}</p>
-                    </div>
-                </td>
+                <td class="px-4 py-3 text-sm font-medium">{{ $screening->screen->nome }}</td>
+                <td class="px-4 py-3 text-sm font-medium">{{ $screening->data->format('d/m/Y') }}</td>
+                <td class="px-4 py-3 text-sm font-medium">{{ $screening->horario_inicio->format('H:i') }}</td>
                 <td class="px-4 py-3">
                     <div class="flex items-center space-x-4 text-sm">
                         <a href="{{ route('screenings.show', $screening) }}">

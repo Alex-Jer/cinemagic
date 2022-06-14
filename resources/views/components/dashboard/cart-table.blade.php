@@ -12,15 +12,10 @@
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         @foreach ($cart as $key => $ticket)
-            {{-- The first value in the array is the configuration --}}
-            @if ($key === 'config')
-                @continue
-            @endif
             <tr class="text-gray-700 dark:text-gray-400">
                 <td class="px-4 py-3">
                     <div class="flex items-center text-sm">
                         <div>
-                            {{-- @dd($key) --}}
                             <p class="font-semibold">{{ $ticket['screening']->film->titulo }}</p>
                             <p class="text-xs text-gray-600 dark:text-gray-400">
                                 Género:
@@ -31,11 +26,11 @@
                         </div>
                     </div>
                 </td>
-                <td class="px-4 py-3 text-sm">{{ $ticket['seat']->screen->nome }}</td>
-                <td class="px-4 py-3 text-sm">{{ $ticket['screening']->data }}</td>
-                <td class="px-4 py-3 text-sm">{{ $ticket['screening']->horario_inicio }}</td>
-                <td class="px-4 py-3 text-sm">
-                    {{ round($cart['config']->preco_bilhete_sem_iva + ($cart['config']->preco_bilhete_sem_iva * $cart['config']->percentagem_iva) / 100, 2) }}
+                <td class="px-4 py-3 text-sm font-medium">{{ $ticket['seat']->screen->nome }}</td>
+                <td class="px-4 py-3 text-sm font-medium">{{ $ticket['screening']->data->format('d/m/Y') }}</td>
+                <td class="px-4 py-3 text-sm font-medium">{{ $ticket['screening']->horario_inicio->format('H:i') }}</td>
+                <td class="px-4 py-3 text-sm font-medium">
+                    {{ round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2) }}
                     €
                 </td>
 

@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </td>
-                <td class="px-4 py-3 text-sm">
+                <td class="px-4 py-3 text-sm font-medium">
                     @switch($user->tipo)
                         @case('A')
                             Administrador
