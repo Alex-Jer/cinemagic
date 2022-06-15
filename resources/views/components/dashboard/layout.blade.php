@@ -28,7 +28,7 @@
                         <x-dashboard.alert />
                     @endif
 
-                    @if ($errors->any())
+                    @if (isset($errors))
                         @foreach ($errors->all() as $error)
                             <x-dashboard.alert-with-error :message="$error" />
                         @endforeach
