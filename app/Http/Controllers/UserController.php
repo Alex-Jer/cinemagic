@@ -178,7 +178,6 @@ class UserController extends Controller
                 ->with('alert-color', 'green')
                 ->with('alert-icon', 'success');
         } catch (\Throwable $th) {
-            dd($th);
             return back()
                 ->with('alert-msg', 'Não foi possível apagar o Utilizador "' . $oldName . '".')
                 ->with('alert-color', 'red')

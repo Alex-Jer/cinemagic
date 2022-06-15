@@ -20,7 +20,6 @@
                             class="mt-2 mb-3 rounded-full w-9 h-9">
                     @endif
                 </div>
-
                 <x-dashboard.button label="Guardar">
                     <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
                         <path
