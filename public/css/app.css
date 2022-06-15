@@ -2129,19 +2129,14 @@ select {
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 
-  .dark\:hover\:bg-gray-800:hover {
-    --tw-bg-opacity: 1;
-    background-color: rgb(26 28 35 / var(--tw-bg-opacity));
-  }
-
   .dark\:hover\:bg-gray-900:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(18 19 23 / var(--tw-bg-opacity));
   }
 
-  .dark\:hover\:bg-gray-400:hover {
+  .dark\:hover\:bg-gray-800:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(158 158 158 / var(--tw-bg-opacity));
+    background-color: rgb(26 28 35 / var(--tw-bg-opacity));
   }
 
   .dark\:hover\:text-gray-200:hover {

@@ -67,7 +67,7 @@
                                 </path>
                             </svg>
                         </a>
-                        <a href="#"
+                        <a href="{{ route('receipts.get_pdf', $receipt) }}"
                             class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-500 focus:outline-none focus:shadow-outline-gray"
                             aria-label="PDF">
                             <svg class="w-5 h-5" data-darkreader-inline-stroke="" fill="none"

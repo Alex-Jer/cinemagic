@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Receipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ReceiptController extends Controller
 {
@@ -49,6 +50,12 @@ class ReceiptController extends Controller
     public function show(Receipt $receipt)
     {
         return view('receipts.show', compact('receipt'));
+    }
+
+    public function get_pdf(Receipt $receipt)
+    {
+        $pdf = PDF::loadView('emails.tickets.purchased', compact('receipt'));
+        return $pdf->download('cinemagic-recibo-' . $receipt->id . '.pdf');
     }
 
     /**

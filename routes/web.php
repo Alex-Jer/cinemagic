@@ -65,6 +65,10 @@ Route::middleware('block')->group(
             ->middleware(['auth', 'verified'])
             ->name('receipts.show');
 
+        Route::get('receipts/{receipt}/pdf', [ReceiptController::class, 'get_pdf'])
+            ->middleware(['auth', 'verified'])
+            ->name('receipts.get_pdf');
+
         /**
          * User routes
          */
