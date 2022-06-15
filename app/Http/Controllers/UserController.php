@@ -50,7 +50,7 @@ class UserController extends Controller
         $tipo = $request->tipo_utilizador;
 
         if ($tipo != 'A' && $tipo != 'F') {
-            return abort(403, "This action is unauthorized."); // em inglês para copiar a do laravel
+            return abort(403, "Acesso proibido"); // em inglês para copiar a do laravel
         }
 
         $request->validate([

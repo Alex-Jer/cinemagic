@@ -66,4 +66,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->tipo === 'C';
     }
+
+    public function isBlocked(): bool
+    {
+        return $this->bloqueado;
+    }
 }
