@@ -41,15 +41,15 @@ class TicketController extends Controller
     public function store()
     {
         $config = Configuration::first();
-        $priceTotal = $config->preco_bilhete_sem_iva * session('cart')->count();
-        $priceTotalTax = (round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2)) * 3;
+        $totalPrice = $config->preco_bilhete_sem_iva * session('cart')->count();
+        $totalPriceTax = (round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2)) * 3;
 
         $attributes = [
             'customer_id' => Auth::user()->id,
             'date' => date('Y-m-d'),
-            'total_wo_tax' => $priceTotal,
+            'total_wo_tax' => $totalPrice,
             'tax' => $config->percentagem_iva,
-            'total_w_tax' => $priceTotalTax,
+            'total_w_tax' => $totalPriceTax,
             'nif' => Auth::user()->customer->nif,
             'customer_name' => Auth::user()->name,
             'payment_type' => Auth::user()->customer->tipo_pagamento,
@@ -68,31 +68,36 @@ class TicketController extends Controller
             'payment_ref' => 'required',
         ]);
 
-        switch (Auth::user()->customer->tipo_pagamento) {
+        if ($validator->fails())
+            return back()->withErrors($validator);
+
+        $validated = $validator->validate();
+
+        switch ($validated['payment_type']) {
             case 'Visa':
-                if (!Payment::payWithVisa($validator->getData()['payment_ref'], 257))
+                if (!Payment::payWithVisa($validated['payment_ref'], 257))
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 break;
             case 'PayPal':
-                if (Payment::payWithPaypal($validator->getData()['payment_ref']))
+                if (Payment::payWithPaypal($validated['payment_ref']))
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 break;
             default:
-                if (Payment::payWithMBWay($validator->getData()['payment_ref']))
+                if (Payment::payWithMBWay($validated['payment_ref']))
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 break;
         }
 
         $newReceipt = new Receipt;
-        $newReceipt->cliente_id = Auth::user()->id;
-        $newReceipt->data = date('Y-m-d');
-        $newReceipt->preco_total_sem_iva = $priceTotal;
-        $newReceipt->iva = $config->percentagem_iva;
-        $newReceipt->preco_total_com_iva = $priceTotalTax;
-        $newReceipt->nif = Auth::user()->customer->nif;
-        $newReceipt->nome_cliente = Auth::user()->name;
-        $newReceipt->tipo_pagamento = Auth::user()->customer->tipo_pagamento;
-        $newReceipt->ref_pagamento = Auth::user()->customer->ref_pagamento;
+        $newReceipt->cliente_id = $validated['customer_id'];
+        $newReceipt->data = $validated['date'];
+        $newReceipt->preco_total_sem_iva = $validated['total_wo_tax'];
+        $newReceipt->iva = $validated['tax'];
+        $newReceipt->preco_total_com_iva = $validated['total_w_tax'];
+        $newReceipt->nif = $validated['nif'];
+        $newReceipt->nome_cliente = $validated['customer_name'];
+        $newReceipt->tipo_pagamento = $validated['payment_type'];
+        $newReceipt->ref_pagamento = $validated['payment_ref'];
         $newReceipt->save();
 
         foreach (session('cart') as $cartTicket) {
@@ -116,20 +121,22 @@ class TicketController extends Controller
             if ($validator->fails())
                 return back()->withErrors($validator);
 
+            $validated = $validator->validate();
+
             $newTicket = new Ticket;
-            $newTicket->recibo_id = $newReceipt->id;
-            $newTicket->cliente_id = Auth::user()->id;
-            $newTicket->sessao_id = $cartTicket['screening']->id;
-            $newTicket->lugar_id = $cartTicket['seat']->id;
-            $newTicket->preco_sem_iva = $config->preco_bilhete_sem_iva;
+            $newTicket->recibo_id = $validated['receipt_id'];
+            $newTicket->cliente_id = $validated['customer_id'];
+            $newTicket->sessao_id = $validated['screening_id'];
+            $newTicket->lugar_id = $validated['seat'];
+            $newTicket->preco_sem_iva = $validated['price_wo_tax'];
             $newTicket->save();
         }
 
         session()->forget('cart');
 
-        // return redirect()
-        //     ->route('receipt.show', $newReceipt->id)
-        //     ->with('success', 'Pagamento efectuado com sucesso');
+        return redirect()
+            ->route('receipts.show', $newReceipt->id)
+            ->with('success', 'Pagamento efetuado com sucesso');
     }
 
     public function add(Request $request)
