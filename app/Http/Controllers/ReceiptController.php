@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Receipt;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+use Response;
+use Storage;
 
 class ReceiptController extends Controller
 {
@@ -54,8 +57,12 @@ class ReceiptController extends Controller
 
     public function get_pdf(Receipt $receipt)
     {
-        $pdf = PDF::loadView('emails.tickets.purchased', compact('receipt'));
-        return $pdf->download('cinemagic-recibo-' . $receipt->id . '.pdf');
+        if (!(isset($receipt->recibo_pdf_url) && $receipt->recibo_pdf_url != null && File::exists("storage/" . $receipt->recibo_pdf_url))) {
+            if (!TicketController::generate_pdf($receipt)) {
+                return redirect()->back()->withErrors(['no_receipt_pdf' => 'Não foi possível gerar um PDF para esse recibo.']);
+            }
+        }
+        return Response::download("storage/" . $receipt->recibo_pdf_url);
     }
 
     /**

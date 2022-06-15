@@ -12,6 +12,8 @@ use App\Services\Payment;
 use Auth;
 use Carbon\Carbon;
 use Mail;
+use PDF;
+use Storage;
 use Validator;
 
 class TicketController extends Controller
@@ -160,9 +162,23 @@ class TicketController extends Controller
 
         $this->sendEmail($newReceipt);
 
+        TicketController::generate_pdf($newReceipt);
+
         return redirect()
             ->route('receipts.show', $newReceipt->id)
             ->with('success', 'Pagamento efetuado com sucesso');
+    }
+
+    public static function generate_pdf(Receipt $receipt)
+    {
+        $pdf = PDF::loadView('tickets.print.pdf', compact('receipt'))->setOptions(['defaultFont' => 'sans-serif']);
+        $filePath = 'pdf_recibos/' . $receipt->id . '.pdf';
+        if (Storage::put('public/' . $filePath, $pdf->output())) {
+            $receipt->recibo_pdf_url = $filePath;
+            $receipt->save();
+            return true;
+        }
+        return false;
     }
 
     public function add(Request $request)
