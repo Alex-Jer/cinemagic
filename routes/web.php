@@ -8,6 +8,8 @@ use App\Http\Controllers\ScreenController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
+use App\Mail\TicketsPurchased;
+use App\Models\Receipt;
 use Illuminate\Support\Facades\Route;
 
 // TODO: temp
@@ -74,14 +76,23 @@ Route::controller(CartController::class)->group(function () {
         ->name('cart.destroy');
 });
 
+//! EXEMPLO
+Route::get('/mailable', function () {
+    $receipt = Receipt::where('cliente_id', 30)->first();
+    return new TicketsPurchased($receipt);
+});
+//! EXEMPLO
+
 /**
  * Ticket routes
  */
-Route::post('cart', [TicketController::class, 'store'])->name('tickets.store');
-// Route::controller(TicketController::class)->group(function () {
-//     Route::post('cart', 'store')
-//         ->name('tickets.store');
-// });
+Route::controller(TicketController::class)->group(function () {
+    Route::post('cart', 'store')
+        ->name('tickets.store');
+
+    Route::post('email/mailable', 'send_email_with_mailable')
+        ->name('email.send_with_mailable');
+});
 
 /**
  * Admin routes

@@ -23,21 +23,21 @@ class Ticket extends Model
 
     public function receipt()
     {
-        return $this->belongsTo(Receipt::class);
+        return $this->belongsTo(Receipt::class, 'recibo_id');
     }
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class, 'cliente_id');
     }
 
     public function screening()
     {
-        return $this->belongsTo(Screening::class);
+        return $this->belongsTo(Screening::class, 'sessao_id');
     }
 
     public function seat()
     {
-        return $this->belongsTo(Seat::class);
+        return $this->belongsTo(Seat::class, 'lugar_id');
     }
 }

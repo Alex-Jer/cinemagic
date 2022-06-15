@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TicketsPurchased;
 use App\Models\Configuration;
 use App\Models\Receipt;
 use App\Models\Screening;
@@ -9,6 +10,7 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Services\Payment;
 use Auth;
+use Mail;
 use Validator;
 
 class TicketController extends Controller
@@ -42,7 +44,7 @@ class TicketController extends Controller
     {
         $config = Configuration::first();
         $totalPrice = $config->preco_bilhete_sem_iva * session('cart')->count();
-        $totalPriceTax = (round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2)) * 3;
+        $totalPriceTax = (round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2)) * session('cart')->count();
 
         $attributes = [
             'customer_id' => Auth::user()->id,
@@ -75,6 +77,7 @@ class TicketController extends Controller
 
         switch ($validated['payment_type']) {
             case 'Visa':
+                // TODO: placeholder
                 if (!Payment::payWithVisa($validated['payment_ref'], 257))
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 break;
@@ -134,6 +137,8 @@ class TicketController extends Controller
 
         session()->forget('cart');
 
+        $this->sendEmail($newReceipt);
+
         return redirect()
             ->route('receipts.show', $newReceipt->id)
             ->with('success', 'Pagamento efetuado com sucesso');
@@ -187,5 +192,17 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+
+    public function sendEmail($receipt)
+    {
+        $user = Auth::user();
+
+        Mail::to($user)
+            ->send(new TicketsPurchased($receipt));
+
+        return redirect()->route('cart.index')
+            ->with('alert-type', 'success')
+            ->with('alert-msg', 'Email sent with success (using Mailable)');
     }
 }

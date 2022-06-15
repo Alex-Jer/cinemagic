@@ -25,5 +25,10 @@
         </div>
     @else
         <x-dashboard.empty-cart />
+        <form method="POST" action="email/mailable">
+            @csrf
+            <x-dashboard.button label="Enviar email">
+            </x-dashboard.button>
+        </form>
     @endif
 </x-dashboard.layout>
