@@ -21,7 +21,7 @@ class BlockMiddleware
         if (Auth::check()) {
             if (Auth::user()->isBlocked()) {
                 AuthenticatedSessionController::logout($request);
-                abort(403, 'A tua conta foi bloqueada');
+                abort(403, 'A sua conta está bloqueada');
             }
         }
 
