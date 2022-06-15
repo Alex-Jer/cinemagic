@@ -46,7 +46,7 @@ class TicketController extends Controller
         $totalPrice = $config->preco_bilhete_sem_iva * session('cart')->count();
         $totalPriceTax = (round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2)) * session('cart')->count();
 
-        $attributes = [
+        $receiptAttr = [
             'customer_id' => Auth::user()->id,
             'date' => date('Y-m-d'),
             'total_wo_tax' => $totalPrice,
@@ -58,7 +58,7 @@ class TicketController extends Controller
             'payment_ref' => Auth::user()->customer->ref_pagamento,
         ];
 
-        $validator = Validator::make($attributes, [
+        $validator = Validator::make($receiptAttr, [
             'customer_id' => 'required',
             'date' => 'required',
             'total_wo_tax' => 'required',
@@ -82,11 +82,12 @@ class TicketController extends Controller
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 break;
             case 'PayPal':
-                if (Payment::payWithPaypal($validated['payment_ref']))
+                if (!Payment::payWithPaypal($validated['payment_ref'])) {
                     return redirect()->back()->with('error', 'Pagamento inválido');
+                }
                 break;
             default:
-                if (Payment::payWithMBWay($validated['payment_ref']))
+                if (!Payment::payWithMBWay($validated['payment_ref']))
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 break;
         }
@@ -104,7 +105,6 @@ class TicketController extends Controller
         $newReceipt->save();
 
         foreach (session('cart') as $cartTicket) {
-
             $attributes = [
                 'receipt_id' => $newReceipt->id,
                 'customer_id' => Auth::user()->id,
@@ -123,6 +123,12 @@ class TicketController extends Controller
 
             if ($validator->fails())
                 return back()->withErrors($validator);
+
+            if (Ticket::where('lugar_id', $cartTicket['seat']->id)->where('sessao_id', $cartTicket['screening']->id)->exists()) {
+                $newReceipt->delete();
+                session()->forget('cart');
+                return back()->withErrors(['seat_occupied' => 'Já foi comprado um bilhete para este lugar nesta sessão']);
+            }
 
             $validated = $validator->validate();
 
@@ -203,6 +209,6 @@ class TicketController extends Controller
 
         return redirect()->route('cart.index')
             ->with('alert-type', 'success')
-            ->with('alert-msg', 'Email sent with success (using Mailable)');
+            ->with('alert-msg', 'Email enviado com sucesso)');
     }
 }
