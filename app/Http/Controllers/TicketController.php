@@ -10,6 +10,7 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Services\Payment;
 use Auth;
+use Carbon\Carbon;
 use Mail;
 use Validator;
 
@@ -121,16 +122,30 @@ class TicketController extends Controller
                 'price_wo_tax' => 'required',
             ]);
 
-            if ($validator->fails())
+            if ($validator->fails()) {
+                $newReceipt->delete();
                 return back()->withErrors($validator);
+            }
+
+            $validated = $validator->validate();
+
+            $screening = Screening::find($validated['screening_id']);
+
+            $canBuyTicket = $screening->data > now() ||
+                ($screening->data->format('d/m/Y') == now()->format('d/m/Y')
+                    && $screening->horario_inicio->format('H:i') >= now()->subMinutes(5)->format('H:i')
+                );
+
+            if (!$canBuyTicket) {
+                $newReceipt->delete();
+                return back()->withErrors(['screening_expired' => 'Não é possível comprar bilhetes para sessões que já começaram há mais de 5 minutos']);
+            }
 
             if (Ticket::where('lugar_id', $cartTicket['seat']->id)->where('sessao_id', $cartTicket['screening']->id)->exists()) {
                 $newReceipt->delete();
                 session()->forget('cart');
                 return back()->withErrors(['seat_occupied' => 'Já foi comprado um bilhete para este lugar nesta sessão']);
             }
-
-            $validated = $validator->validate();
 
             $newTicket = new Ticket;
             $newTicket->recibo_id = $validated['receipt_id'];
