@@ -13,13 +13,6 @@ use App\Mail\TicketsPurchased;
 use App\Models\Receipt;
 use Illuminate\Support\Facades\Route;
 
-//! EXEMPLO
-Route::get('/mailable', function () {
-    $receipt = Receipt::where('cliente_id', 30)->first();
-    return new TicketsPurchased($receipt);
-});
-//! EXEMPLO
-
 // Include all routes that should logout a logged user when he is blocked
 Route::middleware('block')->group(
     function () {

@@ -27,6 +27,9 @@ module.exports = {
         "grid-cols-9",
         "grid-cols-10",
         "grid-cols-12",
+        "fill-red-400",
+        "fill-green-400",
+        "fill-gray-400",
     ],
     theme: {
         themeVariants: ["dark"],
