@@ -51,8 +51,8 @@
                     <thead>
                         <tr
                             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-white border-b dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                            <th class="w-11/12 px-4 py-3"></th>
-                            <th class="px-4 py-3"></th>
+                            <th class="invisible w-11/12 px-4 py-3"></th>
+                            <th class="invisible px-4 py-3"></th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -71,14 +71,14 @@
                     </tbody>
                 </table>
 
-                <div class="mt-5 -mb-3 text-xl font-semibold">Os seus detalhes</div>
+                <div class="mt-5 -mb-8 text-xl font-semibold dark:text-gray-200">Os seus detalhes</div>
 
                 <table class="w-1/2 whitespace-no-wrap table-fixed">
                     <thead>
                         <tr
                             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-white border-b dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-                            <th class="w-1/3 px-4 py-3"></th>
-                            <th class="w-2/3 px-4 py-3"></th>
+                            <th class="invisible w-1/3 px-4 py-3"></th>
+                            <th class="invisible w-2/3 px-4 py-3"></th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -105,7 +105,7 @@
                     </tbody>
                 </table>
 
-                <div class="text-sm">
+                <div class="text-sm dark:text-gray-400">
                     Se desejar consultar o recibo no site,
                     <a href="{{ $receipt->url_recibo }}" target="_blank" class="font-semibold text-purple-600">
                         clique aqui.
