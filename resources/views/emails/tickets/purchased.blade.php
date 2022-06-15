@@ -35,7 +35,8 @@
                                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->film->titulo }}</td>
                                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->screen->nome }}</td>
                                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->data }}</td>
-                                <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->horario_inicio }}</td>
+                                <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->horario_inicio }}
+                                </td>
                                 <td class="px-4 py-3 text-sm font-medium">
                                     {{ $ticket->seat->fila . $ticket->seat->posicao }}
                                 </td>
@@ -64,7 +65,8 @@
                             <td class="px-4 py-3 text-sm font-medium">IVA</td>
                             <td class="px-4 py-3 text-sm font-medium">{{ $receipt->iva }}%</td>
                         </tr>
-                        <tr class="text-lg font-bold text-gray-700 transition duration-100 ease-in-out dark:text-gray-400">
+                        <tr
+                            class="text-lg font-bold text-gray-700 transition duration-100 ease-in-out dark:text-gray-400">
                             <td class="px-4 py-3">Total com IVA</td>
                             <td class="px-4 py-3">{{ $receipt->preco_total_com_iva }}€</td>
                         </tr>
@@ -107,7 +109,8 @@
 
                 <div class="text-sm dark:text-gray-400">
                     Se desejar consultar o recibo no site,
-                    <a href="{{ $receipt->url_recibo }}" target="_blank" class="font-semibold text-purple-600">
+                    <a href="{{ route('receipts.show', ['receipt' => $receipt]) }}" target="_blank"
+                        class="font-semibold text-purple-600">
                         clique aqui.
                     </a>
                 </div>
