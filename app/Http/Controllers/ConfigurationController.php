@@ -88,7 +88,10 @@ class ConfigurationController extends Controller
             $configuration->percentagem_iva = $request->percentagem_iva;
         $configuration->save();
 
-        return redirect()->route('admin.config.index')->with('success', 'Configurações atualizadas com sucesso!');
+        return redirect()->route('admin.config.index')
+            ->with('alert-type', 'success')
+            ->with('alert-color', 'green')
+            ->with('alert-msg', 'Configurações atualizadas com sucesso.');
     }
 
     /**

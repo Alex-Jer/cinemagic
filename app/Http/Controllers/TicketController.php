@@ -166,7 +166,9 @@ class TicketController extends Controller
 
         return redirect()
             ->route('receipts.show', $newReceipt->id)
-            ->with('success', 'Pagamento efetuado com sucesso');
+            ->with('alert-type', 'success')
+            ->with('alert-color', 'green')
+            ->with('alert-msg', 'Pagamento efetuado com sucesso! Receberá um email com a fatura em breve.');
     }
 
     public static function generate_pdf(Receipt $receipt)
@@ -237,9 +239,5 @@ class TicketController extends Controller
 
         Mail::to($user)
             ->queue(new TicketsPurchased($receipt, $user));
-
-        return redirect()->route('cart.index')
-            ->with('alert-type', 'success')
-            ->with('alert-msg', 'Receberá um email com a fatura em breve');
     }
 }
