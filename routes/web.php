@@ -44,7 +44,8 @@ Route::middleware('block')->group(
          */
         Route::controller(ScreeningController::class)->group(function () {
             Route::get('screening/{screening}', 'show')
-                ->name('screenings.show');
+                ->name('screenings.show')
+                ->middleware('can:buy,screening');
         });
 
         /**
@@ -72,13 +73,12 @@ Route::middleware('block')->group(
         /**
          * Shopping Cart routes
          */
-        Route::controller(CartController::class)->group(function () {
+        Route::controller(CartController::class)->middleware('client')->group(function () {
             Route::get('cart', 'index')
                 ->name('cart.index');
-
             Route::post('screening/{screening}/{seat}', 'store')
-                ->name('cart.store');
-
+                ->name('cart.store')
+                ->middleware('can:buy,screening');
             Route::delete('cart/{key}', 'destroy')
                 ->name('cart.destroy');
         });
