@@ -64,7 +64,7 @@
                 <td class="px-4 py-3">
                     <div class="flex items-center space-x-2 text-sm">
                         <form method="GET" action="{{ route('admin.users.show', ['user' => $user]) }}">
-                            <button
+                            <button title="Ver perfil"
                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg
                                 @can('view', $user)
                                     {{'text-purple-600 dark:text-gray-400'}}
@@ -87,7 +87,7 @@
                             </button>
                         </form>
                         <form method="GET" action="{{ route('admin.users.edit', ['user' => $user]) }}">
-                            <button
+                            <button  title="Editar perfil"
                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg
                                 @can('update', $user)
                                     {{'text-purple-600 dark:text-gray-400'}} 
@@ -109,7 +109,7 @@
                         <form method="POST" action="{{ route('admin.users.toggleblock', ['user' => $user]) }}">
                             @csrf
                             @method('PUT')
-                            <button
+                            <button title="{{$user->bloqueado?"Desbloquear":"Bloquear"}} utilizador"
                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg
                                 @can('block', $user)
                                     {{'text-purple-600 dark:text-gray-400'}}
@@ -141,7 +141,7 @@
                         <form method="POST" action="{{ route('admin.users.destroy', ['user' => $user]) }}">
                             @csrf
                             @method('DELETE')
-                            <button
+                            <button title="Apagar utilizador"
                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg
                                 @can('delete', $user)
                                     {{'text-purple-600 dark:text-gray-400'}}

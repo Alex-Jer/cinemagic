@@ -55,7 +55,7 @@
                 <td class="px-4 py-3 text-sm font-medium">{{ $receipt->preco_total_com_iva . '€' }}</td>
                 <td class="px-4 py-3">
                     <div class="flex items-center space-x-3 text-sm">
-                        <a href="{{ route('receipts.show', $receipt) }}"
+                        <a title="Ver detalhes" href="{{ route('receipts.show', $receipt) }}"
                             class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-500 focus:outline-none focus:shadow-outline-gray"
                             aria-label="PDF">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -67,7 +67,7 @@
                                 </path>
                             </svg>
                         </a>
-                        <a href="{{ route('receipts.get_pdf', $receipt) }}"
+                        <a title="Download PDF" href="{{ route('receipts.get_pdf', $receipt) }}"
                             class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-purple-500 focus:outline-none focus:shadow-outline-gray"
                             aria-label="PDF">
                             <svg class="w-5 h-5" data-darkreader-inline-stroke="" fill="none"
