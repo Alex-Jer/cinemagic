@@ -15,7 +15,8 @@
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         @foreach ($receipts as $receipt)
-            <tr class="text-gray-700 dark:text-gray-400">
+            <tr class="text-gray-700 dark:text-gray-400 cursor-pointer hover:bg-gray-100 transition ease-in-out duration-100"
+                onclick="window.location='{{ route('receipts.show', $receipt) }}'">
                 <td class="px-4 py-3 text-sm font-medium">{{ $receipt->id }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $receipt->data->format('d/m/Y') }}</td>
                 <td class="px-4 py-3 text-sm font-medium">
