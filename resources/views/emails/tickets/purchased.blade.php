@@ -34,8 +34,10 @@
                                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->id }}</td>
                                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->film->titulo }}</td>
                                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->screen->nome }}</td>
-                                <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->data }}</td>
-                                <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->horario_inicio }}
+                                <td class="px-4 py-3 text-sm font-medium">
+                                    {{ $ticket->screening->data->translatedFormat('d-m-Y') }}</td>
+                                <td class="px-4 py-3 text-sm font-medium">
+                                    {{ $ticket->screening->horario_inicio->translatedFormat('H:i') }}
                                 </td>
                                 <td class="px-4 py-3 text-sm font-medium">
                                     {{ $ticket->seat->fila . $ticket->seat->posicao }}
