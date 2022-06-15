@@ -5,15 +5,15 @@
                 <x-dashboard.cart-table :cart="$cart" :price="$price" />
             </div>
         </div>
-        <div class="w-full block text-gray-600 dark:text-gray-300 mt-4">
-            <div class="float-left text-md font-semibold">
+        <div class="block w-full mt-4 text-gray-600 dark:text-gray-300">
+            <div class="float-left font-semibold text-md">
                 Valor total: {{ $cart->count() * $price }}€
             </div>
             <div class="float-right text-sm">
                 <form method="POST" action="/cart">
                     @csrf
                     <x-dashboard.button label="Pagamento">
-                        <svg class="w-5 h-5 mr-1 mt-px" data-darkreader-inline-stroke="" fill="none" stroke="currentColor"
+                        <svg class="w-5 h-5 mt-px mr-1" data-darkreader-inline-stroke="" fill="none" stroke="currentColor"
                             style="--darkreader-inline-stroke: currentColor;" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -25,10 +25,5 @@
         </div>
     @else
         <x-dashboard.empty-cart />
-        <form method="POST" action="email/mailable">
-            @csrf
-            <x-dashboard.button label="Enviar email">
-            </x-dashboard.button>
-        </form>
     @endif
 </x-dashboard.layout>
