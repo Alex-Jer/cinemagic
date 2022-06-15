@@ -236,10 +236,10 @@ class TicketController extends Controller
         $user = Auth::user();
 
         Mail::to($user)
-            ->send(new TicketsPurchased($receipt));
+            ->queue(new TicketsPurchased($receipt, $user));
 
         return redirect()->route('cart.index')
             ->with('alert-type', 'success')
-            ->with('alert-msg', 'Email enviado com sucesso)');
+            ->with('alert-msg', 'Receberá um email com a fatura em breve');
     }
 }
