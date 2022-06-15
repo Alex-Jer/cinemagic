@@ -22,7 +22,7 @@ class Screen extends Model
 
     public function screenings()
     {
-        return $this->hasMany(Screening::class);
+        return $this->hasMany(Screening::class, 'sala_id');
     }
 
     public function seats()

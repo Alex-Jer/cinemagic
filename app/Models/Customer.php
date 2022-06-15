@@ -24,7 +24,7 @@ class Customer extends Model
 
     public function tickets()
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class, 'cliente_id');
     }
 
     public function receipts()
