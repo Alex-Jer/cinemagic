@@ -49,6 +49,10 @@ Route::get('receipts', [ReceiptController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('receipts.index');
 
+Route::get('receipts/{receipt}', [ReceiptController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('receipts.show');
+
 /**
  * User routes
  */
