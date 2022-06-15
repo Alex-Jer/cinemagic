@@ -32,7 +32,8 @@
                     <img src="{{ asset('storage/fotos/default.png') }}" alt="default profile picture"
                         class="mt-2 mb-3 rounded-full w-9 h-9">
                 </div>
-                <x-dashboard.button label="Criar">
+                <x-back-button class="mr-2" />
+                <x-dashboard.button label="Criar" class="float-left">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -40,6 +41,7 @@
                         </path>
                     </svg>
                 </x-dashboard.button>
+
 
             </form>
         </div>

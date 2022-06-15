@@ -8,16 +8,18 @@ class Layout extends Component
 {
     public $title;
     public $header;
+    public $backButton;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title, $header = null)
+    public function __construct($title, $header = null, $backButton = false)
     {
         $this->title = $title;
         $this->header  = $header;
+        $this->backButton  = $backButton;
     }
 
     /**
