@@ -11,15 +11,17 @@ class TicketsPurchased extends Mailable
     use Queueable, SerializesModels;
 
     private $receipt;
+    private $user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($receipt)
+    public function __construct($receipt, $user)
     {
         $this->receipt = $receipt;
+        $this->user = $user;
     }
 
     /**
@@ -33,6 +35,7 @@ class TicketsPurchased extends Mailable
             ->view('tickets.print.email')
             ->with([
                 'receipt' => $this->receipt,
+                'user' => $this->user,
             ]);
     }
 }

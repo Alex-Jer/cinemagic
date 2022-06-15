@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-dashboard.email-layout>
     <div class="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0">
         <a class="mt-6 ml-6 text-3xl font-bold text-gray-800 dark:text-gray-200" href="#">
             CineMagic
@@ -8,7 +8,7 @@
 
             <div class="grid gap-6 mb-8">
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
-                    <p class="mb-0">Olá, {{ auth()->user()->name }},</p>
+                    <p class="mb-0">Olá, {{ $user->name }},</p>
                     <p class="mb-0">obrigado pela compra</p>
                     <p class="mt-1 text-sm text-gray-500">
                         {{ $receipt->created_at->translatedFormat('l\, j \d\e F \d\e Y \à\s H:i:s') }}
@@ -62,4 +62,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+</x-dashboard.email-layout>
