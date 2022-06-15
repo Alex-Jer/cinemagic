@@ -35,7 +35,7 @@
                                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->film->titulo }}</td>
                                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->screen->nome }}</td>
                                 <td class="px-4 py-3 text-sm font-medium">
-                                    {{ $ticket->screening->data->translatedFormat('d-m-Y') }}</td>
+                                    {{ $ticket->screening->data->translatedFormat('d/m/Y \(l\)') }}</td>
                                 <td class="px-4 py-3 text-sm font-medium">
                                     {{ $ticket->screening->horario_inicio->translatedFormat('H:i') }}
                                 </td>
