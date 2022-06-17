@@ -26,7 +26,6 @@
                                     src="{{ asset('storage/fotos/default.png') }}"
                                     class="mt-2 mb-3 rounded-full w-9 h-9" loading="lazy">
                             @endif
-
                             <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                         </div>
                         <div>
