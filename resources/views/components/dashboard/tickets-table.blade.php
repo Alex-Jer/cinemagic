@@ -16,7 +16,7 @@
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         @foreach ($tickets as $ticket)
             <tr
-                class="text-gray-700 transition duration-100 ease-in-out dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900">
+                class="text-gray-700 transition duration-100 ease-in-out dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->id }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->receipt->data->format('d/m/Y') }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->data->format('d/m/Y') }}</td>
