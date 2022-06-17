@@ -24,8 +24,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Auth::user()->customer->tickets()->paginate(12);
-        $config = Configuration::first();
+        $tickets = Ticket::with('receipt', 'seat', 'screening')
+            ->where('cliente_id', Auth::user()->customer->id)
+            ->orderBy('created_at', 'desc')->paginate(12);
         return view('tickets.index', compact('tickets'));
     }
 

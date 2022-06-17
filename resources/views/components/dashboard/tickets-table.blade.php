@@ -5,12 +5,12 @@
             <th class="px-4 py-3">ID do recibo</th>
             <th class="px-4 py-3">Data de compra</th>
             <th class="px-4 py-3">Data da sessão</th>
-            <th class="px-4 py-3">Filme</th>
+            <th class="px-4 py-3 w-3/12">Filme</th>
             <th class="px-4 py-3">Sala</th>
-            <th class="px-4 py-3">Lugar</th>
-            <th class="px-4 py-3">Preço</th>
-            <th class="px-4 py-3">Estado</th>
-            <th class="px-4 py-3">Ações</th>
+            <th class="px-4 py-3 w-1/12">Lugar</th>
+            <th class="px-4 py-3 w-1/12">Preço</th>
+            <th class="px-4 py-3 w-1/12">Estado</th>
+            <th class="px-4 py-3 w-1/12">Ações</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -24,7 +24,7 @@
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->screen->nome }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->seat->fila . $ticket->seat->posicao }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ ticket_price('€') }}</td>
-                <td class="px-4 py-3 text-sm font-medium">{{ $ticket->estado }}</td>
+                <td class="px-4 py-3 text-sm font-medium">{{ $ticket->estado === 'usado' ? 'Usado' : 'Não usado' }}</td>
                 <td class="px-4 py-3">
                     <div class="flex items-center space-x-3 text-sm">
                         <a title="Ver detalhes" href="{{ route('tickets.show', $ticket) }}"
