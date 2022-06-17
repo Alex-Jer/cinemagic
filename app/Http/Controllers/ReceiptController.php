@@ -6,9 +6,7 @@ use App\Models\Receipt;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PDF;
 use Response;
-use Storage;
 
 class ReceiptController extends Controller
 {
