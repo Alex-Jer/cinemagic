@@ -26,7 +26,7 @@ class TicketController extends Controller
     {
         $tickets = Ticket::with('receipt', 'seat', 'screening')
             ->where('cliente_id', Auth::user()->customer->id)
-            ->orderBy('created_at', 'desc')->paginate(12);
+            ->orderBy('created_at', 'desc')->paginate(11);
         return view('tickets.index', compact('tickets'));
     }
 

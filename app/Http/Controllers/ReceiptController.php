@@ -19,7 +19,7 @@ class ReceiptController extends Controller
      */
     public function index()
     {
-        $receipts = Auth::user()->customer->receipts()->paginate(12);
+        $receipts = Auth::user()->customer->receipts()->paginate(11);
         return view('receipts.index', compact('receipts'));
     }
 
