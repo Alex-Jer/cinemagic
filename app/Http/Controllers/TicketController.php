@@ -113,7 +113,7 @@ class TicketController extends Controller
                 'customer_id' => Auth::user()->id,
                 'screening_id' => $cartTicket['screening']->id,
                 'seat' => $cartTicket['seat']->id,
-                'price_wo_tax' => $config->preco_bilhete_sem_iva,
+                // 'price_wo_tax' => $config->preco_bilhete_sem_iva,
             ];
 
             $validator = Validator::make($attributes, [
