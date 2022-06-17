@@ -9,11 +9,9 @@ use App\Http\Controllers\ScreenController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
-use App\Mail\TicketsPurchased;
-use App\Models\Receipt;
 use Illuminate\Support\Facades\Route;
 
-// Include all routes that should logout a logged user when he is blocked
+// Include all routes that should log out a logged user when they are blocked
 Route::middleware('block')->group(
     function () {
         // TODO: temp
@@ -22,11 +20,18 @@ Route::middleware('block')->group(
         })
             ->middleware(['auth', 'verified'])
             ->name('dashboard');
-        // TODO:
+        // TODO
 
         Route::get('/', function () {
             return view('home');
         });
+
+        /**
+         * User routes
+         */
+        Route::get('profile', [RegisteredUserController::class, 'index'])
+            ->middleware(['auth', 'verified'])
+            ->name('profile.index');
 
         /**
          * Film routes
@@ -51,24 +56,37 @@ Route::middleware('block')->group(
         /**
          * Receipt routes
          */
-        Route::get('receipts', [ReceiptController::class, 'index'])
-            ->middleware(['auth', 'verified'])
-            ->name('receipts.index');
+        Route::controller(ReceiptController::class)->middleware(['auth', 'verified'])->group(function () {
+            Route::get('receipts', 'index')
+                ->name('receipts.index');
 
-        Route::get('receipts/{receipt}', [ReceiptController::class, 'show'])
-            ->middleware(['auth', 'verified'])
-            ->name('receipts.show');
+            Route::get('receipts/{receipt}', 'show')
+                ->name('receipts.show');
 
-        Route::get('receipts/{receipt}/pdf', [ReceiptController::class, 'get_pdf'])
-            ->middleware(['auth', 'verified'])
-            ->name('receipts.get_pdf');
+            Route::get('receipts/{receipt}/pdf', 'get_pdf')
+                ->name('receipts.get_pdf');
+        });
 
         /**
-         * User routes
+         * Ticket routes
          */
-        Route::get('profile', [RegisteredUserController::class, 'index'])
-            ->middleware(['auth', 'verified'])
-            ->name('profile.index');
+        Route::controller(TicketController::class)->group(function () {
+            Route::get('tickets', 'index')
+                ->name('tickets.index');
+
+            Route::get('tickets/{ticket}', 'show')
+                ->name('tickets.show');
+
+            Route::get('tickets/{ticket}/pdf', 'get_pdf')
+                ->name('tickets.get_pdf');
+
+            Route::post('cart', 'store')
+                ->name('tickets.store');
+
+            // TODO: temp?
+            Route::post('email/mailable', 'send_email_with_mailable')
+                ->name('email.send_with_mailable');
+        });
 
         /**
          * Shopping Cart routes
@@ -81,17 +99,6 @@ Route::middleware('block')->group(
                 ->middleware('can:buy,screening');
             Route::delete('cart/{key}', 'destroy')
                 ->name('cart.destroy');
-        });
-
-        /**
-         * Ticket routes
-         */
-        Route::controller(TicketController::class)->group(function () {
-            Route::post('cart', 'store')
-                ->name('tickets.store');
-
-            Route::post('email/mailable', 'send_email_with_mailable')
-                ->name('email.send_with_mailable');
         });
 
         /**

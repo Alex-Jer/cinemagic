@@ -1,20 +1,19 @@
 <x-dashboard.layout title="Cinemagic - Comprar bilhete" header="Comprar bilhete" backButton="true">
-    <x-dashboard.card-container
-        class="{{ $seats->count() > 150 ? 'w-4/5' : ($seats->count() <= 80 ? 'w-1/2' : 'w-2/3') }}">
+    <x-dashboard.card-container class="{{ $seats->count() > 150 ? 'w-4/5' : ($seats->count() <= 80 ? 'w-1/2' : 'w-2/3') }}">
         <h2 class="mb-2 text-xl font-semibold text-gray-600 dark:text-gray-300">
             {{ $screening->film->titulo }}
         </h2>
         <div class="text-sm dark:text-gray-300">
             Preço por bilhete:
             <span class="font-bold">
-                {{ $price . '€' }}
+                {{ ticket_price('€') }}
             </span>
         </div>
         <div class="text-sm dark:text-gray-300">
             Selecionados:
             <span class="font-bold">
                 @if (session('cart') && session('cart')->count() > 0)
-                    {{ session('cart')->count() . ' (' . $price * session('cart')->count() . '€)' }}
+                    {{ session('cart')->count() . ' (' . ticket_price() * session('cart')->count() . '€)' }}
                 @else
                     0
                 @endif

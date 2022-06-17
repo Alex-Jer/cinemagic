@@ -2,12 +2,12 @@
     @if ($cart && !$cart->isEmpty())
         <div class="w-full overflow-hidden rounded-lg shadow-md">
             <div class="w-full overflow-x-auto">
-                <x-dashboard.cart-table :cart="$cart" :price="$price" />
+                <x-dashboard.cart-table :cart="$cart" />
             </div>
         </div>
         <div class="block w-full mt-4 text-gray-600 dark:text-gray-300">
             <div class="float-left font-semibold text-md">
-                Valor total: {{ $cart->count() * $price }}€
+                Valor total: {{ $cart->count() * ticket_price() }}€
             </div>
             <div class="float-right text-sm">
                 <form method="POST" action="/cart">

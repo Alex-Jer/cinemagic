@@ -32,7 +32,7 @@
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket['screening']->data->format('d/m/Y') }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket['screening']->horario_inicio->format('H:i') }}</td>
                 <td class="px-4 py-3 text-sm font-medium">
-                    {{ $price . '€' }}
+                    {{ ticket_price('€') }}
                 </td>
 
                 <td class="px-4 py-3">

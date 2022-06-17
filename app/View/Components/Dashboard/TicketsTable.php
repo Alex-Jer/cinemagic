@@ -4,18 +4,18 @@ namespace App\View\Components\Dashboard;
 
 use Illuminate\View\Component;
 
-class CartTable extends Component
+class TicketsTable extends Component
 {
-    public $cart;
+    public $tickets;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($cart)
+    public function __construct($tickets)
     {
-        $this->cart = $cart;
+        $this->tickets = $tickets;
     }
 
     /**
@@ -25,6 +25,6 @@ class CartTable extends Component
      */
     public function render()
     {
-        return view('components.dashboard.cart-table');
+        return view('components.dashboard.tickets-table');
     }
 }

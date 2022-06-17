@@ -1,30 +1,8 @@
-<style>
-    .grid-cols-20 {
-        grid-template-columns: repeat(20, minmax(0, 1fr))
-    }
-
-    .grid-cols-15 {
-        grid-template-columns: repeat(15, minmax(0, 1fr))
-    }
-</style>
-
-<x-dashboard.layout title="Cinemagic - Comprar bilhete" header="Comprar bilhete">
-    <x-dashboard.card-container>
-        <div class="grid gap-1 grid-cols-20 grid-cols-{{ $seats->max('posicao') }}">
-            @foreach ($seats as $seat)
-                <form action="POST" action="{{ route('cart.store', $seat) }}">
-                    @csrf
-                    <button type="submit" class="w-full">
-                        <div class="outline">
-                            @if ($seat->posicao === 1)
-                                {{ $seat->fila . ' ' . $seat->posicao }}
-                            @else
-                                {{ $seat->posicao }}
-                            @endif
-                        </div>
-                    </button>
-                </form>
-            @endforeach
+<x-dashboard.layout title="CineMagic - Bilhetes" header="Os seus bilhetes">
+    <div class="w-full overflow-hidden rounded-lg shadow-md">
+        <div class="w-full overflow-x-auto">
+            <x-dashboard.tickets-table :tickets="$tickets" />
         </div>
-    </x-dashboard.card-container>
+        {{ $tickets->onEachSide(2)->links() }}
+    </div>
 </x-dashboard.layout>

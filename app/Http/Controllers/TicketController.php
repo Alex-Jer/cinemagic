@@ -10,7 +10,6 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Services\Payment;
 use Auth;
-use Carbon\Carbon;
 use Mail;
 use PDF;
 use Storage;
@@ -23,9 +22,11 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Screening $screening)
+    public function index()
     {
-        //
+        $tickets = Auth::user()->customer->tickets()->paginate(12);
+        $config = Configuration::first();
+        return view('tickets.index', compact('tickets'));
     }
 
     /**
@@ -236,8 +237,21 @@ class TicketController extends Controller
     public function sendEmail($receipt)
     {
         $user = Auth::user();
-
         Mail::to($user)
             ->queue(new TicketsPurchased($receipt, $user));
+    }
+
+    public function get_pdf(Ticket $ticket)
+    {
+        //! Código vai ser diferente, os PDF dos bilhetes não são armazenados na BD
+        //! É sempre gerado um PDF novo quando o cliente faz o pedido
+
+        // if (!(isset($ticket->recibo_pdf_url) && $ticket->recibo_pdf_url != null && File::exists("storage/" . $ticket->recibo_pdf_url))) {
+        //     if (!$this->generate_pdf($ticket)) {
+        //         return redirect()->back()
+        //             ->withErrors(['no_ticket_pdf' => 'Não foi possível gerar um PDF para esse bilhete.']);
+        //     }
+        // }
+        // return Response::download("storage/" . $ticket->recibo_pdf_url);
     }
 }

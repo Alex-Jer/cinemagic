@@ -51,13 +51,12 @@ class ScreeningController extends Controller
         $screen = $screening->screen;
         $seats = $screen->seats;
         $config = Configuration::first();
-        $price = round($config->preco_bilhete_sem_iva + ($config->preco_bilhete_sem_iva * $config->percentagem_iva) / 100, 2);
 
         $occupied = cache()->remember('occupied_seats' . $screening->id, 30, function () use ($screening) {
             return $screening->tickets->count();
         });
 
-        return view('screenings.show', compact('screening', 'seats', 'occupied', 'price'));
+        return view('screenings.show', compact('screening', 'seats', 'occupied'));
     }
 
     /**
