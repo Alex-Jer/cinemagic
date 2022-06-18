@@ -128,4 +128,9 @@ class FilmController extends Controller
     {
         //
     }
+
+    public function admin_index()
+    {
+        return view('admin.films.index');
+    }
 }

@@ -16,7 +16,7 @@ class ScreeningController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.screenings.index');
     }
 
     /**
@@ -97,5 +97,10 @@ class ScreeningController extends Controller
     public function destroy(Screening $screening)
     {
         //
+    }
+
+    public function employee_index()
+    {
+        return view('employee.screenings.index');
     }
 }
