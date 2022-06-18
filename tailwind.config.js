@@ -217,5 +217,5 @@ module.exports = {
         divideColor: ["dark"],
         boxShadow: ["focus", "dark:focus"],
     },
-    plugins: [require("@tailwindcss/forms"), require("flowbite/plugin")],
+    plugins: [require("@tailwindcss/forms")],
 };
