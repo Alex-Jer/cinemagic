@@ -1,4 +1,4 @@
-<x-dashboard.layout title="CineMagic - Perfil" :header="'Perfil de ' . Auth::User()->name">
+<x-dashboard.layout title="CineMagic - Editar Filme" :header="$film->titulo">
     <div class="grid gap-6 mb-8">
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <form method="POST" action="{{ route('admin.films.update', $film) }}" enctype="multipart/form-data">
@@ -7,9 +7,9 @@
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados do filme
                 </h4>
-                <x-dashboard.input label="Título" name="titulo" :value="$film->titulo" placeholder="Título" attr="autofocus" />
-                <x-dashboard.input label="Ano" name="ano" placeholder="Ano" :value="$film->ano" />
-                <x-dashboard.input label="Trailer" name="trailer_url" placeholder="Trailer" :value="$film->trailer_url" />
+                <x-dashboard.inputfield label="Título" name="titulo" :value="$film->titulo" :placeholder="$film->titulo" attr="autofocus" />
+                <x-dashboard.inputfield label="Ano" name="ano" :placeholder="$film->titulo" :value="$film->ano" />
+                <x-dashboard.inputfield label="Trailer" name="trailer_url" :placeholder="$film->trailer_url" :value="$film->trailer_url" />
                 <x-dashboard.select label="Género" name="genero_code">
                     <option {{ $film->genre ? '' : 'selected' }} disabled>Género</option>
                     @foreach ($genres as $genre)

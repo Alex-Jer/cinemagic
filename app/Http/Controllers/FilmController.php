@@ -144,7 +144,31 @@ class FilmController extends Controller
      */
     public function destroy(Film $film)
     {
-        //
+        $oldName = $film->titulo;
+        $oldId = $film->id;
+        $oldPosterUrl = $film->cartaz_url;
+
+        try {
+            $film->delete();
+            Film::destroy($oldId);
+            Storage::delete('public/cartazes/' . $oldPosterUrl);
+            return redirect()->route('admin.films.index')
+                ->with('alert-msg', 'Filme "' . $film->titulo . '" apagado com sucesso.')
+                ->with('alert-color', 'green')
+                ->with('alert-icon', 'success');
+        } catch (\Throwable $th) {
+            if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
+                return redirect()->route('admin.films.index')
+                    ->with('alert-msg', 'Não foi possível apagar o filme "' . $oldName . '", porque este filme tem sessões associadas!')
+                    ->with('alert-color', 'red')
+                    ->with('alert-icon', 'error');
+            } else {
+                return redirect()->route('admin.films.index')
+                    ->with('alert-msg', 'Não foi possível apagar o filme "' . $oldName . '". Erro: ' . $th->errorInfo[2])
+                    ->with('alert-color', 'red')
+                    ->with('alert-icon', 'error');
+            }
+        }
     }
 
     public function admin_index()

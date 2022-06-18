@@ -9,7 +9,6 @@ use App\Http\Requests\UserPostRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use Debugbar;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
@@ -160,7 +159,7 @@ class UserController extends Controller
     {
         if ($user->id == auth()->user()->id) {
             return back()
-                ->with('alert-msg', 'Não podes apagar a tua própia conta tolinho!')
+                ->with('alert-msg', 'Não podes apagar a tua própia conta!')
                 ->with('alert-color', 'red')
                 ->with('alert-icon', 'error');
         }
@@ -168,7 +167,6 @@ class UserController extends Controller
         $oldName = $user->name;
         //$oldUrlFoto = $user->foto_url;
         try {
-
             $user->delete();
             /*if ($oldUrlFoto != null) {
                 Storage::delete('public/fotos/' . $oldUrlFoto);
@@ -178,7 +176,7 @@ class UserController extends Controller
                 ->with('alert-msg', 'Utilizador "' . $oldName . '" removido com sucesso.')
                 ->with('alert-color', 'green')
                 ->with('alert-icon', 'success');
-        } catch (\Throwable $th) {
+        } catch (\Throwable) {
             return back()
                 ->with('alert-msg', 'Não foi possível apagar o Utilizador "' . $oldName . '".')
                 ->with('alert-color', 'red')
