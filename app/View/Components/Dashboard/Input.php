@@ -17,11 +17,11 @@ class Input extends Component
      *
      * @return void
      */
-    public function __construct($label, $placeholder = null, $value = null, $name, $attr = null)
+    public function __construct($label, $placeholder = null, $name, $attr = null)
     {
         $this->label = $label;
         $this->placeholder = $placeholder;
-        $this->value = $value;
+        $this->value = "";
         $this->name = $name;
         $this->attr = $attr;
     }
