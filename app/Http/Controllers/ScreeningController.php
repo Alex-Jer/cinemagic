@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Configuration;
 use App\Models\Screening;
-use Debugbar;
+use Auth;
 use Illuminate\Http\Request;
 
 class ScreeningController extends Controller
@@ -48,6 +48,12 @@ class ScreeningController extends Controller
      */
     public function show(Screening $screening)
     {
+
+        if (Auth::check()) {
+            if (!$this->authorize('buy', $screening))
+                return abort(403);
+        }
+
         $screen = $screening->screen;
         $seats = $screen->seats;
         $config = Configuration::first();

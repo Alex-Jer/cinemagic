@@ -50,7 +50,6 @@ Route::middleware('block')->group(
         Route::controller(ScreeningController::class)->group(function () {
             Route::get('screening/{screening}', 'show')
                 ->name('screenings.show');
-            //TODO: ->middleware('can:buy,screening');
         });
 
         /**
@@ -98,7 +97,6 @@ Route::middleware('block')->group(
 
             Route::post('screening/{screening}/{seat}', 'store')
                 ->name('cart.store');
-            // TODO: ->middleware('can:buy,screening');
 
             Route::delete('cart/{key}', 'destroy')
                 ->name('cart.destroy');

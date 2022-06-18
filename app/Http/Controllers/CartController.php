@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Screening;
 use App\Models\Seat;
+use Auth;
 
 class CartController extends Controller
 {
