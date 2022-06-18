@@ -116,6 +116,9 @@ Route::middleware('block')->group(
          */
         Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
+            /**
+             * User routes
+             */
             Route::controller(UserController::class)->group(function () {
                 Route::get('users', 'index')
                     ->name('users.index')
@@ -150,9 +153,27 @@ Route::middleware('block')->group(
                     ->middleware('can:create,App\Models\User');
             });
 
-            Route::get('films', [FilmController::class, 'admin_index'])
-                ->name('films.index')
-                ->middleware('can:viewAny,App\Models\Screen');
+            /**
+             * Film routes
+             */
+            Route::controller(FilmController::class)->group(function () {
+                Route::get('films', 'admin_index')
+                    ->name('films.index')
+                    ->middleware('can:viewAny,App\Models\Screen');
+
+                Route::get('films/{film}/edit', 'edit')
+                    ->name('films.edit');
+                // TODO: ->middleware('can:update,user');
+
+                Route::put('films/{film}', 'update')
+                    ->name('films.update');
+                // TODO: ->middleware('can:update,user');
+
+                Route::delete('films/{film}', 'destroy')
+                    ->name('films.destroy');
+                // TODO: ->middleware('can:delete,user');
+            });
+
 
             Route::get('screenings', [ScreeningController::class, 'index'])
                 ->name('screenings.index')

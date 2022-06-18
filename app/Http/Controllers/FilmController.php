@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FilmPostRequest;
 use App\Models\Film;
 use App\Models\Genre;
 use Illuminate\Http\Request;
@@ -103,7 +104,9 @@ class FilmController extends Controller
      */
     public function edit(Film $film)
     {
-        //
+        $film = Film::find($film->id);
+        $genres = Genre::all();
+        return view('admin.films.edit', compact('film', 'genres'));
     }
 
     /**
@@ -113,9 +116,16 @@ class FilmController extends Controller
      * @param  \App\Models\Film  $film
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Film $film)
+    public function update(FilmPostRequest $request, Film $film)
     {
-        //
+        $validated = $request->validated();
+        dd($validated);
+        $film->fill($validated);
+        $film->save();
+        return redirect()->route('admin.films.index')
+            ->with('alert-msg', 'Filme "' . $film->name . '" alterado com sucesso.')
+            ->with('alert-color', 'green')
+            ->with('alert-icon', 'success');
     }
 
     /**
@@ -131,6 +141,7 @@ class FilmController extends Controller
 
     public function admin_index()
     {
-        return view('admin.films.index');
+        $films = Film::orderBy('ano', 'desc')->paginate(13);
+        return view('admin.films.index', compact('films'));
     }
 }
