@@ -64,7 +64,8 @@ class FilmController extends Controller
      */
     public function create()
     {
-        //
+        $genres = Genre::all();
+        return view('admin.films.createOrEdit', compact('genres'));
     }
 
     /**
@@ -73,9 +74,27 @@ class FilmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FilmPostRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $film = new Film;
+        $film->titulo = $validated['titulo'];
+        $film->genero_code = $validated['genero_code'];
+        $film->ano = $validated['ano'];
+        $film->sumario = $validated['sumario'];
+        $film->trailer_url = $validated['trailer_url'];
+
+        if ($request->hasFile('cartaz')) {
+            $path = $request->cartaz->store('public/cartazes');
+            $film->cartaz_url = basename($path);
+        }
+
+        $film->save();
+
+        return redirect()->route('admin.films.index')
+            ->with('alert-msg', 'Filme "' . $film->titulo . '" adicionado com sucesso.')
+            ->with('alert-color', 'green')
+            ->with('alert-icon', 'success');
     }
 
     /**
@@ -107,7 +126,7 @@ class FilmController extends Controller
     {
         $film = Film::find($film->id);
         $genres = Genre::all();
-        return view('admin.films.edit', compact('film', 'genres'));
+        return view('admin.films.createOrEdit', compact('film', 'genres'));
     }
 
     /**

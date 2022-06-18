@@ -1,7 +1,7 @@
 <x-dashboard.layout title="CineMagic - Gestão de Filmes" header="Gestão de Filmes">
-    <form method="GET" action="{{ route('admin.films.index') }}" class="mb-3">
-        <div class="container grid mx-auto">
-            <div>
+    <div class="container grid mx-auto">
+        <div>
+            <form method="GET" action="{{ route('admin.films.index') }}" class="mb-3">
                 <span class="float-left mr-2 -mt-1">
                     <x-dashboard.select label="Género" name="genre_code">
                         <option value="" {{ old('genre_code', $selectedGenre) === '' ? 'selected' : '' }}>Todos
@@ -16,7 +16,8 @@
                 </span>
                 <span class="float-left w-2/6 mr-2 -mt-1">
                     <x-dashboard.inputfield label="Pesquisa" name="search"
-                        value="{{ old('search', $search) === '' ? 'Pesquise um filme por título ou sumário' : old('search', $search) }}" />
+                        value="{{ old('search', $search) === '' ? '' : old('search', $search) }}"
+                        placeholder="Pesquise um filme por título ou sumário" />
 
                 </span>
                 <x-dashboard.button class="float-left mt-5 mr-2 button-primary">
@@ -27,12 +28,23 @@
                     </svg>
                     <x-slot:label>Filtrar</x-slot:label>
                 </x-dashboard.button>
-                <x-dashboard.button-clear-params class="float-left mt-5">
+                <x-dashboard.button-clear-params class="float-left mt-5 mr-2">
                     Limpar
                 </x-dashboard.button-clear-params>
-            </div>
+            </form>
+            <form method="GET" action="{{ route('admin.films.create') }}" class="mb-3">
+                <x-dashboard.button class="float-left mt-2 button-primary">
+                    <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" data-darkreader-inline-fill="" fill="currentColor"
+                        style="--darkreader-inline-fill: currentColor;" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <x-slot:label>Adicionar</x-slot:label>
+                </x-dashboard.button>
+            </form>
         </div>
-    </form>
+    </div>
     <div class="w-full overflow-hidden rounded-lg shadow-md">
         <div class="w-full overflow-x-auto">
             <x-dashboard.films-table :films="$films" />

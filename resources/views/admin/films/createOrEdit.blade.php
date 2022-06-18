@@ -1,26 +1,30 @@
-<x-dashboard.layout title="CineMagic - Editar Filme" :header="$film->titulo">
+<x-dashboard.layout :title="isset($film) ? 'CineMagic - Editar Filme' : 'Cinemagic - Adicionar Filme'" :header="isset($film) ? $film->titulo : 'Adicionar Filme'">
     <div class="grid gap-6 mb-8">
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form method="POST" action="{{ route('admin.films.update', $film) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ isset($film) ? route('admin.films.update', $film) : route('admin.films.store') }}"
+                enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
+                @if (isset($film))
+                    @method('PUT')
+                @endif
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados do filme
                 </h4>
-                <x-dashboard.inputfield label="Título" name="titulo" :value="$film->titulo" :placeholder="$film->titulo" attr="autofocus" />
-                <x-dashboard.inputfield label="Ano" name="ano" :placeholder="$film->titulo" :value="$film->ano" />
-                <x-dashboard.inputfield label="Trailer" name="trailer_url" :placeholder="$film->trailer_url" :value="$film->trailer_url" />
+                <x-dashboard.inputfield label="Título" name="titulo" :value="isset($film) ? $film->titulo : ''" :placeholder="isset($film) ? $film->titulo : ''" attr="autofocus" />
+                <x-dashboard.inputfield label="Ano" name="ano" :placeholder="isset($film) ? $film->ano : ''" :value="isset($film) ? $film->ano : ''" />
+                <x-dashboard.inputfield label="Trailer" name="trailer_url" :placeholder="isset($film) ? $film->trailer_url : ''" :value="isset($film) ? $film->trailer_url : ''" />
                 <x-dashboard.select label="Género" name="genero_code">
-                    <option {{ $film->genre ? '' : 'selected' }} disabled>Género</option>
+                    <option {{ isset($film) ? ($film->genre ? '' : 'selected') : 'selected' }} disabled>Género</option>
                     @foreach ($genres as $genre)
-                        <option value="{{ $genre->code }}" {{ $film->genero_code == $genre->code ? 'selected' : '' }}>
+                        <option value="{{ $genre->code }}"
+                            {{ isset($film) ? ($film->genero_code == $genre->code ? 'selected' : '') : '' }}>
                             {{ $genre->nome }}
                         </option>
                     @endforeach
                 </x-dashboard.select>
                 <label class="block mt-4 text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Message</span>
-                    <textarea name="sumario" class="input-primary" rows="3">{{ $film->sumario }}</textarea>
+                    <textarea name="sumario" class="input-primary" rows="3">{{ isset($film) ? $film->sumario : '' }}</textarea>
                 </label>
                 <span class="text-sm text-gray-700 dark:text-gray-400">Cartaz</span>
                 <x-dashboard.file-input name="cartaz" />
