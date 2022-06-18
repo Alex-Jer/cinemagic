@@ -1028,7 +1028,6 @@ input:checked + .toggle-bg {
 }
 .button-primary {
   display: flex;
-  cursor: pointer;
   align-items: center;
   justify-content: space-between;
   border-radius: 0.5rem;
@@ -1306,6 +1305,18 @@ input:checked + .toggle-bg {
 .mb-1 {
   margin-bottom: 0.25rem;
 }
+.-ml-2 {
+  margin-left: -0.5rem;
+}
+.mr-px {
+  margin-right: 1px;
+}
+.mr-0\.5 {
+  margin-right: 0.125rem;
+}
+.mr-0 {
+  margin-right: 0px;
+}
 .block {
   display: block;
 }
@@ -1455,6 +1466,31 @@ input:checked + .toggle-bg {
 }
 .w-1 {
   width: 0.25rem;
+}
+.w-screen {
+  width: 100vw;
+}
+.w-max {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.w-fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.w-2\/6 {
+  width: 33.333333%;
+}
+.w-3\/6 {
+  width: 50%;
+}
+.w-3 {
+  width: 0.75rem;
+}
+.w-14 {
+  width: 3.5rem;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1911,10 +1947,6 @@ input:checked + .toggle-bg {
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
-}
-.py-1\.5 {
-  padding-top: 0.375rem;
-  padding-bottom: 0.375rem;
 }
 .py-12 {
   padding-top: 3rem;
@@ -2734,6 +2766,10 @@ input:checked + .toggle-bg {
 
   .xl\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

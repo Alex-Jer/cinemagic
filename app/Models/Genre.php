@@ -9,10 +9,12 @@ class Genre extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'code';
+    protected $keyType = 'string';
     protected $table = 'generos';
 
     public function films()
     {
-        return $this->hasMany(Film::class);
+        return $this->hasMany(Film::class, 'genero_code');
     }
 }

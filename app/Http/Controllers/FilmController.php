@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -12,9 +13,27 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $films = Film::with('screenings')->orderBy('titulo')
+        $selectedGenre = $request->genre_code ?? '';
+        $search = $request->search ?? '';
+
+        $query = Film::query();
+
+        if ($selectedGenre) {
+            $query->whereHas('genre', function ($query) use ($selectedGenre) {
+                $query->where('genero_code', $selectedGenre);
+            });
+        }
+
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('titulo', 'like', "%$search%")
+                    ->orWhere('sumario', 'like', "%$search%");
+            });
+        }
+
+        $films = $query->with('screenings')->orderBy('titulo')
             ->whereHas('screenings', function ($query) {
                 $query->where('data', '>', now()->format('Y-m-d'))
                     ->orWhere(function ($query) {
@@ -23,7 +42,17 @@ class FilmController extends Controller
                     });
             })->paginate(25);
 
-        return view('films.index', compact('films'));
+        $genres = Genre::whereHas('films', function ($query) {
+            $query->whereHas('screenings', function ($query) {
+                $query->where('data', '>', now()->format('Y-m-d'))
+                    ->orWhere(function ($query) {
+                        $query->where('data', now()->format('Y-m-d'))
+                            ->where('horario_inicio', '>=', now()->subMinutes(5)->format('H:i'));
+                    });
+            });
+        })->get();
+
+        return view('films.index', compact(['films', 'genres', 'selectedGenre']));
     }
 
     /**
