@@ -70,7 +70,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect('/films');
     }
 
     public function update(UserPostRequest $request)

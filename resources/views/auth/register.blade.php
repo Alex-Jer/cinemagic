@@ -1,10 +1,10 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
-            </a>
-        </x-slot>
+        <x-slot name="logo"></x-slot>
+
+        <div class="text-center text-2xl font-bold text-gray-800 dark:text-gray-200">
+            CineMagic
+        </div>
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -52,12 +52,13 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="text-sm text-gray-600 underline hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                <a class="text-sm text-gray-600 underline hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                    href="{{ route('login') }}">
+                    Já tem uma conta?
                 </a>
 
                 <x-button class="ml-4">
-                    {{ __('Register') }}
+                    Registar
                 </x-button>
             </div>
         </form>
