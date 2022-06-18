@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $authUser = User::find(Auth::user()->id);
         $tipos = $authUser->tipo == 'A' ? ['A', 'F', 'C'] : ['C'];
-        $users = User::orderBy('name')->whereIn('tipo', $tipos)->paginate(10);
+        $users = User::orderBy('name')->whereIn('tipo', $tipos)->paginate(9);
         return view('admin.users.index', compact('users', 'authUser'));
     }
 

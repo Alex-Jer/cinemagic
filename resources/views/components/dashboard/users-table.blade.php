@@ -6,7 +6,7 @@
             <th class="px-4 py-3 w-3/5">Utilizador</th>
             <th class="px-4 py-3">Tipo</th>
             <th class="px-4 py-3">Estado</th>
-            <th class="px-4 py-3 text-center w-2/12">Ações</th>
+            <th class="px-4 py-3 w-2/12">Ações</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
