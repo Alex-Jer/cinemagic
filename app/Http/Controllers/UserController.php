@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         $customer = Customer::find($user->id);
         $mode = 'view';
-        return view('admin.users.view', compact('user', 'customer', 'mode'));
+        return view('admin.users.show', compact('user', 'customer', 'mode'));
     }
 
     /**

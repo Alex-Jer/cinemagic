@@ -49,8 +49,8 @@ Route::middleware('block')->group(
          */
         Route::controller(ScreeningController::class)->group(function () {
             Route::get('screening/{screening}', 'show')
-                ->name('screenings.show')
-                ->middleware('can:buy,screening');
+                ->name('screenings.show');
+            //TODO: ->middleware('can:buy,screening');
         });
 
         /**
@@ -81,7 +81,8 @@ Route::middleware('block')->group(
                 ->name('tickets.get_pdf');
 
             Route::post('cart', 'store')
-                ->name('tickets.store');
+                ->name('tickets.store')
+                ->middleware('can:buy,screening');
 
             // TODO: temp?
             Route::post('email/mailable', 'send_email_with_mailable')
@@ -94,9 +95,11 @@ Route::middleware('block')->group(
         Route::controller(CartController::class)->middleware('client')->group(function () {
             Route::get('cart', 'index')
                 ->name('cart.index');
+
             Route::post('screening/{screening}/{seat}', 'store')
-                ->name('cart.store')
-                ->middleware('can:buy,screening');
+                ->name('cart.store');
+            // TODO: ->middleware('can:buy,screening');
+
             Route::delete('cart/{key}', 'destroy')
                 ->name('cart.destroy');
         });
