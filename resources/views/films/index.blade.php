@@ -17,11 +17,12 @@
                         @endforeach
                     </x-dashboard.select>
                 </span>
-                <span class="float-left -mt-1 mr-2 w-2/6">
-                    <x-dashboard.input label="Pesquisa" name="search"
+                <span class="float-left w-2/6 mr-2 -mt-1">
+                    <x-dashboard.inputfield label="Pesquisa" name="search"
                         placeholder="{{ old('search', $search) === '' ? 'Pesquise um filme por título ou sumário' : old('search', $search) }}" />
+
                 </span>
-                <x-dashboard.button class="button-primary float-left mt-5 mr-2">
+                <x-dashboard.button class="float-left mt-5 mr-2 button-primary">
                     <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
                             d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
@@ -29,7 +30,7 @@
                     </svg>
                     <x-slot:label>Filtrar</x-slot:label>
                 </x-dashboard.button>
-                <x-dashboard.button-clear-params class="mt-5 float-left">
+                <x-dashboard.button-clear-params class="float-left mt-5">
                     Limpar
                 </x-dashboard.button-clear-params>
             </div>
@@ -37,11 +38,11 @@
     </form>
 
     <div class="grid gap-6 mb-8">
-        <div class="grid gap-x-14 mb-8 md:grid-cols-4 xl:grid-cols-5">
+        <div class="grid mb-8 gap-x-14 md:grid-cols-4 xl:grid-cols-5">
             @foreach ($films as $film)
                 <a href="{{ 'films/' . $film->id }}" class="-mr-12">
                     <div
-                        class="flex flex-wrap w-4/5 h-4/5 items-center justify-center mb-12 rounded-lg shadow-xs dark:bg-gray-800 transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-100">
+                        class="flex flex-wrap items-center justify-center w-4/5 mb-12 transition duration-100 ease-in-out rounded-lg shadow-xs h-4/5 dark:bg-gray-800 hover:-translate-y-1 hover:scale-110">
                         @if ($film->cartaz_url)
                             <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
                                 alt="{{ $film->titulo }}">

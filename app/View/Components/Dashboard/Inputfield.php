@@ -4,12 +4,12 @@ namespace App\View\Components\Dashboard;
 
 use Illuminate\View\Component;
 
-class Input extends Component
+class Inputfield extends Component
 {
     public $label;
+    public $name;
     public $placeholder;
     public $value;
-    public $name;
     public $attr;
 
     /**
@@ -17,12 +17,12 @@ class Input extends Component
      *
      * @return void
      */
-    public function __construct($label, $placeholder = null, $value = null, $name, $attr = null)
+    public function __construct($label, $name, $placeholder = null, $value = null, $attr = null)
     {
         $this->label = $label;
+        $this->name = $name;
         $this->placeholder = $placeholder;
         $this->value = $value;
-        $this->name = $name;
         $this->attr = $attr;
     }
 
@@ -33,6 +33,6 @@ class Input extends Component
      */
     public function render()
     {
-        return view('components.dashboard.input');
+        return view('components.dashboard.inputfield');
     }
 }

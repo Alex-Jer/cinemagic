@@ -7,9 +7,10 @@
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados do filme
                 </h4>
-                <x-dashboard.input label="Título" name="title" :placeholder="$film->titulo" attr="autofocus" />
-                <x-dashboard.input label="Ano" name="year" :placeholder="$film->ano" />
-                <x-dashboard.select label="Género" name="genre_code">
+                <x-dashboard.input label="Título" name="titulo" :value="$film->titulo" placeholder="Título" attr="autofocus" />
+                <x-dashboard.input label="Ano" name="ano" placeholder="Ano" :value="$film->ano" />
+                <x-dashboard.input label="Trailer" name="trailer_url" placeholder="Trailer" :value="$film->trailer_url" />
+                <x-dashboard.select label="Género" name="genero_code">
                     <option {{ $film->genre ? '' : 'selected' }} disabled>Género</option>
                     @foreach ($genres as $genre)
                         <option value="{{ $genre->code }}" {{ $film->genero_code == $genre->code ? 'selected' : '' }}>
@@ -17,8 +18,12 @@
                         </option>
                     @endforeach
                 </x-dashboard.select>
+                <label class="block mt-4 text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Message</span>
+                    <textarea name="sumario" class="input-primary" rows="3">{{ $film->sumario }}</textarea>
+                </label>
                 <span class="text-sm text-gray-700 dark:text-gray-400">Cartaz</span>
-                <x-dashboard.file-input name="profile_pic" />
+                <x-dashboard.file-input name="cartaz" />
                 <x-dashboard.button class="button-primary">
                     <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
                         <path
