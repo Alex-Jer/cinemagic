@@ -25,8 +25,15 @@
     </div>
 
     <div class="min-w-0 col-span-2 p-4 mt-5 bg-white rounded-lg shadow-md dark:bg-gray-800">
+
         <div class="mb-2 ml-3 text-2xl font-semibold uppercase dark:text-gray-200">Sessões</div>
-        <x-dashboard.screenings-table :film="$film" />
+        @if ($film->screenings->count() > 0)
+            <x-dashboard.screenings-table :film="$film" />
+        @else
+            <div class="text-center text-gray-600 dark:text-gray-400">
+                <p>Este filme não tem sessões agendadas</p>
+            </div>
+        @endif
     </div>
 
     <div class="col-span-2 p-4 mt-5 rounded-lg">

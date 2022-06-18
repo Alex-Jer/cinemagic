@@ -12,7 +12,7 @@
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         @foreach ($films as $film)
             <tr
-                class="text-gray-700 transition duration-100 ease-in-out dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                class="text-gray-700 transition duration-75 ease-in-out dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="px-4 py-3 text-sm font-medium">{{ $film->id }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $film->titulo }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $film->genre->nome }}</td>
