@@ -18,7 +18,8 @@
                     </x-dashboard.select>
                 </span>
                 <span class="float-left -mt-1 mr-2 w-2/6">
-                    <x-dashboard.input label="Pesquisa" name="search" placeholder="{{ old('search') }}" />
+                    <x-dashboard.input label="Pesquisa" name="search"
+                        placeholder="{{ old('search', $search) === '' ? 'Pesquise um filme por título ou sumário' : old('search', $search) }}" />
                 </span>
                 <x-dashboard.button class="button-primary float-left mt-5 mr-2">
                     <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" fill="currentColor" viewBox="0 0 20 20">

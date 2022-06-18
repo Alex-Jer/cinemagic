@@ -52,7 +52,7 @@ class FilmController extends Controller
             });
         })->get();
 
-        return view('films.index', compact(['films', 'genres', 'selectedGenre']));
+        return view('films.index', compact(['films', 'genres', 'selectedGenre', 'search']));
     }
 
     /**
