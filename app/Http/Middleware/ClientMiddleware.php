@@ -17,7 +17,7 @@ class ClientMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::user()->isCustomer())
+        if (!Auth::guest() && !Auth::user()->isCustomer())
             abort(403, 'Acesso proibido');
         return $next($request);
     }

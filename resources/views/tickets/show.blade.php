@@ -41,7 +41,7 @@
                 <tr class="text-gray-700 dark:text-gray-400">
                     <td class="px-4 py-3">Foto</td>
                     <td class="px-4 py-3 float-right">
-                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                        <div class="relative hidden w-8 h-8 rounded-full md:block">
                             @if ($ticket->customer->user->foto_url)
                                 <img class="object-cover w-full h-full rounded-full"
                                     src="{{ asset('storage/fotos/' . $ticket->customer->user->foto_url) }}"
