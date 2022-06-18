@@ -6,8 +6,8 @@
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados pessoais
                 </h4>
-                <x-dashboard.input label="Nome" name="name" placeholder="Nome" attr="autofocus required" />
-                <x-dashboard.input label="E-mail" name="email" placeholder="E-mail" attr="required" />
+                <x-dashboard.input label="Nome" name="name" placeholder="Nome" attr="autofocus required" value="" />
+                <x-dashboard.input label="E-mail" name="email" placeholder="E-mail" attr="required" value="" />
                 <label class="block text-sm ">
                     <span class="dark:text-gray-400">Password</span>
                     <input class="mb-4 input-primary" name="password" type="password" placeholder="Password" required />
@@ -33,7 +33,7 @@
                         class="mt-2 mb-3 rounded-full w-9 h-9">
                 </div>
                 <x-back-button class="mr-2" />
-                <x-dashboard.button class="button-primary float-left">
+                <x-dashboard.button class="float-left button-primary">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z">
