@@ -102,7 +102,7 @@ class UserController extends Controller
         $customer = Customer::find($user->id);
         $paymentTypes = Customer::distinct()->whereNotNull('tipo_pagamento')->pluck('tipo_pagamento')->toArray();
         $mode = 'edit';
-        return view('admin.users.view', compact('user', 'customer', 'paymentTypes', 'mode'));
+        return view('admin.users.show', compact('user', 'customer', 'paymentTypes', 'mode'));
     }
 
     /**
