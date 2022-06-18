@@ -39,14 +39,16 @@
             <div class="mt-4">
                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
 
-                <x-input id="password_confirmation" class="block w-full mt-1" type="password"
-                    name="password_confirmation" required />
+                <x-input id="password_confirmation" class="block w-full mt-1" type="password" name="password_confirmation"
+                    required />
             </div>
 
             <!-- Upload Picture -->
             <div class="mt-4">
                 <x-label for="profile_pic" :value="__('Profile Picture')" />
-                <input type="file" class="block w-full mt-1" id="profile_pic" name="profile_pic">
+                <input type="file"
+                    class="block w-full transition border border-gray-300 border-solid input-primary bg-clip-padding"
+                    id="profile_pic" name="profile_pic">
             </div>
 
             <div class="flex items-center justify-end mt-4">
