@@ -12,7 +12,7 @@
             <div class="float-right text-sm">
                 <form method="POST" action="/cart">
                     @csrf
-                    <x-dashboard.button class="{{ Auth::guest() ? 'button-disabled' : 'button-primary' }}" :disabled="true">
+                    <x-dashboard.button class="{{ Auth::guest() ? 'button-disabled' : 'button-primary' }}" disabled>
                         <svg class="w-5 h-5 mt-px mr-1" data-darkreader-inline-stroke="" fill="none" stroke="currentColor"
                             style="--darkreader-inline-stroke: currentColor;" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

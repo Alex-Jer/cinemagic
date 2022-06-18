@@ -26,7 +26,7 @@
                 </td>
                 <td class="px-4 py-3">
                     <div class="flex items-center space-x-4 text-sm">
-                        <a href="{{ route('screenings.show', $screening) }}">
+                        <form method="GET" action="{{ route('screenings.show', $screening) }}">
                             <x-dashboard.button
                                 class="{{ !(Auth::guest() || Auth::user()->isCustomer()) ? 'button-disabled' : 'button-primary' }}"
                                 :disabled="!(Auth::guest() || Auth::user()->isCustomer())">
@@ -37,7 +37,7 @@
                                 </svg>
                                 <x-slot:label>Comprar bilhete</x-slot:label>
                             </x-dashboard.button>
-                        </a>
+                        </form>
                     </div>
                 </td>
             </tr>
