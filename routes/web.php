@@ -14,13 +14,6 @@ use Illuminate\Support\Facades\Route;
 // Include all routes that should log out a logged user when they are blocked
 Route::middleware('block')->group(
     function () {
-        // TODO: temp
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })
-            ->middleware(['auth', 'verified'])
-            ->name('dashboard');
-        // TODO
 
         Route::get('/', function () {
             return view('home');
