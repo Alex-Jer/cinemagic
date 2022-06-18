@@ -171,9 +171,30 @@ class FilmController extends Controller
         }
     }
 
-    public function admin_index()
+    public function admin_index(Request $request)
     {
-        $films = Film::orderBy('ano', 'desc')->paginate(13);
-        return view('admin.films.index', compact('films'));
+        $selectedGenre = $request->genre_code ?? '';
+        $search = $request->search ?? '';
+
+        $query = Film::query();
+
+        if ($selectedGenre) {
+            $query->whereHas('genre', function ($query) use ($selectedGenre) {
+                $query->where('genero_code', $selectedGenre);
+            });
+        }
+
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('titulo', 'like', "%$search%")
+                    ->orWhere('sumario', 'like', "%$search%");
+            });
+        }
+
+        $genres = Genre::all();
+
+        $films = $query->with('screenings')->orderBy('ano', 'desc')->paginate(12);
+
+        return view('admin.films.index', compact(['films', 'selectedGenre', 'search', 'genres']));
     }
 }
