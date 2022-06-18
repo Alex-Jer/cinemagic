@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         AuthenticatedSessionController::logout($request);
-        return redirect('/');
+        return redirect('/films');
     }
 
     public static function logout(Request $request)
