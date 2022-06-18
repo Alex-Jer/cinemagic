@@ -92,4 +92,8 @@ class ScreeningController extends Controller
     {
         //
     }
+
+    public function employee_index()
+    {
+    }
 }

@@ -105,6 +105,15 @@ Route::middleware('block')->group(
         });
 
         /**
+         * Employee routes
+         */
+        Route::middleware('auth')->prefix('employee')->name('employee.')->group(function () {
+            Route::get('screenings', [ScreeningController::class, 'employee_index'])
+                ->name('screenings.index');
+            //TODO: ->middleware('can:viewAny,App\Models\Screen');
+        });
+
+        /**
          * Admin routes
          */
         Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
@@ -143,8 +152,17 @@ Route::middleware('block')->group(
                     ->middleware('can:create,App\Models\User');
             });
 
-            Route::get('screen', [ScreenController::class, 'index'])
-                ->name('screen.index')->middleware('can:viewAny,App\Models\Screen');
+            Route::get('films', [FilmController::class, 'admin_index'])
+                ->name('films.index')
+                ->middleware('can:viewAny,App\Models\Screen');
+
+            Route::get('screenings', [ScreeningController::class, 'index'])
+                ->name('screenings.index')
+                ->middleware('can:viewAny,App\Models\Screen');
+
+            Route::get('screens', [ScreenController::class, 'index'])
+                ->name('screens.index')
+                ->middleware('can:viewAny,App\Models\Screen');
 
             Route::get('config', [ConfigurationController::class, 'index'])
                 ->name('config.index');
