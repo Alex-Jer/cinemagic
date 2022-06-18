@@ -6,6 +6,7 @@ use App\Http\Requests\FilmPostRequest;
 use App\Models\Film;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Storage;
 
 class FilmController extends Controller
 {
@@ -119,11 +120,18 @@ class FilmController extends Controller
     public function update(FilmPostRequest $request, Film $film)
     {
         $validated = $request->validated();
-        dd($validated);
         $film->fill($validated);
+
+        if ($request->hasFile('cartaz')) {
+            Storage::delete('public/cartazes/' . $film->cartaz_url);
+            $path = $request->cartaz->store('public/cartazes');
+            $film->cartaz_url = basename($path);
+        }
+
         $film->save();
+
         return redirect()->route('admin.films.index')
-            ->with('alert-msg', 'Filme "' . $film->name . '" alterado com sucesso.')
+            ->with('alert-msg', 'Filme "' . $film->titulo . '" alterado com sucesso.')
             ->with('alert-color', 'green')
             ->with('alert-icon', 'success');
     }

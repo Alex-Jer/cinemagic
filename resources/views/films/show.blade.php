@@ -4,7 +4,7 @@
             {{ $film->titulo }}
         </h2>
         <div class="grid grid-flow-col grid-rows-6 gap-4">
-            <div class="w-72 h-auto row-span-6">
+            <div class="h-auto row-span-6 w-72">
                 @if ($film->cartaz_url)
                     <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
                         alt="">
@@ -29,9 +29,9 @@
         <x-dashboard.screenings-table :film="$film" />
     </div>
 
-    <div class="mt-5 col-span-2 p-4 rounded-lg">
-        <div class="col-span-2 text-2xl font-semibold uppercase6 dark:text-gray-200 mb-5">Trailer</div>
-        <div class="flex flex-row justify-center items-center">
+    <div class="col-span-2 p-4 mt-5 rounded-lg">
+        <div class="col-span-2 mb-5 text-2xl font-semibold uppercase6 dark:text-gray-200">Trailer</div>
+        <div class="flex flex-row items-center justify-center">
             <div class="w-full" style="height:819px">
                 <embed id="trailer" wmode="transparent" type="video/mp4" width="100%" height="100%" allowfullscreen>
             </div>

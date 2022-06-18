@@ -13,7 +13,7 @@ class FilmPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,7 +27,7 @@ class FilmPostRequest extends FormRequest
             'titulo' => 'required|string|max:255',
             'genero_code' => 'required|string|max:255|exists:generos,code',
             'ano' => 'required|integer|min:1',
-            'cartaz_url' => 'nullable|image|max:24576',
+            'cartaz' => 'nullable|image|max:24576',
             'sumario' => 'required|string|max:255',
             'trailer_url' => 'nullable|string|max:255',
         ];

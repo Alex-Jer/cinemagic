@@ -7,8 +7,8 @@
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados pessoais
                 </h4>
-                <x-dashboard.input label="Nome" name="name" :placeholder="Auth::user()->name" attr="autofocus" />
-                <x-dashboard.input label="E-mail" name="email" :placeholder="Auth::user()->email" />
+                <x-dashboard.inputfield label="Nome" name="name" :placeholder="Auth::user()->name" attr="autofocus" />
+                <x-dashboard.inputfield label="E-mail" name="email" :placeholder="Auth::user()->email" />
                 <span class="text-sm text-gray-700 dark:text-gray-400">Imagem de perfil</span>
                 <div class="flex flex-row">
                     <x-dashboard.file-input name="profile_pic" />
@@ -38,7 +38,8 @@
                         Dados de pagamento
                     </h4>
 
-                    <x-dashboard.input label="NIF" name="nif" :placeholder="$customer->nif ? $customer->nif : 'NIF'" />
+                    <x-dashboard.inputfield label="NIF" name="nif" :placeholder="$customer->nif ? $customer->nif : 'NIF'" />
+
                     <x-dashboard.select label="Tipo de pagamento" name="tipo_pagamento">
                         <option {{ $customer->tipo_pagamento ? '' : 'selected' }} disabled>Tipo de pagamento</option>
                         @foreach ($paymentTypes as $tipo)
@@ -47,7 +48,7 @@
                             </option>
                         @endforeach
                     </x-dashboard.select>
-                    <x-dashboard.input label="Referência de pagamento" name="ref_pagamento" :placeholder="$customer->tipo_pagamento ? $customer->ref_pagamento : 'Referência de pagamento'" />
+                    <x-dashboard.inputfield label="Referência de pagamento" name="ref_pagamento" :placeholder="$customer->tipo_pagamento ? $customer->ref_pagamento : 'Referência de pagamento'" />
                     <x-dashboard.button class="button-primary">
                         <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
                             <path
