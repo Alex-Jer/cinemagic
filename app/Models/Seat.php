@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Debugbar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,8 +10,13 @@ class Seat extends Model
     use HasFactory;
 
     protected $table = 'lugares';
+
+    public $timestamps = false;
+
     protected $fillable = [
-        'nome',
+        'sala_id',
+        'fila',
+        'posicao',
         'custom'
     ];
 

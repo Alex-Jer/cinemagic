@@ -11,6 +11,8 @@ class Screen extends Model
 
     protected $table = 'salas';
 
+    public $timestamps = false;
+
     protected $casts = [
         'custom' => 'array'
     ];
