@@ -26,7 +26,7 @@
             </form>
             @can('create', App\Models\Screening::class)
                 <form method="GET" action="{{ route('admin.films.index') }}" class="mb-3">
-                    <x-dashboard.button class="float-left mt-2 button-primary">
+                    <x-dashboard.button class="float-right mt-2 button-primary">
                         <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" data-darkreader-inline-fill="" fill="currentColor"
                             style="--darkreader-inline-fill: currentColor;" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
