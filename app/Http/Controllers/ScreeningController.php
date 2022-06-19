@@ -27,9 +27,9 @@ class ScreeningController extends Controller
         }
 
         if ($search) {
-            $search = Str::replace(" ", "%", $search);
-            $query->whereHas('film', function ($query) use ($search) {
-                $query->where('titulo', 'like', "%$search%");
+            $asearch = Str::replace(" ", "%", $search);
+            $query->whereHas('film', function ($query) use ($asearch) {
+                $query->where('titulo', 'like', "%$asearch%");
             });
         }
 
