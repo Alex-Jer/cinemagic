@@ -138,7 +138,7 @@ Route::middleware('block')->group(
         Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
             /**
-             * User routes
+             * User admin routes
              */
             Route::controller(UserController::class)->group(function () {
                 Route::get('users', 'index')
@@ -175,7 +175,7 @@ Route::middleware('block')->group(
             });
 
             /**
-             * Film routes
+             * Film admin routes
              */
             Route::controller(FilmController::class)->group(function () {
                 Route::get('films', 'admin_index')
@@ -235,6 +235,35 @@ Route::middleware('block')->group(
                 Route::delete('screenings/{screening}', 'destroy')
                     ->name('screenings.destroy')
                     ->middleware('can:delete,screening');
+            });
+
+            /**
+             * Screen admin routes
+             */
+            Route::controller(ScreenController::class)->group(function () {
+                Route::get('screens',  'index')
+                    ->name('screens.index')
+                    ->middleware('can:viewAny,App\Models\Screen');
+
+                Route::get('screens/create', 'create')
+                    ->name('screens.create');
+                // TODO: ->middleware('can:create,App\Models\User');
+
+                Route::post('screens/create', 'store')
+                    ->name('screens.store');
+                // TODO: ->middleware('can:create,App\Models\User');
+
+                Route::get('screens/{screen}/edit', 'edit')
+                    ->name('screens.edit');
+                // TODO: ->middleware('can:update,user');
+
+                Route::put('screens/{screen}', 'update')
+                    ->name('screens.update');
+                // TODO: ->middleware('can:update,user');
+
+                Route::delete('screens/{screen}', 'destroy')
+                    ->name('screens.destroy');
+                // TODO: ->middleware('can:delete,user');
             });
 
             Route::get('screens', [ScreenController::class, 'index'])
