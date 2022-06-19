@@ -14,7 +14,7 @@ class ScreenController extends Controller
      */
     public function index()
     {
-        $screens = Screen::with('seats')->orderBy('nome')->paginate(12);
+        $screens = Screen::with('seats')->orderBy('nome')->paginate(9);
         return view('admin.screens.index', compact('screens'));
     }
 
@@ -39,12 +39,26 @@ class ScreenController extends Controller
         $validated = $request->validated();
 
         $screen = new Screen;
-        $screen->fill($validated);
-
+        $screen->nome = $validated['nome'];
         $screen->save();
 
-        return redirect()->back()
-            // ->with('alert-msg', 'Sessão criada para o dia ' . $screen->data->format('d/m/Y') . ' às ' . $screen->horario_inicio->format('H:i') . '.')
+        $seats = [];
+        $alphabet = range('A', 'Z');
+
+        for ($i = 0; $i < $validated['filas']; $i++) {
+            for ($j = 0; $j < $validated['posicoes']; $j++) {
+                $seats[] = [
+                    'fila' => $alphabet[$i],
+                    'posicao' => $j + 1,
+                    'sala_id' => $screen->id,
+                ];
+            }
+        }
+
+        $screen->seats()->createMany($seats);
+
+        return redirect()->route('admin.screens.index')
+            ->with('alert-msg', 'Sala ' . $screen->nome . ' criada com sucesso!')
             ->with('alert-color', 'green')
             ->with('alert-icon', 'success');
     }
@@ -131,22 +145,22 @@ class ScreenController extends Controller
     public function destroy(Screen $screen)
     {
         try {
+            $screen->seats()->delete();
             $screen->delete();
             Screen::destroy($screen->id);
             return redirect()->route('admin.screens.index')
-                // ->with('alert-msg', 'Sessão para o dia ' . $screen->data->format('d/m/Y') . ' às ' . $screen->horario_inicio->format('H:i') . ' apagada com sucesso.')
+                ->with('alert-msg', 'Sala ' . $screen->nome . ' apagada com sucesso.')
                 ->with('alert-color', 'green')
                 ->with('alert-icon', 'success');
         } catch (\Throwable $th) {
             if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
-                //just in case because policies already prevent this
                 return redirect()->route('admin.screens.index')
-                    // ->with('alert-msg', 'Não foi possível apagar a sessão #' . $screen->id . ', porque esta sessão tem bilhetes associados!')
+                    ->with('alert-msg', 'Não foi possível apagar a sala ' . $screen->nome . ' porque esta sala tem bilhetes associados!')
                     ->with('alert-color', 'red')
                     ->with('alert-icon', 'error');
             } else {
                 return redirect()->route('admin.screens.index')
-                    // ->with('alert-msg', 'Não foi possível apagar a sessão #' . $screen->id . '. Erro: ' . $th->errorInfo[2])
+                    ->with('alert-msg', 'Não foi possível apagar a sala ' . $screen->nome . '. Erro: ' . $th->errorInfo[2])
                     ->with('alert-color', 'red')
                     ->with('alert-icon', 'error');
             }

@@ -24,7 +24,6 @@ class ScreenPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'filme_id' => 'required|integer|min:1',
             'nome' => 'required|string|max:255',
             'filas' => 'required|integer|min:1',
             'posicoes' => 'required|integer|min:1',
