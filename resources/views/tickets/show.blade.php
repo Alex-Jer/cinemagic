@@ -1,8 +1,7 @@
 <x-dashboard.layout title="CineMagic - Recibo">
     <div class="grid gap-6 mb-8 md:grid-cols-3">
         <div class="min-w-0 col-span-1 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <div class="float-left mb-2 ml-3 text-2xl font-semibold dark:text-gray-200">Bilhete #{{ $ticket->id }}
-            </div>
+            <div class="float-left mb-2 ml-3 text-2xl font-semibold dark:text-gray-200">Bilhete #{{ $ticket->id }}</div>
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr
