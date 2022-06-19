@@ -31,9 +31,9 @@ class ScreeningController extends Controller
         }
 
         if ($search) {
-            $search = Str::replace(" ", "%", $search);
-            $query->whereHas('film', function ($query) use ($search) {
-                $query->where('titulo', 'like', "%$search%");
+            $asearch = Str::replace(" ", "%", $search);
+            $query->whereHas('film', function ($query) use ($asearch) {
+                $query->where('titulo', 'like', "%$asearch%");
             });
         }
 
@@ -140,6 +140,7 @@ class ScreeningController extends Controller
                 ->with('alert-icon', 'success');
         } catch (\Throwable $th) {
             if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
+                //just in case because policies already prevent this
                 return redirect()->route('admin.screenings.index')
                     ->with('alert-msg', 'Não foi possível apagar a sessão #' . $screening->id . ', porque esta sessão tem bilhetes associados!')
                     ->with('alert-color', 'red')
@@ -155,10 +156,11 @@ class ScreeningController extends Controller
 
     public function employee_index()
     {
-        return view('employee.screenings.index');
+        //TODO: controller employee_index
+        return view('employee.screenings.validate');
     }
 
-    public function admin_show(Screening $screening)
+    public function backend_show(Screening $screening)
     {
         $seats = $screening->screen->seats;
 

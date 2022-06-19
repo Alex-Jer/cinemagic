@@ -23,11 +23,26 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $authUser = User::find(Auth::user()->id);
-        $tipos = $authUser->tipo == 'A' ? ['A', 'F', 'C'] : ['C'];
-
+        $tipos = ['A', 'F', 'C'];
         $selectedType = $request->user_type ?? '';
         $search = $request->search ?? '';
+
+        $users = $this->get_users($tipos, $selectedType, $search);
+        return view('admin.users.index', compact('users', 'tipos', 'selectedType', 'search'));
+    }
+
+    public function employee_index(Request $request)
+    {
+        $tipos = ['C'];
+        $selectedType = $request->user_type ?? '';
+        $search = $request->search ?? '';
+
+        $users = $this->get_users($tipos, $selectedType, $search);
+        return view('admin.users.index', compact('users', 'tipos', 'selectedType', 'search'));
+    }
+
+    public function get_users($tipos, $selectedType, $search)
+    {
         $query = User::query();
 
         if ($selectedType) {
@@ -39,8 +54,7 @@ class UserController extends Controller
             $query->where('name', 'like', "%$asearch%");
         }
 
-        $users = $query->orderBy('name')->whereIn('tipo', $tipos)->paginate(8);
-        return view('admin.users.index', compact('users', 'authUser', 'tipos', 'selectedType', 'search'));
+        return $query->orderBy('name')->whereIn('tipo', $tipos)->paginate(8);
     }
 
     /**

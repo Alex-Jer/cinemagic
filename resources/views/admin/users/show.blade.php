@@ -1,15 +1,17 @@
 <x-dashboard.layout :title="'CineMagic - ' . $user->name" :header="'Perfil de ' . $user->name" backButton="{{ $mode == 'edit' ? 'false' : 'true' }}">
     <div class="   grid gap-6 mb-8 {{ $customer ? 'md:grid-cols-3' : 'md:grid-cols-2' }}">
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form method="POST" action="{{ route('admin.users.update', ['user' => $user]) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.users.update', ['user' => $user]) }}"
+                enctype="multipart/form-data">
 
                 @method('PUT')
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados pessoais
                 </h4>
-                <x-dashboard.view-user.input label="Nome" name="name" :content="$user->name" attr="autofocus" :mode="$mode"
+                <x-dashboard.view-user.input label="Nome" name="name" :content="$user->name" attr="autofocus"
+                    :mode="$mode" value="" />
+                <x-dashboard.view-user.input label="E-mail" name="email" :content="$user->email" :mode="$mode"
                     value="" />
-                <x-dashboard.view-user.input label="E-mail" name="email" :content="$user->email" :mode="$mode" value="" />
                 <span class="text-sm text-gray-700 dark:text-gray-400">Imagem de perfil</span>
                 <div class="flex flex-row">
                     @if ($mode == 'edit')
@@ -24,7 +26,7 @@
                     @endif
                 </div>
                 @if ($mode == 'edit')
-                    <x-back-button class="mr-2" />
+                    <x-back-button class="mr-2 float-left" />
                     <x-dashboard.button class="float-left button-primary">
                         <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
                             <path
@@ -51,7 +53,8 @@
                             <option {{ $customer->tipo_pagamento ? '' : 'selected' }} disabled>Tipo de pagamento
                             </option>
                             @foreach ($paymentTypes as $tipo)
-                                <option value="{{ $tipo }}" {{ $customer->tipo_pagamento == $tipo ? 'selected' : '' }}>
+                                <option value="{{ $tipo }}"
+                                    {{ $customer->tipo_pagamento == $tipo ? 'selected' : '' }}>
                                     {{ $tipo }}
                                 </option>
                             @endforeach

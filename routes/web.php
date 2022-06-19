@@ -99,9 +99,29 @@ Route::middleware('block')->group(
          * Employee routes
          */
         Route::middleware('auth')->prefix('employee')->name('employee.')->group(function () {
-            Route::get('screenings', [ScreeningController::class, 'employee_index'])
-                ->name('screenings.index');
-            //TODO: ->middleware('can:viewAny,App\Models\Screen');
+            /**
+             * Screening employee routes
+             */
+            Route::controller(ScreeningController::class)->group(function () {
+
+                Route::get('screenings', 'employee_index')
+                    ->name('screenings.index')
+                    ->middleware('can:viewAnyEmployee,App\Models\Screening');
+
+                Route::get('screenings/{screening}', 'backend_show')
+                    ->name('screenings.show')
+                    ->middleware('can:view,screening');
+
+                Route::get('screenings/{screening}/validate', 'validate')
+                    ->name('screenings.validate')
+                    ->middleware('can:validate,screening');
+            });
+
+            Route::controller(UserController::class)->group(function () {
+                Route::get('users', 'employee_index')
+                    ->name('users.index')
+                    ->middleware('can:viewAnyEmployee,App\Models\User');
+            });
         });
 
         /**
@@ -115,7 +135,7 @@ Route::middleware('block')->group(
             Route::controller(UserController::class)->group(function () {
                 Route::get('users', 'index')
                     ->name('users.index')
-                    ->middleware('can:viewAny,App\Models\User');
+                    ->middleware('can:viewAnyAdmin,App\Models\User');
 
                 Route::get('users/{user}/view', 'show')
                     ->name('users.show')
@@ -151,8 +171,8 @@ Route::middleware('block')->group(
              */
             Route::controller(FilmController::class)->group(function () {
                 Route::get('films', 'admin_index')
-                    ->name('films.index')
-                    ->middleware('can:viewAny,App\Models\Screen');
+                    ->name('films.index');
+                //TODO: ->middleware('can:viewAny,App\Models\Screen');
 
                 Route::get('films/create', 'create')
                     ->name('films.create');
@@ -177,30 +197,36 @@ Route::middleware('block')->group(
 
 
             /**
-             * Screening routes
+             * Screening admin routes
              */
             Route::controller(ScreeningController::class)->group(function () {
                 Route::get('screenings',  'index')
                     ->name('screenings.index')
-                    ->middleware('can:viewAny,App\Models\Screen');
+                    ->middleware('can:viewAnyAdmin,App\Models\Screening');
 
                 Route::get('screenings/create/{film}', 'create')
-                    ->name('screenings.create');
+                    ->name('screenings.create')
+                    ->middleware('can:create,App\Models\Screening');
 
                 Route::post('screenings/create', 'store')
-                    ->name('screenings.store');
+                    ->name('screenings.store')
+                    ->middleware('can:create,App\Models\Screening');
 
-                Route::get('screenings/{screening}', 'admin_show')
-                    ->name('screenings.show');
+                Route::get('screenings/{screening}', 'backend_show')
+                    ->name('screenings.show')
+                    ->middleware('can:view,screening');
 
                 Route::get('screenings/{screening}/edit', 'edit')
-                    ->name('screenings.edit');
+                    ->name('screenings.edit')
+                    ->middleware('can:update,screening');
 
                 Route::put('screenings/{screening}', 'update')
-                    ->name('screenings.update');
+                    ->name('screenings.update')
+                    ->middleware('can:update,screening');
 
                 Route::delete('screenings/{screening}', 'destroy')
-                    ->name('screenings.destroy');
+                    ->name('screenings.destroy')
+                    ->middleware('can:delete,screening');
             });
 
             Route::get('screens', [ScreenController::class, 'index'])

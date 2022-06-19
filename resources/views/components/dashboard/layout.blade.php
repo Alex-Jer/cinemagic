@@ -22,7 +22,7 @@
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                         @if ($backButton == 'true')
                             <span class="float-left"> {{ $header }} </span>
-                            <x-back-button class="ml-4" />
+                            <x-back-button class="ml-4 float-left" />
                         @else
                             {{ $header }}
                         @endif

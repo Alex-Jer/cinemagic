@@ -4,26 +4,31 @@
             <form method="GET" action="{{ route('admin.users.index') }}" class="mb-3">
                 <span class="float-left mr-2 -mt-1">
                     <x-dashboard.select label="Tipo de Utilizador" name="user_type">
-                        <option value="" {{ old('user_type', $selectedType) === '' ? 'selected' : '' }}>Todos
-                        </option>
-                        @foreach ($tipos as $tipo)
-                            <option value="{{ $tipo }}"
-                                {{ $tipo === old('user_type', $selectedType) ? 'selected' : '' }}>
-                                @switch($tipo)
-                                    @case('A')
-                                        Administrador
-                                    @break
-
-                                    @case('F')
-                                        Funcionário
-                                    @break
-
-                                    @default
-                                        Cliente
-                                    @break
-                                @endswitch
+                        @if (count($tipos) >= 2)
+                            <option value="" {{ old('user_type', $selectedType) === '' ? 'selected' : '' }}>Todos
                             </option>
-                        @endforeach
+                            @foreach ($tipos as $tipo)
+                                <option value="{{ $tipo }}"
+                                    {{ $tipo === old('user_type', $selectedType) ? 'selected' : '' }}>
+                                    @switch($tipo)
+                                        @case('A')
+                                            Administrador
+                                        @break
+
+                                        @case('F')
+                                            Funcionário
+                                        @break
+
+                                        @default
+                                            Cliente
+                                        @break
+                                    @endswitch
+                                </option>
+                            @endforeach
+                        @else
+                            <option value="C" selected>Cliente
+                            </option>
+                        @endif
                     </x-dashboard.select>
                 </span>
                 <span class="float-left w-2/6 mr-2 -mt-1">
@@ -60,7 +65,7 @@
     </div>
     <div class="w-full overflow-hidden rounded-lg shadow-md">
         <div class="w-full overflow-x-auto">
-            <x-dashboard.users-table :users="$users" :authUser="$authUser" />
+            <x-dashboard.users-table :users="$users" />
         </div>
         {{ $users->appends(request()->all())->onEachSide(2)->links() }}
     </div>

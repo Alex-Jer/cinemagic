@@ -6,7 +6,8 @@
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados pessoais
                 </h4>
-                <x-dashboard.input label="Nome" name="name" placeholder="Nome" attr="autofocus required" value="" />
+                <x-dashboard.input label="Nome" name="name" placeholder="Nome" attr="autofocus required"
+                    value="" />
                 <x-dashboard.input label="E-mail" name="email" placeholder="E-mail" attr="required" value="" />
                 <label class="block text-sm ">
                     <span class="dark:text-gray-400">Password</span>
@@ -32,7 +33,7 @@
                     <img src="{{ asset('storage/fotos/default.png') }}" alt="default profile picture"
                         class="mt-2 mb-3 rounded-full w-9 h-9">
                 </div>
-                <x-back-button class="mr-2" />
+                <x-back-button class="mr-2 float-left" />
                 <x-dashboard.button class="float-left button-primary">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
