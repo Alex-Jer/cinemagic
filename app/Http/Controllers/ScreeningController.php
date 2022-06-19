@@ -210,7 +210,7 @@ class ScreeningController extends Controller
                 return view('employee.screenings.validate', compact(['screening', 'ticket', 'alert']));
             }
             $alert = [
-                'alert-msg' => 'Este bilhete é válido.',
+                'alert-msg' => 'Esse bilhete é válido.',
                 'alert-color' => 'purple',
                 'alert-icon' => 'info'
             ];
