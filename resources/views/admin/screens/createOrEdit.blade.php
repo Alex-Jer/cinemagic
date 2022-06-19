@@ -1,16 +1,20 @@
-<x-dashboard.layout title="CineMagic - Editar Sessão">
+<x-dashboard.layout :title="isset($screen) ? 'CineMagic - Editar Sala' : 'Cinemagic - Criar Sala'">
     <div class="grid gap-6 mb-8 grid-cols-5">
         <div class="min-w-0 p-4 col-span-1 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form method="POST" action="{{ route('admin.screens.update', $screen) }}">
+            <form method="POST"
+                action="{{ isset($screen) ? route('admin.screens.update', $screen) : route('admin.screens.store') }}">
                 @csrf
-                @method('PUT')
+                @if (isset($screen))
+                    @method('PUT')
+                @endif
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                     Dados da sala
                 </h4>
-                <input type="hidden" name="filme_id" value="{{ $screen->id }}">
-                <x-dashboard.inputfield label="Nome" name="nome" :value="$screen->nome" />
-                <x-dashboard.inputfield label="Número de filas" name="filas" type="number" :value="$filas" />
-                <x-dashboard.inputfield label="Número de posições" name="posicoes" type="number" :value="$posicoes" />
+                <x-dashboard.inputfield label="Nome" name="nome" :value="isset($screen) ? $screen->nome : ''" placeholder="Nome" />
+                <x-dashboard.inputfield label="Número de filas" name="filas" type="number" :value="isset($screen) ? $filas : ''"
+                    placeholder="Número de filas" />
+                <x-dashboard.inputfield label="Número de posições" name="posicoes" type="number" :value="isset($screen) ? $posicoes : ''"
+                    placeholder="Número de posições" />
                 <x-dashboard.button class="button-primary">
                     <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
                         <path
