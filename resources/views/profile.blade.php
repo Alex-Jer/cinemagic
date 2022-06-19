@@ -1,5 +1,5 @@
 <x-dashboard.layout title="CineMagic - Perfil" :header="'Perfil de ' . Auth::User()->name">
-    <div class="grid gap-6 mb-8 {{ $customer ? 'md:grid-cols-3' : 'md:grid-cols-2' }}">
+    <div class="grid gap-6 mb-8 md:grid-cols-7">
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                 @csrf
@@ -30,7 +30,7 @@
             </form>
         </div>
         @if (Auth::user()->tipo == 'C')
-            <div class="min-w-0 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <div class="min-w-0 p-4 col-span-2 bg-white rounded-lg shadow-md dark:bg-gray-800">
                 <form method="POST" action="{{ route('profile.update') }}">
                     @csrf
                     @method('PUT')

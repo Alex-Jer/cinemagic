@@ -1,4 +1,5 @@
-<x-dashboard.layout title="CineMagic - Gestão de Sessões" header="Gestão de Sessões">
+<x-dashboard.layout title="CineMagic - Gestão de Sessões"
+    header="{{ Str::contains(Route::currentRouteName(), 'employee') ? 'Controlo de Acesso' : 'Gestão de Sessões' }}">
 
     <div class="container grid mx-auto">
         <div>

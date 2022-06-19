@@ -178,8 +178,8 @@ class ScreeningController extends Controller
         }
 
         $query->where('data', now()->format('Y-m-d'))
-            ->where('horario_inicio', '>=', now()->subHours(2)->format('H:i'))  //pode entrar quando quiser até ao fim do filme (2 horas)
-            ->where('horario_inicio', '<', now()->addMinutes(15)->format('H:i')); //pode entrar na sessão apenas 15 minutos antes do início da mesma
+            ->where('horario_inicio', '>=', now()->subHours(2)->format('H:i'))  // pode entrar quando quiser até ao fim do filme (2 horas)
+            ->where('horario_inicio', '<', now()->addMinutes(15)->format('H:i')); // pode entrar na sessão apenas 15 minutos antes do início da mesma
 
         $screenings = $query->orderBy('data', 'desc')->orderBy('horario_inicio', 'desc')->paginate(12);
 

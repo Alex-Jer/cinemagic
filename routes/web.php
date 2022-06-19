@@ -100,6 +100,7 @@ Route::middleware('block')->group(
          * Employee routes
          */
         Route::middleware('auth')->prefix('employee')->name('employee.')->group(function () {
+
             /**
              * Screening employee routes
              */
@@ -122,6 +123,9 @@ Route::middleware('block')->group(
                     ->middleware('can:validate,screening');
             });
 
+            /**
+             * User employee routes
+             */
             Route::controller(UserController::class)->group(function () {
                 Route::get('users', 'employee_index')
                     ->name('users.index')
