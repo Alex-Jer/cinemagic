@@ -8,6 +8,7 @@ use App\Models\Film;
 use App\Models\Genre;
 use App\Models\Screen;
 use App\Models\Screening;
+use App\Models\Ticket;
 use Auth;
 use Illuminate\Http\Request;
 use Str;
@@ -187,6 +188,16 @@ class ScreeningController extends Controller
         $screenings = $query->orderBy('data', 'desc')->orderBy('horario_inicio', 'desc')->paginate(12);
 
         return view('admin.screenings.index', compact(['screenings', 'search', 'date']));
+    }
+
+    public function validate_tickets(Screening $screening)
+    {
+        return view('employee.screenings.validate', compact('screening'));
+    }
+
+    public function validate_ticket(Screening $screening, Ticket $ticket)
+    {
+        return view('employee.screenings.validate', compact(['screening', 'ticket']));
     }
 
     public function backend_show(Screening $screening)
