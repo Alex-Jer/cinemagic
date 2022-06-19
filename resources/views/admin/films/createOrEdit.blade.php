@@ -49,35 +49,37 @@
             </form>
         </div>
 
-        <div class="min-w-0 p-4 ml-5 h-72 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form method="POST" action="{{ route('admin.screenings.store') }}">
-                @csrf
-                <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
-                    Adicionar sessão
-                </h4>
-                <input type="hidden" name="filme_id" value="{{ $film->id }}">
-                <x-dashboard.select label="Sala" name="sala_id">
-                    <option selected disabled>Sala</option>
-                    @foreach ($screens as $screen)
-                        <option value="{{ $screen->id }}">
-                            {{ $screen->nome }}
-                        </option>
-                    @endforeach
-                </x-dashboard.select>
-                <div class="flex flex-row mb-4 space-x-4">
-                    <x-dashboard.date-input label="Data" name="data" value="{{ old('data') }}" />
-                    <x-dashboard.time-input label="Hora" name="horario_inicio" value="{{ old('horario_inicio') }}" />
-                </div>
-                <x-dashboard.button class="button-primary mt-6">
-                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                            clip-rule="evenodd">
-                        </path>
-                    </svg>
-                    <x-slot:label>Adicionar Sessão</x-slot:label>
-                </x-dashboard.button>
-            </form>
-        </div>
+        @if (isset($film) && !Str::contains(Route::currentRouteName(), 'edit'))
+            <div class="min-w-0 p-4 ml-5 h-72 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <form method="POST" action="{{ route('admin.screenings.store') }}">
+                    @csrf
+                    <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+                        Agendar sessão
+                    </h4>
+                    <input type="hidden" name="film_id" value="{{ $film->id }}" />
+                    <x-dashboard.select label="Sala" name="sala_id">
+                        <option selected disabled>Sala</option>
+                        @foreach ($screens as $screen)
+                            <option value="{{ $screen->id }}">
+                                {{ $screen->nome }}
+                            </option>
+                        @endforeach
+                    </x-dashboard.select>
+                    <div class="flex flex-row mb-4 space-x-4">
+                        <x-dashboard.date-input label="Data" name="data" value="{{ old('data') }}" />
+                        <x-dashboard.time-input label="Hora" name="horario_inicio" value="{{ old('horario_inicio') }}" />
+                    </div>
+                    <x-dashboard.button class="button-primary mt-6">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                clip-rule="evenodd">
+                            </path>
+                        </svg>
+                        <x-slot:label>Adicionar Sessão</x-slot:label>
+                    </x-dashboard.button>
+                </form>
+            </div>
+        @endif
     </div>
 </x-dashboard.layout>
