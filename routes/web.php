@@ -154,6 +154,14 @@ Route::middleware('block')->group(
                     ->name('films.index')
                     ->middleware('can:viewAny,App\Models\Screen');
 
+                Route::get('films/create', 'create')
+                    ->name('films.create');
+                // TODO: ->middleware('can:create,App\Models\User');
+
+                Route::post('films/create', 'store')
+                    ->name('films.store');
+                // TODO: ->middleware('can:create,App\Models\User');
+
                 Route::get('films/{film}/edit', 'edit')
                     ->name('films.edit');
                 // TODO: ->middleware('can:update,user');
