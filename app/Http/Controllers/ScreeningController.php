@@ -118,9 +118,17 @@ class ScreeningController extends Controller
      * @param  \App\Models\Screening  $screening
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Screening $screening)
+    public function update(ScreeningPostRequest $request, Screening $screening)
     {
-        //
+        $validated = $request->validated();
+        $screening->fill($validated);
+
+        $screening->save();
+
+        return redirect()->route('admin.screenings.index')
+            ->with('alert-msg', 'Sessão para o dia ' . $screening->data->format('d/m/Y') . ' às ' . $screening->horario_inicio->format('H:i') . ' editada com sucesso.')
+            ->with('alert-color', 'green')
+            ->with('alert-icon', 'success');
     }
 
     /**

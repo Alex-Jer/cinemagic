@@ -1,34 +1,20 @@
-<x-dashboard.layout :title="isset($screening) ? 'CineMagic - Editar Sessão' : 'Cinemagic - Adicionar Sessão'" :header="isset($screening) ? $screening->titulo : 'Adicionar Sessão'">
-    <div class="grid gap-6 mb-8">
-        <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <form method="POST"
-                action="{{ isset($screening) ? route('admin.screenings.update', $screening) : route('admin.screenings.store') }}"
-                enctype="multipart/form-data">
+<x-dashboard.layout title="CineMagic - Editar Sessão" :header="$screening->film->titulo">
+    <div class="grid gap-6 mb-8 grid-cols-5">
+        <div class="min-w-0 p-4 col-span-1 bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <form method="POST" action="{{ route('admin.screenings.update', $screening) }}">
                 @csrf
-                @if (isset($screening))
-                    @method('PUT')
-                @endif
+                @method('PUT')
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
-                    Dados da sessão
+                    Hora da sessão
                 </h4>
-                <x-dashboard.inputfield label="Filme" name="filme" :value="isset($screening) ? $screening->film->titulo : ''" :placeholder="isset($screening) ? $screening->film->titulo : ''" attr="autofocus" />
-
-                <x-dashboard.inputfield label="Data" name="data" :placeholder="isset($screening) ? $screening->data : ''" :value="isset($screening) ? $screening->data : ''" />
-                <x-dashboard.inputfield label="Início" name="horario_inicio" :placeholder="isset($screening) ? $screening->horario_inicio : ''" :value="isset($screening) ? $screening->horario_inicio : ''" />
-                {{-- <x-dashboard.select label="Género" name="genero_code">
-                    <option {{ isset($screening) ? ($screening->genre ? '' : 'selected') : 'selected' }} disabled>Género
-                    </option>
-                    @foreach ($genres as $genre)
-                        <option value="{{ $genre->code }}"
-                            {{ isset($screening) ? ($screening->genero_code == $genre->code ? 'selected' : '') : '' }}>
-                            {{ $genre->nome }}
-                        </option>
-                    @endforeach
-                </x-dashboard.select> --}}
-                {{-- <label class="block mt-4 text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">Message</span>
-                    <textarea name="sumario" class="input-primary" rows="3">{{ isset($screening) ? $screening->sumario : '' }}</textarea>
-                </label> --}}
+                <input type="hidden" name="filme_id" value="{{ $screening->filme_id }}">
+                <input type="hidden" name="sala_id" value="{{ $screening->sala_id }}">
+                <div class="mb-2">
+                    <x-dashboard.date-input label="Data" name="data" :value="$screening->data->format('Y-m-d')" />
+                </div>
+                <div class="mb-4">
+                    <x-dashboard.time-input label="Início" name="horario_inicio" :value="$screening->horario_inicio->format('H:i')" />
+                </div>
                 <x-dashboard.button class="button-primary">
                     <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
                         <path
