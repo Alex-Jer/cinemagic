@@ -111,8 +111,7 @@
 
     </x-dashboard.sidebar-group>
 
-
-    <x-dashboard.sidebar-item label="Estatísticas" {{-- TODO: route="stats" --}}>
+    <x-dashboard.sidebar-item label="Estatísticas" route="admin.statistics">
         <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
             stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>

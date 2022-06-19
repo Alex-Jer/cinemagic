@@ -7,6 +7,7 @@ use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ScreenController;
 use App\Http\Controllers\ScreeningController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -272,6 +273,9 @@ Route::middleware('block')->group(
 
             Route::put('config', [ConfigurationController::class, 'update'])
                 ->name('config.update');
+
+            Route::get('statistics', [StatisticsController::class, 'index'])
+                ->name('statistics.index');
         });
     }
 );
