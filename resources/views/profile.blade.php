@@ -14,10 +14,10 @@
                     <x-dashboard.file-input name="profile_pic" />
                     @if (Auth::user()->foto_url)
                         <img src="{{ asset('storage/fotos/' . Auth::user()->foto_url) }}" alt="{{ Auth::user()->name }}"
-                            class="mt-2 mb-3 rounded-full w-9 h-9">
+                            class="mt-1 ml-3 mb-3 rounded-full w-9 h-9">
                     @else
                         <img src="{{ asset('storage/fotos/default.png') }}" alt="default profile picture"
-                            class="mt-2 mb-3 rounded-full w-9 h-9">
+                            class="mt-2 ml-3 mb-3 rounded-full w-9 h-9">
                     @endif
                 </div>
                 <x-dashboard.button class="button-primary">
