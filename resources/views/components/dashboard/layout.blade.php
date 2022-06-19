@@ -28,7 +28,6 @@
                         @endif
 
                     </h2>
-
                     @if (session('alert-msg'))
                         <x-dashboard.alert />
                     @endif

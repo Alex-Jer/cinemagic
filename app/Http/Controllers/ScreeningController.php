@@ -190,8 +190,29 @@ class ScreeningController extends Controller
         return view('admin.screenings.index', compact(['screenings', 'search', 'date']));
     }
 
-    public function validate_tickets(Screening $screening)
+    public function validate_tickets(Screening $screening, Request $request)
     {
+        if ($request->ticket) {
+            $ref = $request->ticket;
+            $ticket = Ticket::query()->where('id', $ref)->first();
+            if (!$ticket) {
+                return view('employee.screenings.validate', compact('screening'))
+                    ->with('alert-msg', 'Não existe um bilhete com essa referência!')
+                    ->with('alert-color', 'red')
+                    ->with('alert-icon', 'error');
+            } else if ($ticket->sessao_id != $screening->id) {
+                return view('employee.screenings.validate', compact('screening'))
+                    ->with('alert-msg', 'Esse bilhete não pertence a esta sessão.')
+                    ->with('alert-color', 'red')
+                    ->with('alert-icon', 'error');
+            } else if ($ticket->estado == 'usado') {
+                return view('employee.screenings.validate', compact('screening'))
+                    ->with('alert-msg', 'Esse bilhete já foi utilizado!')
+                    ->with('alert-color', 'red')
+                    ->with('alert-icon', 'error');
+            }
+            return $this->validate_ticket($screening, $ticket);
+        }
         return view('employee.screenings.validate', compact('screening'));
     }
 

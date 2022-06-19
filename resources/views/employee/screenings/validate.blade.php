@@ -31,7 +31,7 @@
                         <td class="float-right px-4 py-3">{{ $screening->screen->nome }}</td>
                     </tr>
                     <form method="GET"
-                        action="{{ route('employee.screenings.validate.ticket', ['screening' => $screening]) }}">
+                        action="{{ route('employee.screenings.validate', ['screening' => $screening]) }}">
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 font-bold">Bilhete</td>
                             <td class="float-right px-4 py-2">

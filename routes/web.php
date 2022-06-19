@@ -117,9 +117,9 @@ Route::middleware('block')->group(
                     ->name('screenings.validate')
                     ->middleware('can:validate,screening');
 
-                Route::get('screenings/{screening}/validate/{ticket}', 'validate_ticket')
+                /*Route::get('screenings/{screening}/validate/{ticket}', 'validate_ticket')
                     ->name('screenings.validate.ticket')
-                    ->middleware('can:validate,screening');
+                    ->middleware('can:validate,screening');*/
             });
 
             Route::controller(UserController::class)->group(function () {
