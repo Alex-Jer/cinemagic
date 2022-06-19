@@ -168,7 +168,7 @@ class TicketController extends Controller
 
         return redirect()
             ->route('receipts.show', $newReceipt->id)
-            ->with('alert-type', 'success')
+            ->with('alert-icon', 'success')
             ->with('alert-color', 'green')
             ->with('alert-msg', 'Pagamento efetuado com sucesso! Receberá um email com a fatura em breve.');
     }
@@ -187,7 +187,6 @@ class TicketController extends Controller
 
     public function add(Request $request)
     {
-        dd($request);
     }
 
     /**

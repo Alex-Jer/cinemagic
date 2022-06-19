@@ -1,4 +1,4 @@
-<x-dashboard.layout title="Cinemagic - Comprar bilhete" header="Comprar bilhete" backButton="true">
+<x-dashboard.layout title="Cinemagic - Comprar bilhete" header="Comprar bilhete">
     <x-dashboard.card-container
         class="{{ $seats->count() > 150 ? 'w-4/5' : ($seats->count() <= 80 ? 'w-1/2' : 'w-2/3') }}">
         <h2 class="mb-2 text-xl font-semibold text-gray-600 dark:text-gray-300">
