@@ -10,6 +10,7 @@ use App\Models\Screen;
 use App\Models\Screening;
 use App\Models\Ticket;
 use Auth;
+use Debugbar;
 use Illuminate\Http\Request;
 use Str;
 
@@ -192,25 +193,32 @@ class ScreeningController extends Controller
 
     public function validate_tickets(Screening $screening, Request $request)
     {
+        Debugbar::info("1");
         if ($request->ticket) {
+            Debugbar::info("2");
             $ref = $request->ticket;
             $ticket = Ticket::query()->where('id', $ref)->first();
+            Debugbar::debug($ticket);
             if (!$ticket) {
+                Debugbar::info("3");
                 return view('employee.screenings.validate', compact('screening'))
                     ->with('alert-msg', 'Não existe um bilhete com essa referência!')
                     ->with('alert-color', 'red')
                     ->with('alert-icon', 'error');
             } else if ($ticket->sessao_id != $screening->id) {
+                Debugbar::info("4");
                 return view('employee.screenings.validate', compact('screening'))
                     ->with('alert-msg', 'Esse bilhete não pertence a esta sessão.')
                     ->with('alert-color', 'red')
                     ->with('alert-icon', 'error');
             } else if ($ticket->estado == 'usado') {
+                Debugbar::info("5");
                 return view('employee.screenings.validate', compact('screening'))
                     ->with('alert-msg', 'Esse bilhete já foi utilizado!')
                     ->with('alert-color', 'red')
                     ->with('alert-icon', 'error');
             }
+            Debugbar::info("6");
             return $this->validate_ticket($screening, $ticket);
         }
         return view('employee.screenings.validate', compact('screening'));

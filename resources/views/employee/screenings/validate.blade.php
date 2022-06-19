@@ -3,6 +3,8 @@
         <div class="min-w-0 col-span-2 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <div class="float-left mb-2 ml-3 text-2xl font-semibold dark:text-gray-200">Sessão #{{ $screening->id }}
             </div>
+            {{ Debugbar::debug(session()) }}
+            {{ Debugbar::debug(session('alert-msg')) }}
             <x-back-button class="float-right mr-3" />
             <table class="w-full whitespace-no-wrap">
                 <thead>
