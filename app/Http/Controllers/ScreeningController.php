@@ -144,7 +144,7 @@ class ScreeningController extends Controller
             $screening->delete();
             Screening::destroy($screening->id);
             return redirect()->route('admin.screenings.index')
-                ->with('alert-msg', 'Sessão "' . $screening->id . '" apagada com sucesso.')
+                ->with('alert-msg', 'Sessão para o dia ' . $screening->data->format('d/m/Y') . ' às ' . $screening->horario_inicio->format('H:i') . ' apagada com sucesso.')
                 ->with('alert-color', 'green')
                 ->with('alert-icon', 'success');
         } catch (\Throwable $th) {

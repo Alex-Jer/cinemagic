@@ -1,6 +1,4 @@
-@props(['disabled' => false])
-<button type="submit" {{ $attributes }} data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom"
-    {{ $disabled ? 'disabled' : '' }}>
+<button type="submit" data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" {{ $attributes }}>
     {{ $slot }}
     @if ($tooltip ?? null)
         <div id="tooltip-bottom" role="tooltip"
