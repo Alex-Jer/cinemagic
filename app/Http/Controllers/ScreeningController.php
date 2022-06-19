@@ -122,6 +122,7 @@ class ScreeningController extends Controller
                 ->with('alert-icon', 'success');
         } catch (\Throwable $th) {
             if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
+                //just in case because policies already prevent this
                 return redirect()->route('admin.screenings.index')
                     ->with('alert-msg', 'Não foi possível apagar a sessão #' . $screening->id . ', porque esta sessão tem bilhetes associados!')
                     ->with('alert-color', 'red')

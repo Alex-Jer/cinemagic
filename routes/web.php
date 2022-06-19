@@ -202,7 +202,7 @@ Route::middleware('block')->group(
             Route::controller(ScreeningController::class)->group(function () {
                 Route::get('screenings',  'index')
                     ->name('screenings.index')
-                    ->middleware('can:viewAnyEmployee,App\Models\Screening');
+                    ->middleware('can:viewAnyAdmin,App\Models\Screening');
 
                 Route::get('screenings/create', 'create')
                     ->name('screenings.create')
