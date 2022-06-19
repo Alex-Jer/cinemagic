@@ -17,7 +17,12 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->tipo != 'C');
+        return ($user->tipo == 'A');
+    }
+
+    public function viewAnyClientsOnly(User $user)
+    {
+        return ($user->tipo == 'F');
     }
 
     /**

@@ -102,6 +102,12 @@ Route::middleware('block')->group(
             Route::get('screenings', [ScreeningController::class, 'employee_index'])
                 ->name('screenings.index');
             //TODO: ->middleware('can:viewAny,App\Models\Screen');
+
+            Route::controller(UserController::class)->group(function () {
+                Route::get('users', 'employee_index')
+                    ->name('users.index')
+                    ->middleware('can:viewAnyClientsOnly,App\Models\User');
+            });
         });
 
         /**
