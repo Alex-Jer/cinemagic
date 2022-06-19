@@ -137,10 +137,11 @@ class ScreeningController extends Controller
 
     public function employee_index()
     {
-        return view('employee.screenings.control');
+        //TODO: controller employee_index
+        return view('employee.screenings.validate');
     }
 
-    public function admin_show(Screening $screening)
+    public function backend_show(Screening $screening)
     {
         $seats = $screening->screen->seats;
 

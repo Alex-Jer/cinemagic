@@ -15,14 +15,14 @@ class UserPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAnyAdmin(User $user)
     {
-        return ($user->tipo == 'A');
+        return $user->isAdmin();
     }
 
-    public function viewAnyClientsOnly(User $user)
+    public function viewAnyEmployee(User $user)
     {
-        return ($user->tipo == 'F');
+        return $user->isEmployee();
     }
 
     /**

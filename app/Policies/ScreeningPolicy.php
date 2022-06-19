@@ -20,9 +20,20 @@ class ScreeningPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAnyAdmin(User $user)
     {
-        return $user->isAdmin() || $user->isEmployee();
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAnyEmployee(User $user)
+    {
+        return $user->isEmployee();
     }
 
     /**
@@ -32,6 +43,14 @@ class ScreeningPolicy
      * @param  \App\Models\Screening  $screening
      * @return \Illuminate\Auth\Access\Response|bool
      */
+    public function view(User $user, Screening $screening)
+    {
+        if ($user->isAdmin())
+            return true;
+        else
+            return $this->validate($user, $screening);
+    }
+
     public function validate(User $user, Screening $screening)
     {
         return ($user->isEmployee() && ($screening->data > now() ||
