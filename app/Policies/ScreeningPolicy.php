@@ -60,12 +60,22 @@ class ScreeningPolicy
             )));
     }
 
+    public function accessCart(User $user)
+    {
+        return ($user->isGuest() || $user->isCustomer());
+    }
+
     public function buy(User $user, Screening $screening)
     {
-        return ($user->isCustomer() && ($screening->data > now() ||
+        return ($this->accessCart($user) && ($screening->data > now() ||
             ($screening->data->format('d/m/Y') == now()->format('d/m/Y')
                 && $screening->horario_inicio->format('H:i') >= now()->subMinutes(5)->format('H:i')
             )));
+    }
+
+    public function finalizePurchase(User $user)
+    {
+        return $user->isCustomer();
     }
 
     /**

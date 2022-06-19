@@ -74,7 +74,7 @@ Route::middleware('block')->group(
 
             Route::post('cart', 'store')
                 ->name('tickets.store')
-                ->middleware('can:buy,screening');
+                ->middleware('can:finalizePurchase,App\Models\Screening');
 
             // TODO: temp?
             Route::post('email/mailable', 'send_email_with_mailable')
@@ -86,13 +86,16 @@ Route::middleware('block')->group(
          */
         Route::controller(CartController::class)->middleware('client')->group(function () {
             Route::get('cart', 'index')
-                ->name('cart.index');
+                ->name('cart.index')
+                ->middleware('can:accessCart,App\Models\Screening');
 
             Route::post('screening/{screening}/{seat}', 'store')
-                ->name('cart.store');
+                ->name('cart.store')
+                ->middleware('can:buy,screening');
 
             Route::delete('cart/{key}', 'destroy')
-                ->name('cart.destroy');
+                ->name('cart.destroy')
+                ->middleware('can:accessCart,App\Models\Screening');
         });
 
         /**
@@ -112,8 +115,12 @@ Route::middleware('block')->group(
                     ->name('screenings.show')
                     ->middleware('can:view,screening');
 
-                Route::get('screenings/{screening}/validate', 'validate')
+                Route::get('screenings/{screening}/validate', 'validate_tickets')
                     ->name('screenings.validate')
+                    ->middleware('can:validate,screening');
+
+                Route::get('screenings/{screening}/validate/{ticket}', 'validate_ticket')
+                    ->name('screenings.validate.ticket')
                     ->middleware('can:validate,screening');
             });
 
