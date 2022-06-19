@@ -39,7 +39,7 @@ class UserController extends Controller
             $query->where('name', 'like', "%$asearch%");
         }
 
-        $users = $query->orderBy('name')->whereIn('tipo', $tipos)->paginate(9);
+        $users = $query->orderBy('name')->whereIn('tipo', $tipos)->paginate(8);
         return view('admin.users.index', compact('users', 'authUser', 'tipos', 'selectedType', 'search'));
     }
 
