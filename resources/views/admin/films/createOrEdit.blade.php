@@ -49,7 +49,7 @@
             </form>
         </div>
 
-        @if (isset($film))
+        @if (isset($film) && !Str::contains(Route::currentRouteName(), 'edit'))
             <div class="min-w-0 p-4 ml-5 h-72 bg-white rounded-lg shadow-md dark:bg-gray-800">
                 <form method="POST" action="{{ route('admin.screenings.store') }}">
                     @csrf
