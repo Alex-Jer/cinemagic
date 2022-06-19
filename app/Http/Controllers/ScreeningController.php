@@ -33,7 +33,7 @@ class ScreeningController extends Controller
             });
         }
 
-        $screenings = $query->orderBy('data', 'desc')->paginate(12);
+        $screenings = $query->orderBy('data', 'desc')->orderBy('horario_inicio', 'desc')->paginate(12);
 
         return view('admin.screenings.index', compact(['screenings', 'search', 'date']));
     }
@@ -67,7 +67,6 @@ class ScreeningController extends Controller
      */
     public function show(Screening $screening)
     {
-
         if (Auth::check()) {
             if (!$this->authorize('buy', $screening))
                 return abort(403);
@@ -75,7 +74,6 @@ class ScreeningController extends Controller
 
         $screen = $screening->screen;
         $seats = $screen->seats;
-        $config = Configuration::first();
 
         $occupied = cache()->remember('occupied_seats' . $screening->id, 30, function () use ($screening) {
             return $screening->tickets->count();
@@ -121,5 +119,16 @@ class ScreeningController extends Controller
     public function employee_index()
     {
         return view('employee.screenings.index');
+    }
+
+    public function admin_show(Screening $screening)
+    {
+        $seats = $screening->screen->seats;
+
+        $occupied = cache()->remember('occupied_seats' . $screening->id, 30, function () use ($screening) {
+            return $screening->tickets->count();
+        });
+
+        return view('admin.screenings.show', compact('screening', 'seats', 'occupied'));
     }
 }

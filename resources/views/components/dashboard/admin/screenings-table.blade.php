@@ -21,7 +21,7 @@
                 <td class="px-4 py-3 text-sm font-medium">{{ $screening->screen->nome }}</td>
                 <td class="px-4 text-sm font-medium">
                     <div class="flex items-center space-x-2 text-sm">
-                        <form method="GET" action="{{ route('screenings.show', ['screening' => $screening]) }}">
+                        <form method="GET" action="{{ route('admin.screenings.show', ['screening' => $screening]) }}">
                             <button title="Ver detalhes"
                                 class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

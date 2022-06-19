@@ -7,9 +7,9 @@
             <th class="px-4 py-3">Sala</th>
             <th class="px-4 py-3">Estado</th>
             @if (!Auth::user())
-                <th class="xl:w-3/12 px-4 py-3">Comprar bilhete</th>
+                <th class="px-4 py-3 xl:w-3/12">Comprar bilhete</th>
             @elseif (Auth::user()->isCustomer())
-                <th class="xl:w-3/12 px-4 py-3">Comprar bilhete</th>
+                <th class="px-4 py-3 xl:w-3/12">Comprar bilhete</th>
             @endif
         </tr>
     </thead>

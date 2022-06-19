@@ -8,8 +8,9 @@
                         value="{{ old('date', $date) === '' ? '' : old('date', $date) }}" />
                 </span>
                 <span class="float-left w-2/6 mr-2 -mt-1">
-                    <x-dashboard.inputfield label="Pesquisa" name="search" {{-- value="{{ old('search', $search) === '' ? '' : old('search', $search) }}" --}}
-                        placeholder="Pesquise um filme por título ou sumário" />
+                    <x-dashboard.inputfield label="Pesquisa" name="search"
+                        value="{{ old('search', $search) === '' ? '' : old('search', $search) }}"
+                        placeholder="Pesquise sessões pelo título do filme" />
                 </span>
                 <x-dashboard.button class="float-left mt-5 mr-2 button-primary">
                     <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" fill="currentColor" viewBox="0 0 20 20">

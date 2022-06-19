@@ -190,6 +190,9 @@ Route::middleware('block')->group(
                 Route::post('screenings/create', 'store')
                     ->name('screenings.store');
 
+                Route::get('screenings/{screening}', 'admin_show')
+                    ->name('screenings.show');
+
                 Route::get('screenings/{screening}/edit', 'edit')
                     ->name('screenings.edit');
 
