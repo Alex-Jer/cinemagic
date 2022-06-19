@@ -56,7 +56,7 @@ class ScreeningPolicy
         return ($user->isEmployee() && ($screening->data > now() ||
             ($screening->data->format('d/m/Y') == now()->format('d/m/Y')
                 && $screening->horario_inicio->format('H:i') >= now()->subHours(2)->format('H:i') //pode entrar quando quiser até ao fim do filme (2 horas)
-                && $screening->horario_inicio->format('H:i') >= now()->addMinutes(15)->format('H:i') //pode entrar na sessão apenas 15 minutos antes do início da mesma
+                && $screening->horario_inicio->format('H:i') < now()->addMinutes(15)->format('H:i') //pode entrar na sessão apenas 15 minutos antes do início da mesma
             )));
     }
 
