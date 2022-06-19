@@ -83,7 +83,6 @@
                                 </button>
                             </form>
                         @else
-                            <!-- TODO: route -->
                             <form method="GET"
                                 action="{{ route('employee.screenings.validate', ['screening' => $screening]) }}">
                                 <button title="Controlo de acesso"
