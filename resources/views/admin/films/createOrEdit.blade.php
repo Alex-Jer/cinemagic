@@ -32,8 +32,10 @@
                         <x-dashboard.file-input label="Cartaz" name="cartaz" />
                     @endif
                 </div>
-                <x-dashboard.inputfield label="Trailer" name="trailer_url" :placeholder="isset($film) ? $film->trailer_url : ''" :value="isset($film) ? $film->trailer_url : ''" />
-                <label class="block mt-4 text-sm">
+                @if (!Str::contains(Route::currentRouteName(), 'screening'))
+                    <x-dashboard.inputfield label="Trailer" name="trailer_url" :placeholder="isset($film) ? $film->trailer_url : ''" :value="isset($film) ? $film->trailer_url : ''" />
+                @endif
+                <label class="block text-sm {{ !Str::contains(Route::currentRouteName(), 'screening') ? 'mt-4' : '' }}">
                     <span class="text-gray-700 dark:text-gray-400">Message</span>
                     <textarea name="sumario" class="input-primary" rows="3">{{ isset($film) ? $film->sumario : '' }}</textarea>
                 </label>
@@ -56,9 +58,9 @@
                     <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
                         Agendar sessão
                     </h4>
-                    <input type="hidden" name="film_id" value="{{ $film->id }}" />
-                    <x-dashboard.select label="Sala" name="sala_id">
-                        <option selected disabled>Sala</option>
+                    <input type="hidden" name="filme_id" value="{{ $film->id }}" />
+                    <x-dashboard.select label="Sala" name="sala_id" required>
+                        <option value="" selected disabled>Sala</option>
                         @foreach ($screens as $screen)
                             <option value="{{ $screen->id }}">
                                 {{ $screen->nome }}
@@ -66,8 +68,10 @@
                         @endforeach
                     </x-dashboard.select>
                     <div class="flex flex-row mb-4 space-x-4">
-                        <x-dashboard.date-input label="Data" name="data" value="{{ old('data') }}" />
-                        <x-dashboard.time-input label="Hora" name="horario_inicio" value="{{ old('horario_inicio') }}" />
+                        <x-dashboard.date-input label="Data" name="data" value="{{ old('data', date('Y-m-d')) }}"
+                            required />
+                        <x-dashboard.time-input label="Hora" name="horario_inicio"
+                            value="{{ old('horario_inicio', date('H:i')) }}" required />
                     </div>
                     <x-dashboard.button class="button-primary mt-6">
                         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">

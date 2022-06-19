@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('block')->group(
     function () {
 
-        Route::get('/', function () {
-            return view('home');
-        });
+        /**
+         * Root page
+         */
+        Route::get('/', [FilmController::class, 'index']);
 
         /**
          * User routes
