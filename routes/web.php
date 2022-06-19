@@ -92,7 +92,7 @@ Route::middleware('block')->group(
 
             Route::post('screening/{screening}/{seat}', 'store')
                 ->name('cart.store')
-                ->middleware('can:accessCart,screening');
+                ->middleware('can:accessCart,App\Models\Screening');
 
             Route::delete('cart/{key}', 'destroy')
                 ->name('cart.destroy')
