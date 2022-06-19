@@ -113,7 +113,26 @@ class ScreeningController extends Controller
      */
     public function destroy(Screening $screening)
     {
-        //
+        try {
+            $screening->delete();
+            Screening::destroy($screening->id);
+            return redirect()->route('admin.screenings.index')
+                ->with('alert-msg', 'Sessão "' . $screening->id . '" apagada com sucesso.')
+                ->with('alert-color', 'green')
+                ->with('alert-icon', 'success');
+        } catch (\Throwable $th) {
+            if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
+                return redirect()->route('admin.screenings.index')
+                    ->with('alert-msg', 'Não foi possível apagar a sessão #' . $screening->id . ', porque esta sessão tem bilhetes associados!')
+                    ->with('alert-color', 'red')
+                    ->with('alert-icon', 'error');
+            } else {
+                return redirect()->route('admin.screenings.index')
+                    ->with('alert-msg', 'Não foi possível apagar a sessão #' . $screening->id . '. Erro: ' . $th->errorInfo[2])
+                    ->with('alert-color', 'red')
+                    ->with('alert-icon', 'error');
+            }
+        }
     }
 
     public function employee_index()
