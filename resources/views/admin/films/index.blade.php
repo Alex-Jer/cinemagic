@@ -1,7 +1,7 @@
 <x-dashboard.layout title="CineMagic - Gestão de Filmes" header="Gestão de Filmes">
     <div class="container grid mx-auto">
         <div>
-            <form method="GET" action="{{ route('admin.films.index') }}" class="mb-3">
+            <form method="GET" action="{{ route('admin.films.index') }}" class="mb-6">
                 <span class="float-left mr-2 -mt-1">
                     <x-dashboard.select label="Género" name="genre_code">
                         <option value="" {{ old('genre_code', $selectedGenre) === '' ? 'selected' : '' }}>Todos</option>
@@ -31,7 +31,7 @@
                 </x-dashboard.button-clear-params>
             </form>
             <form method="GET" action="{{ route('admin.films.create') }}" class="mb-3">
-                <x-dashboard.button class="float-left mt-2 button-primary">
+                <x-dashboard.button class="float-left -mt-1 button-primary">
                     <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" data-darkreader-inline-fill="" fill="currentColor"
                         style="--darkreader-inline-fill: currentColor;" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
