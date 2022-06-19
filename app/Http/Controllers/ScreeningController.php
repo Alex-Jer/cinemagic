@@ -207,10 +207,19 @@ class ScreeningController extends Controller
                     ->with('alert-color', 'red')
                     ->with('alert-icon', 'error');
             } else if ($ticket->estado == 'usado') {
-                $used = true;
-                return view('employee.screenings.validate', compact(['screening', 'ticket', 'used']));
+                $alert = [
+                    'alert-msg' => 'Esse bilhete já foi utilizado!',
+                    'alert-color' => 'red',
+                    'alert-icon' => 'error'
+                ];
+                return view('employee.screenings.validate', compact(['screening', 'ticket', 'alert']));
             }
-            return view('employee.screenings.validate', compact(['screening', 'ticket']));
+            $alert = [
+                'alert-msg' => 'Este bilhete é válido.',
+                'alert-color' => 'purple',
+                'alert-icon' => 'info'
+            ];
+            return view('employee.screenings.validate', compact(['screening', 'ticket', 'alert']));
         }
         return view('employee.screenings.validate', compact('screening'));
     }
