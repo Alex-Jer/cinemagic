@@ -3,7 +3,7 @@
 
     <div class="container grid mx-auto">
         <div>
-            <form method="GET" action="{{ route('admin.screenings.index') }}" class="mb-3">
+            <form method="GET" action="{{ Auth::user()->isAdmin() ? route('admin.screenings.index') : route('employee.screenings.index') }}" class="mb-3">
                 <span class="float-left mr-2 -mt-1">
                     <x-dashboard.date-input label="Data" name="date"
                         value="{{ old('date', $date) === '' ? '' : old('date', $date) }}" />
