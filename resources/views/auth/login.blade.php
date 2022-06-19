@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo"> </x-slot>
+        <x-slot name="logo"></x-slot>
 
         <div class="text-center text-2xl font-bold text-gray-800 dark:text-gray-200">
             CineMagic
