@@ -89,7 +89,7 @@ class ConfigurationController extends Controller
         $configuration->save();
 
         return redirect()->route('admin.config.index')
-            ->with('alert-type', 'success')
+            ->with('alert-icon', 'success')
             ->with('alert-color', 'green')
             ->with('alert-msg', 'Configurações atualizadas com sucesso.');
     }

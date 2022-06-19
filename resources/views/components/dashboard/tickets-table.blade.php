@@ -2,7 +2,7 @@
     <thead>
         <tr
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-white border-b dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-            <th class="px-4 py-3">ID do recibo</th>
+            <th class="px-4 py-3">Referência</th>
             <th class="px-4 py-3">Data de compra</th>
             <th class="px-4 py-3">Data da sessão</th>
             <th class="px-4 py-3 w-3/12">Filme</th>
@@ -24,7 +24,8 @@
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->screening->screen->nome }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ $ticket->seat->fila . $ticket->seat->posicao }}</td>
                 <td class="px-4 py-3 text-sm font-medium">{{ ticket_price('€') }}</td>
-                <td class="px-4 py-3 text-sm font-medium">{{ $ticket->estado === 'usado' ? 'Usado' : 'Não usado' }}</td>
+                <td class="px-4 py-3 text-sm font-medium">{{ $ticket->estado === 'usado' ? 'Usado' : 'Não usado' }}
+                </td>
                 <td class="px-4 py-3">
                     <div class="flex items-center space-x-3 text-sm">
                         <a title="Ver detalhes" href="{{ route('tickets.show', $ticket) }}"
