@@ -16,7 +16,8 @@
                 </span>
                 <span class="float-left w-2/6 mr-2 -mt-1">
                     <x-dashboard.inputfield label="Pesquisa" name="search"
-                        value="{{ old('search', $search) === '' ? 'Pesquise um filme por título ou sumário' : old('search', $search) }}" />
+                        value="{{ old('search', $search) === '' ? '' : old('search', $search) }}"
+                        placeholder="Pesquise um filme por título ou sumário" />
 
                 </span>
                 <x-dashboard.button class="float-left mt-5 mr-2 button-primary">

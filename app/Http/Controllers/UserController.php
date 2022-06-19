@@ -20,12 +20,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $authUser = User::find(Auth::user()->id);
         $tipos = $authUser->tipo == 'A' ? ['A', 'F', 'C'] : ['C'];
-        $users = User::orderBy('name')->whereIn('tipo', $tipos)->paginate(10);
-        return view('admin.users.index', compact('users', 'authUser'));
+
+        $selectedType = $request->user_type ?? '';
+        $search = $request->search ?? '';
+        $query = User::query();
+
+        if ($selectedType) {
+            $query->where('tipo', $selectedType);
+        }
+
+        if ($search) {
+            $query->where('name', 'like', "%$search%");
+        }
+
+        $users = $query->orderBy('name')->whereIn('tipo', $tipos)->paginate(10);
+        return view('admin.users.index', compact('users', 'authUser', 'tipos', 'selectedType', 'search'));
     }
 
     /**
