@@ -263,10 +263,6 @@ Route::middleware('block')->group(
                 // TODO: ->middleware('can:delete,user');
             });
 
-            Route::get('screens', [ScreenController::class, 'index'])
-                ->name('screens.index')
-                ->middleware('can:viewAny,App\Models\Screen');
-
             Route::get('config', [ConfigurationController::class, 'index'])
                 ->name('config.index');
 
