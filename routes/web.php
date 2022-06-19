@@ -87,16 +87,13 @@ Route::middleware('block')->group(
          */
         Route::controller(CartController::class)->middleware('client')->group(function () {
             Route::get('cart', 'index')
-                ->name('cart.index')
-                ->middleware('can:accessCart,App\Models\Screening');
+                ->name('cart.index');
 
             Route::post('screening/{screening}/{seat}', 'store')
-                ->name('cart.store')
-                ->middleware('can:accessCart,App\Models\Screening');
+                ->name('cart.store');
 
             Route::delete('cart/{key}', 'destroy')
-                ->name('cart.destroy')
-                ->middleware('can:accessCart,App\Models\Screening');
+                ->name('cart.destroy');
         });
 
         /**
