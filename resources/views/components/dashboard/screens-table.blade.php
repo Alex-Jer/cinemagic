@@ -1,11 +1,11 @@
 <table class="w-full whitespace-no-wrap table-fixed">
     <thead>
         <tr
-            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-white dark:text-gray-400 dark:bg-gray-800">
+            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-white border-b dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
             <th class="px-4 py-3">ID</th>
-            <th class="px-4 py-3 w-4/12">Nome da sala</th>
+            <th class="w-4/12 px-4 py-3">Nome da sala</th>
             <th class="px-4 py-3">Nº de lugares</th>
-            <th class="px-4 py-3 w-1/12">Ações</th>
+            <th class="w-1/12 px-4 py-3">Ações</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
