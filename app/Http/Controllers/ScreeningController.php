@@ -108,7 +108,7 @@ class ScreeningController extends Controller
     public function edit(Screening $screening)
     {
         $screening = Screening::find($screening->id);
-        return view('admin.screenings.createOrEdit', compact('screening'));
+        return view('admin.screenings.edit', compact('screening'));
     }
 
     /**
