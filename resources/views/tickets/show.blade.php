@@ -46,10 +46,10 @@
                             </span>
                         </td>
                     </tr>
-                    <tr class="text-gray-500 dark:text-gray-600">
-                        <td class="px-4 py-3">Data da compra </td>
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td class="px-4 py-3 font-bold">Data da compra </td>
                         <td class="float-right px-4 pt-3">
-                            {{ $ticket->receipt->data->format('d/F/Y') }}
+                            {{ $ticket->receipt->data->translatedFormat('j \d\e F \d\e Y') }}
                         </td>
                     </tr>
                 </tbody>
