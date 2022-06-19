@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Screening;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class ScreeningPolicy
 {
@@ -62,7 +63,7 @@ class ScreeningPolicy
 
     public function accessCart(User $user)
     {
-        return ($user->isGuest() || $user->isCustomer());
+        return (Auth::guest() || $user->isCustomer());
     }
 
     public function buy(User $user, Screening $screening)
