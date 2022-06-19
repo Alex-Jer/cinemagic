@@ -24,8 +24,7 @@
                     Limpar
                 </x-dashboard.button-clear-params>
             </form>
-            @if (Auth::user()->isAdmin())
-                <!-- TODO: policies -->
+            @can('create', App\Models\Screening::class)
                 <form method="GET" action="" class="mb-3">
                     <x-dashboard.button class="float-left mt-2 button-primary">
                         <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" data-darkreader-inline-fill="" fill="currentColor"
@@ -37,7 +36,7 @@
                         <x-slot:label>Adicionar</x-slot:label>
                     </x-dashboard.button>
                 </form>
-            @endif
+            @endcan
         </div>
     </div>
     <div class="w-full overflow-hidden rounded-lg shadow-md">
