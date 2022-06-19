@@ -7,6 +7,7 @@ use App\Models\Film;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 use Storage;
+use Str;
 
 class FilmController extends Controller
 {
@@ -29,9 +30,10 @@ class FilmController extends Controller
         }
 
         if ($search) {
-            $query->where(function ($query) use ($search) {
-                $query->where('titulo', 'like', "%$search%")
-                    ->orWhere('sumario', 'like', "%$search%");
+            $asearch = Str::replace(" ", "%", $search);
+            $query->where(function ($query) use ($asearch) {
+                $query->where('titulo', 'like', "%$asearch%")
+                    ->orWhere('sumario', 'like', "%$asearch%");
             });
         }
 

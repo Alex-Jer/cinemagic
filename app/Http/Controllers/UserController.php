@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -34,10 +35,11 @@ class UserController extends Controller
         }
 
         if ($search) {
-            $query->where('name', 'like', "%$search%");
+            $asearch = Str::replace(" ", "%", $search);
+            $query->where('name', 'like', "%$asearch%");
         }
 
-        $users = $query->orderBy('name')->whereIn('tipo', $tipos)->paginate(10);
+        $users = $query->orderBy('name')->whereIn('tipo', $tipos)->paginate(9);
         return view('admin.users.index', compact('users', 'authUser', 'tipos', 'selectedType', 'search'));
     }
 

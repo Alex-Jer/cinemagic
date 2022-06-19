@@ -8,7 +8,8 @@
             <div>
                 <span class="float-left mr-2 -mt-1">
                     <x-dashboard.select label="Género" name="genre_code">
-                        <option value="" {{ old('genre_code', $selectedGenre) === '' ? 'selected' : '' }}>Todos</option>
+                        <option value="" {{ old('genre_code', $selectedGenre) === '' ? 'selected' : '' }}>Todos
+                        </option>
                         @foreach ($genres as $genre)
                             <option value="{{ $genre->code }}"
                                 {{ $genre->code === old('genre_code', $selectedGenre) ? 'selected' : '' }}>
@@ -19,7 +20,8 @@
                 </span>
                 <span class="float-left w-2/6 mr-2 -mt-1">
                     <x-dashboard.inputfield label="Pesquisa" name="search"
-                        value="{{ old('search', $search) === '' ? 'Pesquise um filme por título ou sumário' : old('search', $search) }}" />
+                        value="{{ old('search', $search) === '' ? '' : old('search', $search) }}"
+                        placeholder="Pesquise um filme por título ou sumário" />
 
                 </span>
                 <x-dashboard.button class="float-left mt-5 mr-2 button-primary">
@@ -44,11 +46,12 @@
                     <div
                         class="flex flex-wrap items-center justify-center w-4/5 mb-12 transition duration-100 ease-in-out rounded-lg shadow-xs h-4/5 dark:bg-gray-800 hover:-translate-y-1 hover:scale-110">
                         @if ($film->cartaz_url)
-                            <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
+                            <img class="w-full h-full rounded-lg"
+                                src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
                                 alt="{{ $film->titulo }}">
                         @else
-                            <img class="w-full h-full rounded-lg" src="https://i.imgur.com/eDZNyW3.jpg?width=460&height=676"
-                                alt="{{ $film->titulo }}">
+                            <img class="w-full h-full rounded-lg"
+                                src="https://i.imgur.com/eDZNyW3.jpg?width=460&height=676" alt="{{ $film->titulo }}">
                         @endif
                         <h4 class="mt-2 font-semibold text-center text-gray-600 text-md dark:text-gray-300">
                             {{ $film->titulo }}
