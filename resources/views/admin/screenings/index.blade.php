@@ -4,10 +4,12 @@
     <div class="container grid mx-auto">
         <div>
             <form method="GET" action="{{ Auth::user()->isAdmin() ? route('admin.screenings.index') : route('employee.screenings.index') }}" class="mb-3">
-                <span class="float-left mr-2 -mt-1">
-                    <x-dashboard.date-input label="Data" name="date"
-                        value="{{ old('date', $date) === '' ? '' : old('date', $date) }}" />
-                </span>
+                @if(Auth::user()->isAdmin())
+                    <span class="float-left mr-2 -mt-1">
+                        <x-dashboard.date-input label="Data" name="date"
+                            value="{{ old('date', $date) === '' ? '' : old('date', $date) }}" />
+                    </span>
+                @endif
                 <span class="float-left w-2/6 mr-2 -mt-1">
                     <x-dashboard.inputfield label="Pesquisa" name="search"
                         value="{{ old('search', $search) === '' ? '' : old('search', $search) }}"

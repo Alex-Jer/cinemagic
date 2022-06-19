@@ -166,14 +166,9 @@ class ScreeningController extends Controller
 
     public function employee_index(Request $request)
     {
-        $date = $request->date ?? '';
         $search = $request->search ?? '';
 
         $query = Screening::query();
-
-        if ($date) {
-            $query->where('data', $date);
-        }
 
         if ($search) {
             $asearch = Str::replace(" ", "%", $search);
@@ -188,7 +183,7 @@ class ScreeningController extends Controller
 
         $screenings = $query->orderBy('data', 'desc')->orderBy('horario_inicio', 'desc')->paginate(12);
 
-        return view('admin.screenings.index', compact(['screenings', 'search', 'date']));
+        return view('admin.screenings.index', compact(['screenings', 'search']));
     }
 
     public function validate_tickets(Screening $screening, Request $request)
@@ -208,7 +203,7 @@ class ScreeningController extends Controller
                     ->with('alert-icon', 'error');
             } else if ($ticket->estado == 'usado') {
                 $alert = [
-                    'alert-msg' => 'Esse bilhete já foi utilizado!',
+                    'alert-msg' => 'Este bilhete já foi utilizado!',
                     'alert-color' => 'red',
                     'alert-icon' => 'error'
                 ];
