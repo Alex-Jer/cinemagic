@@ -53,7 +53,7 @@
             <form method="POST" action="{{ route('admin.screenings.store') }}">
                 @csrf
                 <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
-                    Adicionar sessão
+                    Agendar sessão
                 </h4>
                 <input type="hidden" name="filme_id" value="{{ $film->id }}">
                 <x-dashboard.select label="Sala" name="sala_id">
