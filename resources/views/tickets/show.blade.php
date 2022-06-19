@@ -18,7 +18,8 @@
                     </tr>
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 font-bold">Data da sessão</td>
-                        <td class="float-right px-4 py-3">{{ $ticket->screening->data->format('j \d\e F \d\e Y') }}
+                        <td class="float-right px-4 py-3">
+                            {{ $ticket->screening->data->translatedFormat('j \d\e F \d\e Y') }}
                         </td>
                     </tr>
                     <tr class="text-gray-700 dark:text-gray-400">

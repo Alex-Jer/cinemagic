@@ -19,11 +19,12 @@
                     </tr>
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 font-bold">Data</td>
-                        <td class="float-right px-4 py-3">{{ $screening->data }}</td>
+                        <td class="float-right px-4 py-3">{{ $screening->data->translatedFormat('j \d\e F \d\e Y') }}
+                        </td>
                     </tr>
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 font-bold">Hora</td>
-                        <td class="float-right px-4 py-3">{{ $screening->horario_inicio }}</td>
+                        <td class="float-right px-4 py-3">{{ $screening->horario_inicio->format('G:i') }}</td>
                     </tr>
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 font-bold">Sala</td>
