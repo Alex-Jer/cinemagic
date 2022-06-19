@@ -25,6 +25,7 @@
                 </x-dashboard.button-clear-params>
             </form>
             @if (Auth::user()->isAdmin())
+                <!-- TODO: policies -->
                 <form method="GET" action="{{ route('admin.screenings.create') }}" class="mb-3">
                     <x-dashboard.button class="float-left mt-2 button-primary">
                         <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" data-darkreader-inline-fill="" fill="currentColor"

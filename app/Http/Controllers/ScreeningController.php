@@ -137,7 +137,7 @@ class ScreeningController extends Controller
 
     public function employee_index()
     {
-        return view('employee.screenings.index');
+        return view('employee.screenings.control');
     }
 
     public function admin_show(Screening $screening)
