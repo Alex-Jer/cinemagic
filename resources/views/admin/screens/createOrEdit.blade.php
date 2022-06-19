@@ -9,8 +9,8 @@
                 </h4>
                 <input type="hidden" name="filme_id" value="{{ $screen->id }}">
                 <x-dashboard.inputfield label="Nome" name="nome" :value="$screen->nome" />
-                <x-dashboard.inputfield label="Número de filas" name="filas" :value="$filas" />
-                <x-dashboard.inputfield label="Número de posições" name="posicoes" :value="$posicoes" />
+                <x-dashboard.inputfield label="Número de filas" name="filas" type="number" :value="$filas" />
+                <x-dashboard.inputfield label="Número de posições" name="posicoes" type="number" :value="$posicoes" />
                 <x-dashboard.button class="button-primary">
                     <svg class="w-4 h-4 mr-2" fill="currentColor" aria-hidden="true" viewBox="0 0 448 512">
                         <path
