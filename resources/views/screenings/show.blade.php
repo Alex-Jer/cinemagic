@@ -1,8 +1,21 @@
 <x-dashboard.layout title="Cinemagic - Comprar bilhete" header="Comprar bilhete" backButton="true">
-    <x-dashboard.card-container class="{{ $seats->count() > 150 ? 'w-4/5' : ($seats->count() <= 80 ? 'w-1/2' : 'w-2/3') }}">
+    <x-dashboard.card-container
+        class="{{ $seats->count() > 150 ? 'w-4/5' : ($seats->count() <= 80 ? 'w-1/2' : 'w-2/3') }}">
         <h2 class="mb-2 text-xl font-semibold text-gray-600 dark:text-gray-300">
             {{ $screening->film->titulo }}
         </h2>
+        <div class="text-sm dark:text-gray-300">
+            Data:
+            <span class="font-bold">
+                {{ $screening->data->translatedFormat('j \d\e F \d\e Y') }}
+            </span>
+        </div>
+        <div class="text-sm dark:text-gray-300">
+            Hora:
+            <span class="font-bold">
+                {{ $screening->horario_inicio->translatedFormat('G:i') }}
+            </span>
+        </div>
         <div class="text-sm dark:text-gray-300">
             Preço por bilhete:
             <span class="font-bold">
