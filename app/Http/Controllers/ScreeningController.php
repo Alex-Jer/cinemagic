@@ -203,14 +203,14 @@ class ScreeningController extends Controller
                     ->with('alert-icon', 'error');
             } else if ($ticket->estado == 'usado') {
                 $alert = [
-                    'alert-msg' => 'Esse bilhete já foi utilizado!',
+                    'alert-msg' => 'Este bilhete já foi utilizado!',
                     'alert-color' => 'red',
                     'alert-icon' => 'error'
                 ];
                 return view('employee.screenings.validate', compact(['screening', 'ticket', 'alert']));
             }
             $alert = [
-                'alert-msg' => 'Esse bilhete é válido.',
+                'alert-msg' => 'Este bilhete é válido.',
                 'alert-color' => 'purple',
                 'alert-icon' => 'info'
             ];
