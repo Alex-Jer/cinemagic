@@ -6,6 +6,7 @@ use App\Models\Configuration;
 use App\Models\Screening;
 use Auth;
 use Illuminate\Http\Request;
+use Str;
 
 class ScreeningController extends Controller
 {
@@ -14,9 +15,27 @@ class ScreeningController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.screenings.index');
+        $date = $request->date ?? '';
+        $search = $request->search ?? '';
+
+        $query = Screening::query();
+
+        if ($date) {
+            $query->where('data', $date);
+        }
+
+        if ($search) {
+            $search = Str::replace(" ", "%", $search);
+            $query->whereHas('film', function ($query) use ($search) {
+                $query->where('titulo', 'like', "%$search%");
+            });
+        }
+
+        $screenings = $query->orderBy('data', 'desc')->paginate(12);
+
+        return view('admin.screenings.index', compact(['screenings', 'search', 'date']));
     }
 
     /**

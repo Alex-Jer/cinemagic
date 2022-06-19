@@ -4,8 +4,7 @@
             <form method="GET" action="{{ route('admin.films.index') }}" class="mb-3">
                 <span class="float-left mr-2 -mt-1">
                     <x-dashboard.select label="Género" name="genre_code">
-                        <option value="" {{ old('genre_code', $selectedGenre) === '' ? 'selected' : '' }}>Todos
-                        </option>
+                        <option value="" {{ old('genre_code', $selectedGenre) === '' ? 'selected' : '' }}>Todos</option>
                         @foreach ($genres as $genre)
                             <option value="{{ $genre->code }}"
                                 {{ $genre->code === old('genre_code', $selectedGenre) ? 'selected' : '' }}>
@@ -18,7 +17,6 @@
                     <x-dashboard.inputfield label="Pesquisa" name="search"
                         value="{{ old('search', $search) === '' ? '' : old('search', $search) }}"
                         placeholder="Pesquise um filme por título ou sumário" />
-
                 </span>
                 <x-dashboard.button class="float-left mt-5 mr-2 button-primary">
                     <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" fill="currentColor" viewBox="0 0 20 20">

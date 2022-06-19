@@ -176,9 +176,29 @@ Route::middleware('block')->group(
             });
 
 
-            Route::get('screenings', [ScreeningController::class, 'index'])
-                ->name('screenings.index')
-                ->middleware('can:viewAny,App\Models\Screen');
+            /**
+             * Screening routes
+             */
+            Route::controller(ScreeningController::class)->group(function () {
+                Route::get('screenings',  'index')
+                    ->name('screenings.index')
+                    ->middleware('can:viewAny,App\Models\Screen');
+
+                Route::get('screenings/create', 'create')
+                    ->name('screenings.create');
+
+                Route::post('screenings/create', 'store')
+                    ->name('screenings.store');
+
+                Route::get('screenings/{screening}/edit', 'edit')
+                    ->name('screenings.edit');
+
+                Route::put('screenings/{screening}', 'update')
+                    ->name('screenings.update');
+
+                Route::delete('screenings/{screening}', 'destroy')
+                    ->name('screenings.destroy');
+            });
 
             Route::get('screens', [ScreenController::class, 'index'])
                 ->name('screens.index')
