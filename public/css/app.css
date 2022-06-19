@@ -1080,6 +1080,9 @@ select {
 .h-64 {
   height: 16rem;
 }
+.h-3 {
+  height: 0.75rem;
+}
 .max-h-0 {
   max-height: 0;
 }
@@ -1175,6 +1178,9 @@ select {
 }
 .w-6\/12 {
   width: 50%;
+}
+.w-3 {
+  width: 0.75rem;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1559,6 +1565,10 @@ select {
 }
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
+}
+.bg-teal-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(6 148 162 / var(--tw-bg-opacity));
 }
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
