@@ -19,6 +19,16 @@
                 <td class="px-4 py-3 text-sm font-medium">{{ $film->ano }}</td>
                 <td class="px-4 text-sm font-medium">
                     <div class="flex items-center space-x-2 text-sm">
+                        <form method="GET" action="{{ route('admin.screenings.create', ['film' => $film]) }}">
+                            <button title="Agendar sessão"
+                                class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </form>
                         <form method="GET" action="{{ route('films.show', ['film' => $film]) }}">
                             <button title="Ver detalhes"
                                 class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">

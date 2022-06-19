@@ -38,7 +38,7 @@
                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
                             clip-rule="evenodd"></path>
                     </svg>
-                    <x-slot:label>Adicionar</x-slot:label>
+                    <x-slot:label>Novo Filme</x-slot:label>
                 </x-dashboard.button>
             </form>
         </div>
@@ -47,6 +47,6 @@
         <div class="w-full overflow-x-auto">
             <x-dashboard.films-table :films="$films" />
         </div>
-        {{ $films->onEachSide(2)->links() }}
+        {{ $films->appends(request()->all())->onEachSide(2)->links() }}
     </div>
 </x-dashboard.layout>

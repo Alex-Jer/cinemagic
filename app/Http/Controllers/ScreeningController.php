@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ScreeningPostRequest;
 use App\Models\Configuration;
+use App\Models\Film;
+use App\Models\Genre;
+use App\Models\Screen;
 use App\Models\Screening;
 use Auth;
 use Illuminate\Http\Request;
@@ -43,9 +47,12 @@ class ScreeningController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Film $film)
     {
-        //
+        $film = Film::find($film->id);
+        $genres = Genre::all();
+        $screens = Screen::all();
+        return view('admin.films.createOrEdit', compact('film', 'genres', 'screens'));
     }
 
     /**
@@ -54,9 +61,19 @@ class ScreeningController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ScreeningPostRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $screening = new Screening;
+        $screening->fill($validated);
+
+        $screening->save();
+
+        return redirect()->back()
+            ->with('alert-msg', 'Sessão criada para o dia ' . $screening->data->format('d/m/Y') . ' às ' . $screening->horario_inicio->format('H:i') . '.')
+            ->with('alert-color', 'green')
+            ->with('alert-icon', 'success');
     }
 
     /**
@@ -90,7 +107,8 @@ class ScreeningController extends Controller
      */
     public function edit(Screening $screening)
     {
-        //
+        $screening = Screening::find($screening->id);
+        return view('admin.screenings.createOrEdit', compact('screening'));
     }
 
     /**

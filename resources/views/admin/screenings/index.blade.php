@@ -24,7 +24,7 @@
                     Limpar
                 </x-dashboard.button-clear-params>
             </form>
-            <form method="GET" action="{{ route('admin.screenings.create') }}" class="mb-3">
+            <form method="GET" action="" class="mb-3">
                 <x-dashboard.button class="float-left mt-2 button-primary">
                     <svg class="w-4 h-4 -ml-2 mr-0.5 mt-px" data-darkreader-inline-fill="" fill="currentColor"
                         style="--darkreader-inline-fill: currentColor;" viewBox="0 0 20 20">
@@ -41,7 +41,7 @@
         <div class="w-full overflow-x-auto">
             <x-dashboard.admin.screenings-table :screenings="$screenings" />
         </div>
-        {{ $screenings->onEachSide(2)->links() }}
+        {{ $screenings->appends(request()->all())->onEachSide(2)->links() }}
     </div>
 
 </x-dashboard.layout>

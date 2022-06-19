@@ -4,20 +4,22 @@ namespace App\View\Components\Dashboard;
 
 use Illuminate\View\Component;
 
-class FileInput extends Component
+class TimeInput extends Component
 {
-    public $name;
     public $label;
+    public $name;
+    public $value;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $label = null)
+    public function __construct($label = null, $name, $value = null)
     {
-        $this->name = $name;
         $this->label = $label;
+        $this->name = $name;
+        $this->value = $value;
     }
 
     /**
@@ -27,6 +29,6 @@ class FileInput extends Component
      */
     public function render()
     {
-        return view('components.dashboard.file-input');
+        return view('components.dashboard.time-input');
     }
 }

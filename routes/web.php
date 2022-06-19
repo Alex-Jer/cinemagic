@@ -184,7 +184,7 @@ Route::middleware('block')->group(
                     ->name('screenings.index')
                     ->middleware('can:viewAny,App\Models\Screen');
 
-                Route::get('screenings/create', 'create')
+                Route::get('screenings/create/{film}', 'create')
                     ->name('screenings.create');
 
                 Route::post('screenings/create', 'store')

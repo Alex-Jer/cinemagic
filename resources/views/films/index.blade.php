@@ -46,12 +46,11 @@
                     <div
                         class="flex flex-wrap items-center justify-center w-4/5 mb-12 transition duration-100 ease-in-out rounded-lg shadow-xs h-4/5 dark:bg-gray-800 hover:-translate-y-1 hover:scale-110">
                         @if ($film->cartaz_url)
-                            <img class="w-full h-full rounded-lg"
-                                src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
+                            <img class="w-full h-full rounded-lg" src="{{ asset('storage/cartazes/' . $film->cartaz_url) }}"
                                 alt="{{ $film->titulo }}">
                         @else
-                            <img class="w-full h-full rounded-lg"
-                                src="https://i.imgur.com/eDZNyW3.jpg?width=460&height=676" alt="{{ $film->titulo }}">
+                            <img class="w-full h-full rounded-lg" src="https://i.imgur.com/eDZNyW3.jpg?width=460&height=676"
+                                alt="{{ $film->titulo }}">
                         @endif
                         <h4 class="mt-2 font-semibold text-center text-gray-600 text-md dark:text-gray-300">
                             {{ $film->titulo }}
@@ -60,6 +59,6 @@
                 </a>
             @endforeach
         </div>
-        {{ $films->onEachSide(1)->links() }}
+        {{ $films->appends(request()->all())->onEachSide(1)->links() }}
     </div>
 </x-dashboard.layout>

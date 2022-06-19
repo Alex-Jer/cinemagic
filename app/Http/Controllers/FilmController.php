@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FilmPostRequest;
 use App\Models\Film;
 use App\Models\Genre;
+use App\Models\Screen;
 use Illuminate\Http\Request;
 use Storage;
 use Str;
@@ -128,7 +129,8 @@ class FilmController extends Controller
     {
         $film = Film::find($film->id);
         $genres = Genre::all();
-        return view('admin.films.createOrEdit', compact('film', 'genres'));
+        $screens = Screen::all();
+        return view('admin.films.createOrEdit', compact('film', 'genres', 'screens'));
     }
 
     /**
