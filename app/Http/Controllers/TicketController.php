@@ -35,16 +35,6 @@ class TicketController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @return \Illuminate\Http\Response
@@ -86,7 +76,7 @@ class TicketController extends Controller
 
         switch ($validated['payment_type']) {
             case 'Visa':
-                // TODO: placeholder
+                // Exemplo
                 if (!Payment::payWithVisa($validated['payment_ref'], 257))
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 break;
@@ -189,10 +179,6 @@ class TicketController extends Controller
         return false;
     }
 
-    public function add(Request $request)
-    {
-    }
-
     /**
      * Display the specified resource.
      *
@@ -202,40 +188,6 @@ class TicketController extends Controller
     public function show(Ticket $ticket)
     {
         return view('tickets.show', compact('ticket'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
     }
 
     public function sendEmail($receipt)

@@ -7,7 +7,6 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserPostRequest;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -144,7 +143,6 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        // TODO: ???
         $user = User::find($user->id);
         $customer = Customer::find($user->id);
 
