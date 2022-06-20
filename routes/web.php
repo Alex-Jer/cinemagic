@@ -25,7 +25,7 @@ Route::middleware('block')->group(
          * User routes
          */
         Route::get('profile', [RegisteredUserController::class, 'index'])
-            ->middleware(['auth', 'verified'])
+            ->middleware(['auth', 'verified', 'admin.customer'])
             ->name('profile.index');
 
         /**

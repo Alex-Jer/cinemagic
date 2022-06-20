@@ -12,8 +12,10 @@
                     <img class="w-full h-full rounded-lg" src="https://i.imgur.com/eDZNyW3.jpg?width=460&height=676" alt="">
                 @endif
             </div>
-            <div class="col-span-2 text-2xl font-semibold uppercase6 dark:text-gray-200">Sinopse</div>
-            <div class="col-span-2 row-span-2 -mt-4 dark:text-gray-400">
+            <div class="col-span-2 uppercase6 dark:text-gray-400">{{ $film->genre->nome . ' / ' . $film->ano }}
+            </div>
+            <div class="col-span-2 -mt-5 text-2xl font-semibold uppercase6 dark:text-gray-200">Sinopse</div>
+            <div class="col-span-2 row-span-2 -mt-12 dark:text-gray-400">
                 {{ $film->sumario }}
                 <span class="invisible">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio qui pariatur sit eos quas provident ipsam
