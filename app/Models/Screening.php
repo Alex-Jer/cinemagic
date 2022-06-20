@@ -12,7 +12,7 @@ class Screening extends Model
 
     protected $table = 'sessoes';
 
-    protected $dates = ['data', 'horario_inicio'];
+    protected $dates = ['data', 'horario_inicio', 'updated_at', 'created_at'];
 
     protected $fillable = [
         'filme_id',

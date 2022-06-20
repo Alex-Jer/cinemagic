@@ -10,6 +10,7 @@ class Film extends Model
     use HasFactory;
 
     protected $table = 'filmes';
+    protected $dates = ['updated_at', 'created_at'];
     protected $fillable = [
         'titulo',
         'genero_code',

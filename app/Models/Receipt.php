@@ -11,7 +11,7 @@ class Receipt extends Model
 
     protected $table = 'recibos';
 
-    protected $dates = ['data'];
+    protected $dates = ['data', 'updated_at', 'created_at'];
 
     protected $fillable = [
         'cliente_id',
