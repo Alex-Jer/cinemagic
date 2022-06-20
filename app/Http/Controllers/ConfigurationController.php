@@ -20,53 +20,9 @@ class ConfigurationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Configuration  $configuration
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Configuration $configuration)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Configuration  $configuration
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Configuration $configuration)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Configuration  $configuration
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -76,7 +32,6 @@ class ConfigurationController extends Controller
             'percentagem_iva' => 'nullable|numeric',
         ]);
 
-        //TODO: Não funciona?
         if ($validator->fails())
             return redirect()->back()->withErrors($validator)->withInput();
 
@@ -92,16 +47,5 @@ class ConfigurationController extends Controller
             ->with('alert-icon', 'success')
             ->with('alert-color', 'green')
             ->with('alert-msg', 'Configurações atualizadas com sucesso.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Configuration  $configuration
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Configuration $configuration)
-    {
-        //
     }
 }

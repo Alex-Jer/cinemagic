@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ScreeningPostRequest;
-use App\Models\Configuration;
 use App\Models\Film;
 use App\Models\Genre;
 use App\Models\Screen;
 use App\Models\Screening;
 use App\Models\Ticket;
 use Auth;
-use Debugbar;
 use Illuminate\Http\Request;
 use Str;
 

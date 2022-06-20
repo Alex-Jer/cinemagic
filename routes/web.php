@@ -84,10 +84,6 @@ Route::middleware('block')->group(
             Route::post('cart', 'store')
                 ->name('tickets.store')
                 ->middleware('can:finalizePurchase,App\Models\Screening');
-
-            // TODO: temp?
-            Route::post('email/mailable', 'send_email_with_mailable')
-                ->name('email.send_with_mailable');
         });
 
         /**

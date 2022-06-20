@@ -12,7 +12,6 @@ use App\Services\Payment;
 use Auth;
 use Mail;
 use PDF;
-use Response;
 use Storage;
 use Validator;
 
@@ -29,16 +28,6 @@ class TicketController extends Controller
             ->where('cliente_id', Auth::user()->customer->id)
             ->orderBy('created_at', 'desc')->paginate(11);
         return view('tickets.index', compact('tickets'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -83,7 +72,7 @@ class TicketController extends Controller
 
         switch ($validated['payment_type']) {
             case 'Visa':
-                // TODO: placeholder
+                // Exemplo
                 if (!Payment::payWithVisa($validated['payment_ref'], 257))
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 break;
@@ -186,10 +175,6 @@ class TicketController extends Controller
         return false;
     }
 
-    public function add(Request $request)
-    {
-    }
-
     /**
      * Display the specified resource.
      *
@@ -199,40 +184,6 @@ class TicketController extends Controller
     public function show(Ticket $ticket)
     {
         return view('tickets.show', compact('ticket'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
     }
 
     public function sendEmail($receipt)
