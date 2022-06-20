@@ -196,7 +196,11 @@ class UserController extends Controller
         $oldName = $user->name;
         //$oldUrlFoto = $user->foto_url;
         try {
+            if ($user->isCustomer()) {
+                Customer::where('id', $user->id)->delete();
+            }
             $user->delete();
+
             /*if ($oldUrlFoto != null) {
                 Storage::delete('public/fotos/' . $oldUrlFoto);
             }*/

@@ -62,6 +62,6 @@ class FilmPolicy
      */
     public function delete(User $user, Film $film)
     {
-        return (Screening::query()->where('filme_id', $film->id)->count() == 0);
+        return (Screening::where('filme_id', $film->id)->count() == 0);
     }
 }
