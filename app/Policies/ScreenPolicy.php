@@ -12,7 +12,7 @@ class ScreenPolicy
 
     public function before($user, $ability)
     {
-        if ($user->tipo == 'A') {
+        if ($user->isAdmin()) {
             return true;
         } else {
             return false;

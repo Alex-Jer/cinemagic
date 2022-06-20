@@ -55,8 +55,6 @@ class ScreeningPolicy
 
     public function validate(User $user, Screening $screening)
     {
-        Debugbar::debug($user);
-        Debugbar::debug($screening);
         return ($user->isEmployee() && ($screening->data > now() ||
             ($screening->data->format('d/m/Y') == now()->format('d/m/Y')
                 && $screening->horario_inicio->format('H:i') >= now()->subHours(2)->format('H:i') //pode entrar quando quiser até ao fim do filme (2 horas)

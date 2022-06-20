@@ -44,7 +44,8 @@ Route::middleware('block')->group(
          */
         Route::controller(ScreeningController::class)->group(function () {
             Route::get('screening/{screening}', 'show')
-                ->name('screenings.show');
+                ->name('screenings.show')
+                ->middleware('client');
         });
 
         /**
@@ -52,13 +53,16 @@ Route::middleware('block')->group(
          */
         Route::controller(ReceiptController::class)->middleware(['auth', 'verified'])->group(function () {
             Route::get('receipts', 'index')
-                ->name('receipts.index');
+                ->name('receipts.index')
+                ->middleware('can:viewAny,App\Models\Receipt');
 
             Route::get('receipts/{receipt}', 'show')
-                ->name('receipts.show');
+                ->name('receipts.show')
+                ->middleware('can:view,receipt');
 
             Route::get('receipts/{receipt}/pdf', 'get_pdf')
-                ->name('receipts.get_pdf');
+                ->name('receipts.get_pdf')
+                ->middleware('can:view,receipt');
         });
 
         /**
@@ -66,13 +70,16 @@ Route::middleware('block')->group(
          */
         Route::controller(TicketController::class)->group(function () {
             Route::get('tickets', 'index')
-                ->name('tickets.index');
+                ->name('tickets.index')
+                ->middleware('can:viewAny,App\Models\Ticket');
 
             Route::get('tickets/{ticket}', 'show')
-                ->name('tickets.show');
+                ->name('tickets.show')
+                ->middleware('can:view,ticket');
 
             Route::get('tickets/{ticket}/pdf', 'get_pdf')
-                ->name('tickets.get_pdf');
+                ->name('tickets.get_pdf')
+                ->middleware('can:view,ticket');
 
             Route::post('cart', 'store')
                 ->name('tickets.store')
@@ -181,28 +188,28 @@ Route::middleware('block')->group(
              */
             Route::controller(FilmController::class)->group(function () {
                 Route::get('films', 'admin_index')
-                    ->name('films.index');
-                //TODO: ->middleware('can:viewAny,App\Models\Screen');
+                    ->name('films.index')
+                    ->middleware('can:viewAny,App\Models\Film');
 
                 Route::get('films/create', 'create')
-                    ->name('films.create');
-                // TODO: ->middleware('can:create,App\Models\User');
+                    ->name('films.create')
+                    ->middleware('can:create,App\Models\Film');
 
                 Route::post('films/create', 'store')
-                    ->name('films.store');
-                // TODO: ->middleware('can:create,App\Models\User');
+                    ->name('films.store')
+                    ->middleware('can:create,App\Models\Film');
 
                 Route::get('films/{film}/edit', 'edit')
-                    ->name('films.edit');
-                // TODO: ->middleware('can:update,user');
+                    ->name('films.edit')
+                    ->middleware('can:update,film');
 
                 Route::put('films/{film}', 'update')
-                    ->name('films.update');
-                // TODO: ->middleware('can:update,user');
+                    ->name('films.update')
+                    ->middleware('can:update,film');
 
                 Route::delete('films/{film}', 'destroy')
-                    ->name('films.destroy');
-                // TODO: ->middleware('can:delete,user');
+                    ->name('films.destroy')
+                    ->middleware('can:delete,film');
             });
 
 
@@ -248,34 +255,37 @@ Route::middleware('block')->group(
                     ->middleware('can:viewAny,App\Models\Screen');
 
                 Route::get('screens/create', 'create')
-                    ->name('screens.create');
-                // TODO: ->middleware('can:create,App\Models\User');
+                    ->name('screens.create')
+                    ->middleware('can:create,App\Models\Screen');
 
                 Route::post('screens/create', 'store')
-                    ->name('screens.store');
-                // TODO: ->middleware('can:create,App\Models\User');
+                    ->name('screens.store')
+                    ->middleware('can:create,App\Models\Screen');
 
                 Route::get('screens/{screen}/edit', 'edit')
-                    ->name('screens.edit');
-                // TODO: ->middleware('can:update,user');
+                    ->name('screens.edit')
+                    ->middleware('can:update,screen');
 
                 Route::put('screens/{screen}', 'update')
-                    ->name('screens.update');
-                // TODO: ->middleware('can:update,user');
+                    ->name('screens.update')
+                    ->middleware('can:update,screen');
 
                 Route::delete('screens/{screen}', 'destroy')
-                    ->name('screens.destroy');
-                // TODO: ->middleware('can:delete,user');
+                    ->name('screens.destroy')
+                    ->middleware('can:delete,screen');
             });
 
-            Route::get('config', [ConfigurationController::class, 'index'])
-                ->name('config.index');
+            //Não achamos necessário criar policy para as rotas abaixo pois a única verificação é se o utilizador é admin, e não há uma entidade em si.
+            Route::middleware('admin')->group(function () {
+                Route::get('config', [ConfigurationController::class, 'index'])
+                    ->name('config.index');
 
-            Route::put('config', [ConfigurationController::class, 'update'])
-                ->name('config.update');
+                Route::put('config', [ConfigurationController::class, 'update'])
+                    ->name('config.update');
 
-            Route::get('statistics', [StatisticsController::class, 'index'])
-                ->name('statistics.index');
+                Route::get('statistics', [StatisticsController::class, 'index'])
+                    ->name('statistics.index');
+            });
         });
     }
 );
