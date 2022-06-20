@@ -10,7 +10,6 @@ class StatisticsController extends Controller
 {
     public function index(Request $request)
     {
-
         $startDate = $request->input('startDate') ?? Carbon::now()->subMonth()->format('Y-m-d');
         $endDate = $request->input('endDate') ?? Carbon::now()->format('Y-m-d');
 
@@ -24,20 +23,22 @@ class StatisticsController extends Controller
                 ->with('alert-icon', 'error');
         }
 
-        $dataset = Film::with('screenings')->get()->filter(function ($film) use ($startDate, $endDate) {
-            return $film->screenings
-                ->where('data', '>=', $startDate)
-                ->where('data', '<=', $endDate)
-                ->count() > 0;
-        })->sortByDesc(function ($film) {
-            return $film->screenings->map(function ($screening) {
-                return $screening->tickets->count();
-            })->sum();
-        })->mapWithKeys(function ($film) {
-            return [$film->titulo => $film->screenings->map(function ($screening) {
-                return $screening->tickets->count();
-            })->sum()];
-        })->take(10);
+        $dataset = cache()->remember('dataset' . $startDate . $endDate, 60, function () use ($startDate, $endDate) {
+            return Film::with('screenings')->get()->filter(function ($film) use ($startDate, $endDate) {
+                return $film->screenings
+                    ->where('data', '>=', $startDate)
+                    ->where('data', '<=', $endDate)
+                    ->count() > 0;
+            })->sortByDesc(function ($film) {
+                return $film->screenings->map(function ($screening) {
+                    return $screening->tickets->count();
+                })->sum();
+            })->mapWithKeys(function ($film) {
+                return [$film->titulo => $film->screenings->map(function ($screening) {
+                    return $screening->tickets->count();
+                })->sum()];
+            })->take(10);
+        });
 
         $films = $dataset->keys()->toArray();
 
