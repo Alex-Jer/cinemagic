@@ -10,10 +10,13 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Services\Payment;
 use Auth;
+use Debugbar;
 use Mail;
 use PDF;
+use QrCode;
 use Response;
 use Storage;
+use URL;
 use Validator;
 
 class TicketController extends Controller
@@ -244,7 +247,8 @@ class TicketController extends Controller
 
     public static function generate_ticket_pdf(Ticket $ticket)
     {
-        $pdf = PDF::loadView('tickets.print.pdf', compact('ticket'))->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => true]);
+        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate((route('employee.screenings.validate', $ticket->screening->id) . '?ticket=' . $ticket->id)));
+        $pdf = PDF::loadView('tickets.print.pdf', compact('ticket', 'qrcode'))->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => true]);
         return $pdf;
     }
 

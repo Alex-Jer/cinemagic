@@ -97,7 +97,8 @@
                     </tr>
                 </tbody>
             </table>
-
+            <br /><br />
+            <img src="data:image/png;base64, {!! $qrcode !!}">
         </div>
     </div>
 </body>
