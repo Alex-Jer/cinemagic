@@ -244,7 +244,7 @@ class TicketController extends Controller
 
     public static function generate_ticket_pdf(Ticket $ticket)
     {
-        $pdf = PDF::loadView('tickets.print.pdf', compact('ticket'))->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('tickets.print.pdf', compact('ticket'))->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => true]);
         return $pdf;
     }
 
@@ -257,7 +257,6 @@ class TicketController extends Controller
             return redirect()->back()
                 ->withErrors(['no_ticket_pdf' => 'Não foi possível gerar um PDF para esse bilhete. Tente novamente oumais tarde!']);
         }
-
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->output();
         }, 'bilhete-' . $ticket->id . '.pdf');
