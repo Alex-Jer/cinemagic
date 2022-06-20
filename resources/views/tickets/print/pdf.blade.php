@@ -32,7 +32,7 @@
 
 <body>
     <h2>
-        CineMagic - Recibo #{{ $receipt->id }}
+        CineMagic - Bilhete #{{ $ticket->id }}
     </h2>
 
     <div>
@@ -40,57 +40,35 @@
         <div>
             <h4>
                 <p>
-                    <b>Data:</b> {{ $receipt->created_at->translatedFormat('l\, j \d\e F \d\e Y \à\s H:i:s') }}
+                    <b>Data:</b> {{ $ticket->receipt->data->translatedFormat('j \d\e F \d\e Y') }}
                 </p>
             </h4>
             <br />
             <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Filme</th>
-                        <th>Sala</th>
-                        <th>Data</th>
-                        <th>Início</th>
-                        <th>Lugar</th>
-                        <th>Preço</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($receipt->tickets as $ticket)
-                        <tr>
-                            <td>{{ $ticket->id }}</td>
-                            <td>{{ $ticket->screening->film->titulo }}</td>
-                            <td>{{ $ticket->screening->screen->nome }}</td>
-                            <td>
-                                {{ $ticket->screening->data->translatedFormat('d/m/Y \(l\)') }}</td>
-                            <td>
-                                {{ $ticket->screening->horario_inicio->translatedFormat('H:i') }}
-                            </td>
-                            <td>
-                                {{ $ticket->seat->fila . $ticket->seat->posicao }}
-                            </td>
-                            <td>
-                                {{ round($ticket->preco_sem_iva + ($ticket->preco_sem_iva * $receipt->iva) / 100, 2) . '€' }}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <br />
-            <table>
                 <tbody>
                     <tr>
-                        <td>Total sem IVA</td>
-                        <td>{{ $receipt->preco_total_sem_iva }}€</td>
+                        <td>Referência</td>
+                        <td>{{ $ticket->id }}</td>
                     </tr>
                     <tr>
-                        <td>IVA</td>
-                        <td>{{ $receipt->iva }}%</td>
+                        <td>Filme</td>
+                        <td>{{ $ticket->screening->film->titulo }}</td>
                     </tr>
                     <tr>
-                        <td>Total com IVA</td>
-                        <td>{{ $receipt->preco_total_com_iva }}€</td>
+                        <td>Data da sessão</td>
+                        <td>{{ $ticket->screening->data->translatedFormat('j \d\e F \d\e Y') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Hora da sessão</td>
+                        <td>{{ $ticket->screening->horario_inicio->format('G:i') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Sala</td>
+                        <td>{{ $ticket->screening->screen->nome }}</td>
+                    </tr>
+                    <tr>
+                        <td>Lugar</td>
+                        <td>{{ $ticket->seat->fila . $ticket->seat->posicao }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -100,23 +78,22 @@
                 <tbody>
                     <tr>
                         <td>Nome do cliente</td>
-                        <td>{{ $receipt->nome_cliente }}</td>
+                        <td>{{ $ticket->customer->user->name }}</td>
                     </tr>
                     <tr>
-                        <td>Tipo de pagamento</td>
-                        <td>{{ $receipt->tipo_pagamento }}</td>
+                        <td>Foto</td>
+                        <td>
+                            @if ($ticket->customer->user->foto_url)
+                                <img src="{{ asset('storage/fotos/' . $ticket->customer->user->foto_url) }}">
+                            @else
+                                <img src="{{ asset('storage/fotos/default.png') }}">
+                            @endif
+
+                        </td>
                     </tr>
                     <tr>
-                        <td>Referência</td>
-                        <td>{{ $receipt->ref_pagamento }}</td>
-                    </tr>
-                    <tr>
-                        <td>NIF</td>
-                        @if ($receipt->nif_pagamento)
-                            <td>{{ $receipt->ref_pagamento }}</td>
-                        @else
-                            <td>N/A</td>
-                        @endif
+                        <td>E-mail</td>
+                        <td>{{ $ticket->customer->user->email }}</td>
                     </tr>
                 </tbody>
             </table>

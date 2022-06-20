@@ -1,7 +1,9 @@
 <x-dashboard.layout title="CineMagic - Utilizadores" header="Gestão de Utilizadores">
     <div class="container grid mx-auto">
         <div>
-            <form method="GET" action="{{ route('admin.users.index') }}" class="mb-3">
+            <form method="GET"
+                action="{{ Auth::user()->isAdmin ? route('admin.users.index') : route('employee.users.index') }}"
+                class="mb-3">
                 <span class="float-left mr-2 -mt-1">
                     <x-dashboard.select label="Tipo de Utilizador" name="user_type">
                         @if (count($tipos) >= 2)

@@ -12,6 +12,7 @@ use App\Services\Payment;
 use Auth;
 use Mail;
 use PDF;
+use Response;
 use Storage;
 use Validator;
 
@@ -175,7 +176,7 @@ class TicketController extends Controller
 
     public static function generate_pdf(Receipt $receipt)
     {
-        $pdf = PDF::loadView('tickets.print.pdf', compact('receipt'))->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf = PDF::loadView('receipts.print.pdf', compact('receipt'))->setOptions(['defaultFont' => 'sans-serif']);
         $filePath = 'pdf_recibos/' . $receipt->id . '.pdf';
         if (Storage::put('public/' . $filePath, $pdf->output())) {
             $receipt->recibo_pdf_url = $filePath;
@@ -241,17 +242,24 @@ class TicketController extends Controller
             ->queue(new TicketsPurchased($receipt, $user));
     }
 
+    public static function generate_ticket_pdf(Ticket $ticket)
+    {
+        $pdf = PDF::loadView('tickets.print.pdf', compact('ticket'))->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf;
+    }
+
     public function get_pdf(Ticket $ticket)
     {
         //! Código vai ser diferente, os PDF dos bilhetes não são armazenados na BD
         //! É sempre gerado um PDF novo quando o cliente faz o pedido
+        $pdf = $this->generate_ticket_pdf($ticket);
+        if (!$pdf) {
+            return redirect()->back()
+                ->withErrors(['no_ticket_pdf' => 'Não foi possível gerar um PDF para esse bilhete. Tente novamente oumais tarde!']);
+        }
 
-        // if (!(isset($ticket->recibo_pdf_url) && $ticket->recibo_pdf_url != null && File::exists("storage/" . $ticket->recibo_pdf_url))) {
-        //     if (!$this->generate_pdf($ticket)) {
-        //         return redirect()->back()
-        //             ->withErrors(['no_ticket_pdf' => 'Não foi possível gerar um PDF para esse bilhete.']);
-        //     }
-        // }
-        // return Response::download("storage/" . $ticket->recibo_pdf_url);
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, 'bilhete-' . $ticket->id . '.pdf');
     }
 }

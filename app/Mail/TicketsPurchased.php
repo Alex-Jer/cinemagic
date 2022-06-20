@@ -32,7 +32,7 @@ class TicketsPurchased extends Mailable
     public function build()
     {
         return $this
-            ->view('tickets.print.email')
+            ->view('receipts.print.email')
             ->with([
                 'receipt' => $this->receipt,
                 'user' => $this->user,

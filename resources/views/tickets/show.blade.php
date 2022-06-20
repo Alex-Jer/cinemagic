@@ -1,7 +1,8 @@
 <x-dashboard.layout title="CineMagic - Recibo">
     <div class="grid gap-6 mb-8 md:grid-cols-3">
         <div class="min-w-0 col-span-1 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
-            <div class="float-left mb-2 ml-3 text-2xl font-semibold dark:text-gray-200">Bilhete #{{ $ticket->id }}</div>
+            <div class="float-left mb-2 ml-3 text-2xl font-semibold dark:text-gray-200">Bilhete #{{ $ticket->id }}
+            </div>
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr
@@ -16,6 +17,10 @@
                         <td class="float-right px-4 py-3">{{ $ticket->id }}</td>
                     </tr>
                     <tr class="text-gray-700 dark:text-gray-400">
+                        <td class="px-4 py-3 font-bold">Filme</td>
+                        <td class="float-right px-4 py-3">{{ $ticket->screening->film->titulo }}</td>
+                    </tr>
+                    <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 font-bold">Data da sessão</td>
                         <td class="float-right px-4 py-3">
                             {{ $ticket->screening->data->translatedFormat('j \d\e F \d\e Y') }}
@@ -24,10 +29,6 @@
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 font-bold">Hora da sessão</td>
                         <td class="float-right px-4 py-3">{{ $ticket->screening->horario_inicio->format('G:i') }}</td>
-                    </tr>
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3 font-bold">Filme</td>
-                        <td class="float-right px-4 py-3">{{ $ticket->screening->film->titulo }}</td>
                     </tr>
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 font-bold">Sala</td>
