@@ -75,12 +75,12 @@ class TicketController extends Controller
         $validated = $validator->validate();
 
         switch ($validated['payment_type']) {
-            case 'Visa':
+            case 'VISA':
                 // Exemplo
                 if (!Payment::payWithVisa($validated['payment_ref'], 257))
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 break;
-            case 'PayPal':
+            case 'PAYPAL':
                 if (!Payment::payWithPaypal($validated['payment_ref'])) {
                     return redirect()->back()->with('error', 'Pagamento inválido');
                 }

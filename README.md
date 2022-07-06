@@ -62,6 +62,22 @@ O tailwind compila as classes css que estão a ser utilizadas e que serão neces
 
 O tailwind não detetará as classes que não estiverem em html puro, por exemplo as classes que estiverem a ser inseridas através de Blade e/ou PHP. Para isso existe uma _safelist_ no ficheiro [`tailwind.config.js`](tailwind.config.js) onde se deve inserir essas mesmas classes.
 
+## :100: Avaliação Final
+
+Obtivemos uma classificação de <b>17,7 valores</b> (em 20). As cotações em cada ponto foram as seguintes:
+
+<img src="materiais/nota.png"/>
+
+<p></p>
+<b>Notas do docente:</b>
+
+-   Não permitem alterar password.
+-   Têm muitas validações nullable.
+-   No carrinho não permitem adicionar o mesmo lugar a duas sessões diferentes do mesmo filme (e assinalaram a verde na vista os mesmos lugares em todas as sessões do mesmo filme).
+-   No registo próprio, não é criado o "Cliente", logo dá erro.
+-   Devia-se pedir o nome, NIF, ref_pagamento e tipo_pagamento ao cliente, para ele alterar os dados.
+-   Não enviam o pdf para o emai.
+
 ## :mortar_board: Outras Informações
 
 -   Licenciatura em [Engenharia Informática](https://www.ipleiria.pt/curso/licenciatura-em-engenharia-informatica/)
